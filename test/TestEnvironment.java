@@ -26,7 +26,7 @@ public class TestEnvironment
 		myEnvironment.fillCell(1, 2, jillCell);
 
 		// 4. Check that the Environment is now holding LifeForm instance.
-		assertEquals(jill, myEnvironment.getCell(1, 2));
+		assertEquals(jill, myEnvironment.getCell(1, 2).getLifeForm());
 
 	}
 

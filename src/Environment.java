@@ -2,9 +2,8 @@
 public class Environment
 {
 
-	int r;
-	int c;
-	private Cell[][] cells = new Cell[r][c];
+
+	private Cell[][] cells;
 
 	/*
 	 * @ rows the number of rows in the 2D environment array
@@ -13,8 +12,8 @@ public class Environment
 	 */
 	public Environment(int rows, int cols)
 	{
-		r = rows;
-		c = cols;
+
+		cells = new Cell[rows][cols];
 
 	}
 
