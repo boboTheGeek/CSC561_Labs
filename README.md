@@ -1,3 +1,2 @@
-# myRepo1
+# CSC561 lab repository
 
-readme
