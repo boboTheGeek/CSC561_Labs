@@ -1,3 +1,6 @@
+package environment;
+import lifeform.LifeForm;
+
 /*
  * This class sets up the environment with a 2D array of cells
  * Author: Rob Miles

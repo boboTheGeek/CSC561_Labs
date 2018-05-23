@@ -1,3 +1,5 @@
+package environment;
+import lifeform.LifeForm;
 
 /**
  * A Cell that can hold a LifeForm.

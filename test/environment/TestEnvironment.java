@@ -1,3 +1,4 @@
+package environment;
 /*
  * Test cases for Environment class
  * Author: Rob Miles
@@ -6,6 +7,10 @@
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import environment.Environment;
+import lifeform.LifeForm;
+import lifeform.MockLifeForm;
 
 public class TestEnvironment
 {
@@ -27,7 +32,7 @@ public class TestEnvironment
 		/*
 		 * Create and add LifeForm instance to store in the Environment.
 		 */
-		LifeForm jill = new LifeForm("Jill", 41);
+		MockLifeForm jill = new MockLifeForm("Jill", 41);
 		myEnvironment.addLifeForm(1, 2, jill);
 
 		/*
@@ -38,7 +43,7 @@ public class TestEnvironment
 		/*
 		 * test that you can't add a value to an already populated cell
 		 */
-		LifeForm edna = new LifeForm("Edna", 100);
+		MockLifeForm edna = new MockLifeForm("Edna", 100);
 		assertFalse(myEnvironment.addLifeForm(1, 2, edna));
 		
 		/*

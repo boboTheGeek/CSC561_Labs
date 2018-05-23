@@ -1,3 +1,4 @@
+package environment;
 /*
  * Test cases for cell class
  * Author: Rob Miles
@@ -6,6 +7,10 @@
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import environment.Cell;
+import lifeform.LifeForm;
+import lifeform.MockLifeForm;
 
 /**
  * The test cases for the cell class
@@ -32,8 +37,8 @@ public class TestCell
 	@Test
 	public void testSetLifeForm()
 	{
-		LifeForm bob = new LifeForm("Bob", 40);
-		LifeForm fred = new LifeForm("Fred", 40);
+		MockLifeForm bob = new MockLifeForm("Bob", 40);
+		MockLifeForm fred = new MockLifeForm("Fred", 40);
 		Cell cell = new Cell();
 		/*
 		 * Test that you can initialize and add LifeForm
