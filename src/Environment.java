@@ -59,7 +59,7 @@ public class Environment
 	 */
 	public LifeForm getCell(int row, int col)
 	{
-		if (cells[row][col].getLifeForm() != null)
+		if (cells[row][col] != null)
 		{
 
 			return cells[row][col].getLifeForm();
@@ -86,7 +86,7 @@ public class Environment
 		if (cells[row][col] != null)
 		{
 			LifeForm removeMe = cells[row][col].getLifeForm();
-			cells[row][col].addLifeForm(null);
+			cells[row][col] = null;
 			return removeMe;
 		}
 		else
