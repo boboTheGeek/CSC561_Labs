@@ -19,9 +19,9 @@ public class Environment
 	}
 
 	/*
-	 * Adds a LifeForm to the Cell theCells[row][col]. Will not add the
-	 * LifeForm if the row and col are invalid or if a LifeForm is already in 
-	 * that Cell. Returns true if successfully added, false otherwise.n
+	 * Adds a LifeForm to the Cell theCells[row][col]. Will not add the LifeForm if
+	 * the row and col are invalid or if a LifeForm is already in that Cell. Returns
+	 * true if successfully added, false otherwise.n
 	 * 
 	 * @param row - the row address of the 2D array
 	 * 
@@ -29,13 +29,13 @@ public class Environment
 	 * 
 	 * @param cell - the cell object that you want to put in that "table" location
 	 * 
-	
+	 * 
 	 */
 	public boolean addLifeForm(int row, int col, LifeForm entity)
 	{
 		if (cells[row][col] == null)
 		{
-			
+
 			Cell containerCell = new Cell();
 			containerCell.addLifeForm(entity);
 			cells[row][col] = containerCell;
@@ -46,26 +46,23 @@ public class Environment
 			return false;
 		}
 
-
-		
-
 	}
 
 	/*
-	 * return the cell object from a particular x,y location in 2D environment array
+	 * return the LifeForm from a particular x,y location in 2D environment array
 	 * 
 	 * @param row - row coordinate from 2D environment array
 	 * 
 	 * @param col - column coordinate from 2D environment array
 	 * 
-	 * @return requested cell (null if empty)
+	 * @return requested LifeForm (null if empty)
 	 */
-	public Cell getCell(int row, int col)
+	public LifeForm getCell(int row, int col)
 	{
-		if (cells != null)
+		if (cells[row][col].getLifeForm() != null)
 		{
 
-			return cells[row][col];
+			return cells[row][col].getLifeForm();
 		}
 		else
 		{

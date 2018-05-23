@@ -38,6 +38,10 @@ public class TestCell
 		success = cell.addLifeForm(fred);
 		assertFalse(success);
 		assertEquals(bob, cell.getLifeForm());
+		//test you can clear out the LifeForm
+		LifeForm removedLF = cell.removeLifeForm();
+		assertEquals(bob, removedLF);
+		
 	}
 
 }
