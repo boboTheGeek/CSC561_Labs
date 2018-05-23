@@ -46,6 +46,16 @@ public class TestEnvironment
 		 */
 		LifeForm removeMe = myEnvironment.removeLifeForm(1, 2);
 		assertEquals(jill, removeMe);
+		
+		/*
+		 * test we can handle if we try to remove LifeForm from a blank cell
+		 */
+		assertEquals(null, myEnvironment.removeLifeForm(1, 2));
+		
+		/*
+		 * test we can handle if we try to get from a blank cell
+		 */
+		assertEquals(null, myEnvironment.getCell(1, 2));
 
 	}
 

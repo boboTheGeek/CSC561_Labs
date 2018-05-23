@@ -41,6 +41,10 @@ public class TestCell
 		//test you can clear out the LifeForm
 		LifeForm removedLF = cell.removeLifeForm();
 		assertEquals(bob, removedLF);
+		//test that it's cleared
+		assertEquals(null, cell.getLifeForm());
+		//test that it can handle removing from an empty cell
+		assertEquals(null, cell.removeLifeForm());
 		
 	}
 
