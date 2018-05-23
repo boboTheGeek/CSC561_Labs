@@ -2,13 +2,14 @@
 public class Environment
 {
 
-
 	private Cell[][] cells;
 
 	/*
-	 * @ rows the number of rows in the 2D environment array
+	 * Initialize environment instance with specified 2D dimensions
 	 * 
-	 * @ cols the number of columns in the 2D environment array
+	 * @param rows - the number of rows in the 2D environment array
+	 * 
+	 * @param cols - the number of columns in the 2D environment array
 	 */
 	public Environment(int rows, int cols)
 	{
@@ -20,33 +21,76 @@ public class Environment
 	/*
 	 * Populate the cell in a particular coordinate location
 	 * 
-	 * @r the row address of the 2D array
+	 * @param row - the row address of the 2D array
 	 * 
-	 * @c the column address of the 2D array
+	 * @param col - the column address of the 2D array
 	 * 
-	 * @cell the cell object that you want to put in that "table" location
+	 * @param cell - the cell object that you want to put in that "table" location
+	 * 
+	 * boolean addLifeForm(int row, int col, LifeForm entity)
+	 * Adds a LifeForm to the Cell theCells[row][col]. Will not add the
+	 * LifeForm if the row and col are invalid or if a LifeForm is already in 
+	 * that Cell. Returns true if successfully added, false otherwise.
 	 */
-	public void fillCell(int r, int c, Cell cell)
+	public boolean addLifeForm(int row, int col, Cell cell)
 	{
-		System.out.println("h");
-		cells[r][c] = cell;
+		if (cells[row][col] == null)
+		{
+			cells[row][col] = cell;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+
+		
 
 	}
 
 	/*
 	 * return the cell object from a particular x,y location in 2D environment array
 	 * 
-	 * @r row coordinate from 2D environment array
+	 * @param row - row coordinate from 2D environment array
 	 * 
-	 * @c column coordinate from 2D environment array
+	 * @param col - column coordinate from 2D environment array
+	 * 
+	 * @return requested cell (null if empty)
 	 */
-	public Cell getCell(int r, int c)
+	public Cell getCell(int row, int col)
 	{
 		if (cells != null)
 		{
 
-			return cells[r][c];
-		} else
+			return cells[row][col];
+		}
+		else
+		{
+			return null;
+		}
+
+	}
+
+	/*
+	 * Removes the LifeForm at theCells[row][col]. Returns the LifeForm removed
+	 * (null if no LifeForm in the Cell).
+	 * 
+	 * @param row - row coordinate from 2D environment array
+	 * 
+	 * @param col - column coordinate from 2D environment array
+	 * 
+	 * @return life form removed else null
+	 */
+	public LifeForm removeLifeForm(int row, int col)
+	{
+		if (cells[row][col] != null)
+		{
+			LifeForm removeMe = cells[row][col].getLifeForm();
+			cells[row][col].addLifeForm(null);
+			return removeMe;
+		}
+		else
 		{
 			return null;
 		}
