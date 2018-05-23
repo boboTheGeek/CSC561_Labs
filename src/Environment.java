@@ -32,11 +32,14 @@ public class Environment
 	 * LifeForm if the row and col are invalid or if a LifeForm is already in 
 	 * that Cell. Returns true if successfully added, false otherwise.
 	 */
-	public boolean addLifeForm(int row, int col, Cell cell)
+	public boolean addLifeForm(int row, int col, LifeForm entity)
 	{
 		if (cells[row][col] == null)
 		{
-			cells[row][col] = cell;
+			
+			Cell containerCell = new Cell();
+			containerCell.addLifeForm(entity);
+			cells[row][col] = containerCell;
 			return true;
 		}
 		else
