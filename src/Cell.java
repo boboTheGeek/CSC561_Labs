@@ -20,16 +20,15 @@ public class Cell
 	 * Tries to add the LifeForm to the Cell. Will not add if a LifeForm is already
 	 * present.
 	 * 
-	 * @param entity
-	 *            - life form instance to add to cell
+	 * @param entity - life form instance to add to cell
 	 * 
 	 * @return true if the LifeForm was added to the Cell, false otherwise.
 	 */
-	public boolean addLifeForm(LifeForm lf)
+	public boolean addLifeForm(LifeForm entity)
 	{
 		if (identity == null)
 		{
-			identity = lf;
+			identity = entity;
 			return true;
 		}
 		else

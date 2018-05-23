@@ -19,32 +19,33 @@ public class Environment
 	}
 
 	/*
-	 * boolean addLifeForm(int row, int col, LifeForm entity) Adds a LifeForm to the
-	 * Cell theCells[row][col]. Will not add the LifeForm if the row and col are
-	 * invalid or if a LifeForm is already in that Cell. Returns true if
-	 * successfully added, false otherwise.
+	 * Populate the cell in a particular coordinate location
 	 * 
 	 * @param row - the row address of the 2D array
 	 * 
 	 * @param col - the column address of the 2D array
 	 * 
-	 * @param entity - the LifeForm instance that you want to put in that "table"
-	 * location
+	 * @param cell - the cell object that you want to put in that "table" location
 	 * 
-	 * 
+	 * boolean addLifeForm(int row, int col, LifeForm entity)
+	 * Adds a LifeForm to the Cell theCells[row][col]. Will not add the
+	 * LifeForm if the row and col are invalid or if a LifeForm is already in 
+	 * that Cell. Returns true if successfully added, false otherwise.
 	 */
-	public boolean addLifeForm(int row, int col, LifeForm entity)
+	public boolean addLifeForm(int row, int col, Cell cell)
 	{
 		if (cells[row][col] == null)
 		{
-
-			cells[row][col].addLifeForm(entity);
+			cells[row][col] = cell;
 			return true;
 		}
 		else
 		{
 			return false;
 		}
+
+
+		
 
 	}
 

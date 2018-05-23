@@ -22,18 +22,18 @@ public class TestEnvironment
 		 *  2. Create a LifeForm instance to store in the Environment.
 		 */
 		LifeForm jill = new LifeForm("Jill", 41);
-		//Cell jillCell = new Cell();
-		//jillCell.addLifeForm(jill);
+		Cell jillCell = new Cell();
+		jillCell.addLifeForm(jill);
 
 		/*
 		 *  3. Add the LifeForm instance to row 1 and column 2 of the Environment instance. 
 		 */
-		myEnvironment.addLifeForm(1, 2, jill);
+		myEnvironment.addLifeForm(1, 2, jillCell);
 
 		/*
 		 *  4. Check that the Environment is now holding LifeForm instance.
 		 */
-		assertEquals(jill, myEnvironment.getCell(1, 2));
+		assertEquals(jill, myEnvironment.getCell(1, 2).getLifeForm());
 
 	}
 
