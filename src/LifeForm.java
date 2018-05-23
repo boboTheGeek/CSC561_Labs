@@ -1,6 +1,7 @@
 /**
  * Keeps track of the information associated with a simple life form. Also
  * provides the functionality related to the life form.
+ * Author: Rob Miles
  */
 public class LifeForm
 {

@@ -1,3 +1,8 @@
+/*
+ * Test cases for LifeForm class
+ * Author: Rob Miles
+ */
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 

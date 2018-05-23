@@ -1,8 +1,13 @@
-
+/*
+ * This class sets up the environment with a 2D array of cells
+ * Author: Rob Miles
+ */
 public class Environment
 {
 
 	private Cell[][] cells;
+	private int numrows;
+	private int numcols;
 
 	/*
 	 * Initialize environment instance with specified 2D dimensions
@@ -15,6 +20,8 @@ public class Environment
 	{
 
 		cells = new Cell[rows][cols];
+		numrows = rows;
+		numcols = cols;
 
 	}
 
@@ -33,7 +40,7 @@ public class Environment
 	 */
 	public boolean addLifeForm(int row, int col, LifeForm entity)
 	{
-		if (cells[row][col] == null)
+		if (row <= numrows && col <= numcols && cells[row][col] == null)
 		{
 
 			Cell containerCell = new Cell();
@@ -57,7 +64,7 @@ public class Environment
 	 * 
 	 * @return requested LifeForm (null if empty)
 	 */
-	public LifeForm getCell(int row, int col)
+	public LifeForm getLifeForm(int row, int col)
 	{
 		if (cells[row][col] != null)
 		{

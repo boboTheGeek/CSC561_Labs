@@ -1,3 +1,8 @@
+/*
+ * Test cases for cell class
+ * Author: Rob Miles
+ */
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -30,22 +35,32 @@ public class TestCell
 		LifeForm bob = new LifeForm("Bob", 40);
 		LifeForm fred = new LifeForm("Fred", 40);
 		Cell cell = new Cell();
-		// The cell is empty so this should work.
+		/*
+		 * Test that you can initialize and add LifeForm
+		 */
 		boolean success = cell.addLifeForm(bob);
 		assertTrue(success);
 		assertEquals(bob, cell.getLifeForm());
-		// The cell is not empty so this should fail.
+		/*
+		 * test that you can't add a LifeForm if one is Present
+		 */
 		success = cell.addLifeForm(fred);
 		assertFalse(success);
 		assertEquals(bob, cell.getLifeForm());
-		//test you can clear out the LifeForm
+		/*
+		 * test you can remove LifeForm
+		 */
 		LifeForm removedLF = cell.removeLifeForm();
 		assertEquals(bob, removedLF);
-		//test that it's cleared
+		/*
+		 * test that it's cleared
+		 */
 		assertEquals(null, cell.getLifeForm());
-		//test that it can handle removing from an empty cell
+		/*
+		 * test that it can handle removing from an empty cell
+		 */
 		assertEquals(null, cell.removeLifeForm());
-		
+
 	}
 
 }

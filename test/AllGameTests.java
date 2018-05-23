@@ -1,3 +1,7 @@
+/*
+ * Test Suite for full game
+ * Author: Rob Miles
+ */
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 //nochange
@@ -12,4 +16,6 @@ import org.junit.runners.Suite;
 public class AllGameTests
 {
   //nothing here yet
+	
+	
 }
