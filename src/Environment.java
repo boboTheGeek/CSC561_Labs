@@ -31,11 +31,14 @@ public class Environment
 	 * 
 	
 	 */
-	public boolean addLifeForm(int row, int col, Cell cell)  // this guy
+	public boolean addLifeForm(int row, int col, LifeForm entity)
 	{
 		if (cells[row][col] == null)
 		{
-			cells[row][col] = cell;
+			
+			Cell containerCell = new Cell();
+			containerCell.addLifeForm(entity);
+			cells[row][col] = containerCell;
 			return true;
 		}
 		else
