@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 
 import environment.TestCell;
 import environment.TestEnvironment;
+import lifeform.TestAlien;
 import lifeform.TestHuman;
 import lifeform.TestLifeForm;
 //nochange
@@ -16,7 +17,7 @@ import lifeform.TestLifeForm;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
-{ TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class })
+{ TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class, TestAlien.class })
 
 public class AllGameTests
 {

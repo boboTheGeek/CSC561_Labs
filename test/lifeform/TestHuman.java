@@ -19,8 +19,6 @@ public class TestHuman
 		assertEquals("Fred", entity.getName());
 		assertEquals(50, entity.getCurrentLifePoints());
 		assertEquals(0, entity.getArmorPoints());
-		
-
 	}
 	
 	
