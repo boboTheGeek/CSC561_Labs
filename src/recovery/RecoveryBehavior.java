@@ -1,5 +1,6 @@
-/*
+/**
  * Interface for assigning the appropriate recovery behavior to appropriate LifeForms
+ * 
  * Author: Rob Miles
  */
 

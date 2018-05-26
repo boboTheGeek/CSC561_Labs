@@ -1,9 +1,9 @@
 package environment;
+
 import lifeform.LifeForm;
 
 /**
- * A Cell that can hold a LifeForm.
- * Author: Rob Miles (partly)
+ * A Cell that can hold a LifeForm. Author: Rob Miles (partly)
  *
  */
 public class Cell
@@ -42,7 +42,7 @@ public class Cell
 
 	}
 
-	/*
+	/**
 	 * Removes the LifeForm in the Cell. Returns the LifeForm removed, null if none
 	 * present.
 	 * 

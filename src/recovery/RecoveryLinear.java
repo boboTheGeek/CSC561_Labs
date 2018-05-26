@@ -10,39 +10,52 @@ package recovery;
 public class RecoveryLinear implements RecoveryBehavior
 {
 	private int recoveryStep;
+
 	/*
-	 * at initialization, set instance variable to be used for
-	 * size of recovery step increments
+	 * at initialization, set instance variable to be used for size of recovery step
+	 * increments
 	 */
-	public RecoveryLinear(int step) {
-		
+	public RecoveryLinear(int step)
+	{
+
 		recoveryStep = step;
-		
+
 	}
-	/*
+
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see recovery.RecoveryBehavior#calculateRecovery(int, int)
 	 * 
-	 * overriding calculateRecovery method from interface to provide linear
-	 * implementation of it
+	 *      overriding calculateRecovery method from interface to provide linear
+	 *      implementation of it
 	 * 
-	 * @param currentLife the number of life points remainig
+	 * @param currentLife
+	 *            the number of life points remainig
 	 * 
-	 * @param maxLife the maximum number that can be recovered up-to (of life
-	 * points)
+	 * @param maxLife
+	 *            the maximum number that can be recovered up-to (of life points)
 	 */
 	@Override
 	public int calculateRecovery(int currentLife, int maxLife)
 	{
-		if ((currentLife + recoveryStep) > maxLife) {
+		int proposedLP = currentLife + recoveryStep;
+
+		if (currentLife == 0)
+		{
+			return currentLife;
+		}
+		else if (proposedLP >= maxLife)
+		{
 			currentLife = maxLife;
 			return currentLife;
-		} else {
+		}
+		else
+		{
 			currentLife += recoveryStep;
 			return currentLife;
-			
 		}
+
 	}
 
 }
