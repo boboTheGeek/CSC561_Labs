@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import recovery.RecoveryFractional;
 import recovery.RecoveryLinear;
 import recovery.RecoveryNone;
 
@@ -68,6 +69,18 @@ public class TestAlien
 		assertEquals(150, entityNR.recoveryBehavior.calculateRecovery(150, 190));
 	}
 
+	/**
+	 * Additional Test Cases
+	 * 
+	 * 
+	 */
+	@Test
+	public void testRecoveryFractional()
+	{
+		// test fractional recovery
 
+		Alien entityFr = new Alien("Troy McClure", 150, new RecoveryFractional(2));
+		assertEquals(0, entityFr.recoveryBehavior.calculateRecovery(0, 190));
+	}
 
 }

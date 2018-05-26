@@ -19,11 +19,11 @@ public class TestRecoveryNone
 	public void testMaxLPRetained()
 	{
 		RecoveryNone recv = new RecoveryNone();
-		assertEquals(0, recv.calculateRecovery(30, 30));
+		assertEquals(30, recv.calculateRecovery(30, 30));
 		
 		//try the same thing via interface
 		RecoveryBehavior recv2 = new RecoveryNone();
-		assertEquals(0, recv2.calculateRecovery(30, 30));
+		assertEquals(25, recv2.calculateRecovery(25, 30));
 		
 	}
 	
@@ -35,7 +35,7 @@ public class TestRecoveryNone
 	public void testLPareLtMax()
 	{
 		RecoveryNone iamhurt = new RecoveryNone();
-		assertEquals(0, iamhurt.calculateRecovery(20, 30));
+		assertEquals(20, iamhurt.calculateRecovery(20, 30));
 		
 	}
 	
