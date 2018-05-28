@@ -11,8 +11,6 @@ import org.junit.Test;
 
 public class TestRecoveryLinear
 {
-	//To make sure my tests are good, turns on/off a trace method
-	boolean trace = false;
 
 	/**
 	 * when currentLP = maxLP
@@ -92,11 +90,11 @@ public class TestRecoveryLinear
 	 */
 	private void traceMe(String mcname, int expectedRecoveryVal, int result)
 	{
-		if (trace == true)
-		{
-			System.out.println(mcname);
-			System.out.println("\t*expected: " + expectedRecoveryVal + ", got: " + result);
-		}
+
+		// System.out.println(mcname);
+		// System.out.println("\t*expected: " + expectedRecoveryVal + ", got: " +
+		// result);
+
 	}
 
 }

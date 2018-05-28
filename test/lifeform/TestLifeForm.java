@@ -16,8 +16,6 @@ import lifeform.LifeForm;
  */
 public class TestLifeForm
 {
-
-	//TODO uses Mock class for testing
 	
 	/**
 	 * Stores life points

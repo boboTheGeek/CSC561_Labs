@@ -8,6 +8,7 @@
 package lifeform;
 
 import recovery.RecoveryBehavior;
+import recovery.RecoveryNone;
 
 public class Alien extends LifeForm
 {
@@ -25,8 +26,9 @@ public class Alien extends LifeForm
 	 */
 	public Alien(String name, int points)
 	{
-		super(name, points);
-		// TODO fix two constructors
+
+		this(name, points, new RecoveryNone());
+
 	}
 
 	/**
@@ -44,6 +46,7 @@ public class Alien extends LifeForm
 	{
 		super(name, points);
 		recoveryBehavior = rb;
+		maxLifePoints = points;
 	}
 
 	/**
@@ -57,9 +60,10 @@ public class Alien extends LifeForm
 	 * @param maxLife
 	 *            - the maximum level that life points can recover to
 	 */
-	public void recover(int currentLife, int maxLife)
+	public void recover()
 	{
-		currentLifePoints = calculateRecovery(currentLife, maxLife);
+
+		currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
 	}
 
 	/**
@@ -72,22 +76,4 @@ public class Alien extends LifeForm
 	{
 		currentLifePoints = lp;
 	}
-
-	/**
-	 * Calls the calculateRecovery interface method passing appropriate parameters
-	 * to recieve an updated life point value
-	 * 
-	 * @param currentLife
-	 *            - the number of life points remainig
-	 * 
-	 * @param maxLife
-	 *            - the maximum number that can be recovered up-to (of life points)
-	 * 
-	 * @return what the current life points should be set to as a result of this
-	 *         recovery
-	 * 
-	 *         public int calculateRecovery(int currentLife, int maxLife) { return
-	 *         999; }
-	 */
-
 }
