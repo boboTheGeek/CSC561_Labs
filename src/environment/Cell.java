@@ -1,11 +1,15 @@
+/**
+ * A Cell that can hold a LifeForm. 
+ * 
+ * @Author: Rob Miles (partly)
+ *
+ */
+
 package environment;
 
 import lifeform.LifeForm;
 
-/**
- * A Cell that can hold a LifeForm. Author: Rob Miles (partly)
- *
- */
+
 public class Cell
 {
 
@@ -26,7 +30,7 @@ public class Cell
 	 * @param entity
 	 *            - life form instance to add to cell
 	 * 
-	 * @return true if the LifeForm was added to the Cell, false otherwise.
+	 * @return true - if the LifeForm was added to the Cell, false otherwise.
 	 */
 	public boolean addLifeForm(LifeForm entity)
 	{

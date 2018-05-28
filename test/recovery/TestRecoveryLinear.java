@@ -1,6 +1,8 @@
-/*
- * Author: Rob Miles
+/**
+ * Testing for a recovery class that uses linear (step) recovery
+ * @Author: Rob Miles
  */
+
 package recovery;
 
 import static org.junit.Assert.*;
@@ -9,11 +11,11 @@ import org.junit.Test;
 
 public class TestRecoveryLinear
 {
+	//To make sure my tests are good, turns on/off a trace method
 	boolean trace = false;
 
 	/**
 	 * when currentLP = maxLP
-	 * 
 	 */
 	@Test
 	public void testNoRecoveryWhenNotHurt()
@@ -32,7 +34,6 @@ public class TestRecoveryLinear
 
 	/**
 	 * when 0 < maxLP- currentLP < step (recover to maxLP w/o going over)
-	 * 
 	 */
 	@Test
 	public void testRecoveryWhenNearlyHealthy()
@@ -44,14 +45,13 @@ public class TestRecoveryLinear
 		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
-		
+
 		// just trace for sanity, can ignore
 		traceMe("LP + recovery > Max", expectedRecoveryVal, result);
 	}
 
 	/**
 	 * when step < maxLP – currentLP (recover full step)
-	 * 
 	 */
 	@Test
 	public void testRecoveryFullIncrement()
@@ -59,18 +59,17 @@ public class TestRecoveryLinear
 		int maxLifePts = 30;
 		int currentLifePts = 20;
 		int recoveryStepSize = 3;
-		int expectedRecoveryVal = currentLifePts + recoveryStepSize;
+		int expectedRecoveryVal = 23;
 		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
-		
+
 		// just trace for sanity, can ignore
 		traceMe("FullIncrement", expectedRecoveryVal, result);
 	}
 
 	/**
-	 * when step < maxLP – currentLP (recover full step)
-	 * 
+	 * when currentLP = 0
 	 */
 	@Test
 	public void testNoRecoveryWhenDead()
@@ -82,12 +81,11 @@ public class TestRecoveryLinear
 		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
-		
+
 		// just trace for sanity, can ignore
 		traceMe("Dead", expectedRecoveryVal, result);
 	}
 
-	
 	/**
 	 * don't worry about this, it's just to trace so I can make sure my test cases
 	 * are working as expected. [belt and suspenders kind of thing]

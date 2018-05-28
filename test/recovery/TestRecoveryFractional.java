@@ -1,3 +1,8 @@
+/**
+ * testing for recovery class that recovers by some fraction of life points
+ * @Author: Rob Miles
+ */
+
 package recovery;
 
 import static org.junit.Assert.*;
@@ -6,11 +11,11 @@ import org.junit.Test;
 
 public class TestRecoveryFractional
 {
-	boolean trace = true;
+	//To make sure my tests are good, turns on/off a trace method
+	boolean trace = false;
 
 	/**
-	 * when currentLP = maxLP
-	 * 
+	 * when currentLP = maxLP return current life points
 	 */
 	@Test
 	public void testNoRecoveryWhenNotHurt()
@@ -28,8 +33,8 @@ public class TestRecoveryFractional
 	}
 
 	/**
-	 * when 0 < maxLP- currentLP < step (recover to maxLP w/o going over)
-	 * 
+	 * when 0 < maxLP- currentLP < fraction*currentLP (recover to maxLP w/o going
+	 * over)
 	 */
 	@Test
 	public void testRecoveryWhenNearlyHealthy()
@@ -47,16 +52,19 @@ public class TestRecoveryFractional
 	}
 
 	/**
-	 * when step < maxLP – currentLP (recover full step)
-	 * 
+	 * when fraction*currentLP < maxLP – currentLP (recover full step) rounds the
+	 * fraction up to the next whole number
 	 */
 	@Test
 	public void testRecoveryFullIncrement()
 	{
-		int maxLifePts = 30;
-		int currentLifePts = 20;
+		int maxLifePts = 100;
+		int currentLifePts = 83;
 		int recoveryStepSize = 10;
-		int expectedRecoveryVal = currentLifePts + (currentLifePts/recoveryStepSize);
+		// 83/10=8.3
+		// round up to 9
+		// 9 + 83 = 92
+		int expectedRecoveryVal = 92;
 		RecoveryFractional rl = new RecoveryFractional(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
@@ -66,15 +74,14 @@ public class TestRecoveryFractional
 	}
 
 	/**
-	 * when step < maxLP – currentLP (recover full step)
-	 * 
+	 * when currentLP = 0 stay dead
 	 */
 	@Test
 	public void testNoRecoveryWhenDead()
 	{
-		int maxLifePts = 30;
+		int maxLifePts = 93;
 		int currentLifePts = 0;
-		int recoveryStepSize = 3;
+		int recoveryStepSize = 10;
 		int expectedRecoveryVal = 0;
 		RecoveryFractional rl = new RecoveryFractional(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
@@ -85,7 +92,7 @@ public class TestRecoveryFractional
 	}
 
 	/**
-	 * don't worry about this, it's just to trace so I can make sure my test cases
+	 * don't worry about this: it's just to trace so I can make sure my test cases
 	 * are working as expected. [belt and suspenders kind of thing]
 	 */
 	private void traceMe(String mcname, int expectedRecoveryVal, int result)

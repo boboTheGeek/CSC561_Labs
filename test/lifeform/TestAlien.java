@@ -1,7 +1,7 @@
 /**
  * Testing for alien class
  * 
- * Author: Rob Miles
+ * @Author: Rob Miles
  */
 
 package lifeform;
@@ -20,13 +20,12 @@ public class TestAlien
 	/**
 	 * can initialize an alien
 	 */
-
 	@Test
 	public void testInitialize()
 	{
 		Alien entity = new Alien("Barnabus Rex", 200);
 		assertEquals("Barnabus Rex", entity.getName());
-		assertEquals(200, entity.getCurrentLifePoints());
+		assertEquals(200, entity.getLifePoints());
 	}
 
 	/*
@@ -43,7 +42,13 @@ public class TestAlien
 		assertEquals(153, entity2.recoveryBehavior.calculateRecovery(150, 190));
 	}
 
-	/**
+	
+	
+	
+	/********************************
+	 * Additional tests
+	 * *******************************
+	 * 
 	 * test that we can set the life points
 	 */
 	@Test
@@ -52,33 +57,20 @@ public class TestAlien
 		Alien entity2 = new Alien("2Pac McClure", 150);
 		entity2.setCurrentLifePoints(200);
 		assertEquals(200, entity2.currentLifePoints);
-
 	}
 
-	/**
-	 * Additional Test Cases
-	 * 
-	 * 
-	 */
 	@Test
 	public void testRecoveryNone()
 	{
-
 		// test no recovery
 		Alien entityNR = new Alien("Troy McClure", 150, new RecoveryNone());
 		assertEquals(150, entityNR.recoveryBehavior.calculateRecovery(150, 190));
 	}
 
-	/**
-	 * Additional Test Cases
-	 * 
-	 * 
-	 */
 	@Test
 	public void testRecoveryFractional()
 	{
 		// test fractional recovery
-
 		Alien entityFr = new Alien("Troy McClure", 150, new RecoveryFractional(2));
 		assertEquals(0, entityFr.recoveryBehavior.calculateRecovery(0, 190));
 	}

@@ -1,9 +1,12 @@
-package lifeform;
-
 /**
  * Keeps track of the information associated with a simple life form. Also
- * provides the functionality related to the life form. Author: Rob Miles
+ * provides the functionality related to the life form. 
+ * 
+ * @Author: Rob Miles
  */
+
+package lifeform;
+
 public class LifeForm
 {
 
@@ -25,6 +28,18 @@ public class LifeForm
 	}
 
 	/**
+	 * gets and returns number of current life points (health)
+	 * 
+	 * @return the amount of current life points the life form has.
+	 */
+	public int getLifePoints()
+	{
+		return currentLifePoints;
+	}
+	
+	/**
+	 * gets and returns the name of the lifeform in question
+	 * 
 	 * @return the name of the life form.
 	 */
 	public String getName()
@@ -33,23 +48,18 @@ public class LifeForm
 	}
 
 	/**
-	 * @return the amount of current life points the life form has.
-	 */
-	public int getCurrentLifePoints()
-	{
-		return currentLifePoints;
-	}
-
-	/*
-	 * removes damage from life points
-	 * 
-	 * @return void
+	 * removes damage from life points and won't set life points below 0
 	 * 
 	 * @param damage - the amount to reduce life points by
 	 */
 	public void takeHit(int damage)
 	{
+		int proposedLifePoints = currentLifePoints - damage;
 
-		currentLifePoints -= damage;
+		if (proposedLifePoints <= 0) {
+			currentLifePoints = 0;
+		} else {
+			currentLifePoints = proposedLifePoints;
+		}
 	}
 }
