@@ -1,8 +1,9 @@
-package environment;
-/*
+/**
  * Test cases for Environment class
- * Author: Rob Miles
+ * @Author: Rob Miles
  */
+
+package environment;
 
 import static org.junit.Assert.*;
 
@@ -15,10 +16,8 @@ import lifeform.MockLifeForm;
 public class TestEnvironment
 {
 	/**
-	 * 
 	 * Test a basic positive case instantiating an Environment and populating a cell
 	 * with a LifeForm
-	 * 
 	 */
 	@Test
 	public void makeBasicEnvt()
@@ -45,10 +44,9 @@ public class TestEnvironment
 		 */
 		MockLifeForm edna = new MockLifeForm("Edna", 100);
 		assertFalse(myEnvironment.addLifeForm(1, 2, edna));
-		
+
 		/*
-		 * test for adding item out of bounds
-		 * location 5, 7 doesn't exist
+		 * test for adding item out of bounds location 5, 7 doesn't exist
 		 */
 		assertFalse(myEnvironment.addLifeForm(5, 7, jill));
 
@@ -67,8 +65,6 @@ public class TestEnvironment
 		 * test we can handle if we try to get from a blank cell
 		 */
 		assertEquals(null, myEnvironment.getLifeForm(1, 2));
-		
-
 
 	}
 

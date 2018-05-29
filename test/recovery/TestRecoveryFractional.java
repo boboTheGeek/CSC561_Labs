@@ -1,5 +1,5 @@
 /**
- * Testing for a recovery class that uses linear (step) recovery
+ * testing for recovery class that recovers by some fraction of life points
  * @Author: Rob Miles
  */
 
@@ -9,20 +9,20 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestRecoveryLinear
+public class TestRecoveryFractional
 {
 
 	/**
-	 * when currentLP = maxLP
+	 * when currentLP = maxLP return current life points
 	 */
 	@Test
 	public void testNoRecoveryWhenNotHurt()
 	{
 		int maxLifePts = 30;
 		int currentLifePts = 30;
-		int recoveryStepSize = 3;
+		int recoveryFractionSize = 10;
 		int expectedRecoveryVal = currentLifePts;
-		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
+		RecoveryFractional rl = new RecoveryFractional(recoveryFractionSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
 
@@ -31,16 +31,17 @@ public class TestRecoveryLinear
 	}
 
 	/**
-	 * when 0 < maxLP- currentLP < step (recover to maxLP w/o going over)
+	 * when 0 < maxLP- currentLP < fraction*currentLP (recover to maxLP w/o going
+	 * over)
 	 */
 	@Test
 	public void testRecoveryWhenNearlyHealthy()
 	{
 		int maxLifePts = 30;
-		int currentLifePts = 28;
-		int recoveryStepSize = 3;
+		int currentLifePts = 29;
+		int recoveryFractionSize = 10;
 		int expectedRecoveryVal = maxLifePts;
-		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
+		RecoveryFractional rl = new RecoveryFractional(recoveryFractionSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
 
@@ -49,16 +50,20 @@ public class TestRecoveryLinear
 	}
 
 	/**
-	 * when step < maxLP – currentLP (recover full step)
+	 * when fraction*currentLP < maxLP – currentLP (recover full step) rounds the
+	 * fraction up to the next whole number
 	 */
 	@Test
 	public void testRecoveryFullIncrement()
 	{
-		int maxLifePts = 30;
-		int currentLifePts = 20;
-		int recoveryStepSize = 3;
-		int expectedRecoveryVal = 23;
-		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
+		int maxLifePts = 100;
+		int currentLifePts = 83;
+		int recoveryStepSize = 10;
+		// 83/10=8.3
+		// round up to 9
+		// 9 + 83 = 92
+		int expectedRecoveryVal = 92;
+		RecoveryFractional rl = new RecoveryFractional(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
 
@@ -67,16 +72,16 @@ public class TestRecoveryLinear
 	}
 
 	/**
-	 * when currentLP = 0
+	 * when currentLP = 0 stay dead
 	 */
 	@Test
 	public void testNoRecoveryWhenDead()
 	{
-		int maxLifePts = 30;
+		int maxLifePts = 93;
 		int currentLifePts = 0;
-		int recoveryStepSize = 3;
+		int recoveryStepSize = 10;
 		int expectedRecoveryVal = 0;
-		RecoveryLinear rl = new RecoveryLinear(recoveryStepSize);
+		RecoveryFractional rl = new RecoveryFractional(recoveryStepSize);
 		int result = rl.calculateRecovery(currentLifePts, maxLifePts);
 		assertEquals(expectedRecoveryVal, result);
 
@@ -85,7 +90,7 @@ public class TestRecoveryLinear
 	}
 
 	/**
-	 * don't worry about this, it's just to trace so I can make sure my test cases
+	 * don't worry about this: it's just to trace so I can make sure my test cases
 	 * are working as expected. [belt and suspenders kind of thing]
 	 */
 	private void traceMe(String mcname, int expectedRecoveryVal, int result)
