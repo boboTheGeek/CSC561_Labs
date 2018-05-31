@@ -15,6 +15,35 @@ public class TestAlien
 {
 
 	/**
+	 * test that default attack is set to 10
+	 */
+	@Test
+	public void testDefaultAP()
+	{
+		Alien alien = new Alien("Commander Terrible", 40);
+		assertEquals(10, alien.getAttackStrength());
+	}
+
+	/**
+	 * test that when Human attacks, it damages the Alien it's attacking
+	 */
+	@Test
+	public void testMountAnAttack()
+	{
+		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
+		Alien alien = new Alien("Commander Terrible", 40);
+		human.mountAttack(alien);
+		assertEquals(35, alien.getLifePoints());
+	}
+
+	
+	
+	
+	/*******************************************************************
+	 * Start Section for Strategy Pattern Tests
+	 * ******************************************************************
+	 */
+	/**
 	 * can initialize an alien
 	 */
 	@Test

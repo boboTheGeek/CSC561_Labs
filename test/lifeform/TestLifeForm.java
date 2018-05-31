@@ -18,6 +18,58 @@ public class TestLifeForm
 {
 	
 	/**
+	 * testing getAttackStrength returns present attack strength of the LifeForm
+	 */
+	@Test
+	public void testGetSetAttack()
+	{
+		LifeForm entity = new MockLifeForm("Sargent Snazzypants", 40, 5);
+		assertEquals(5, entity.getAttackStrength());
+	}
+	
+	/**
+	 * test that when one LifeForm attacks another, it damages the LifeForm it's attacking
+	 */
+	@Test
+	public void testMountAnAttack()
+	{
+		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
+		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
+		human.mountAttack(alien);
+		assertEquals(35, alien.getLifePoints());
+	}
+	
+	/**
+	 * test that a dead LifeForm can't attack
+	 */
+	@Test
+	public void testMountAnAttackifDead()
+	{
+		LifeForm human = new MockLifeForm("Sargent Snazzypants", 20, 5);
+		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
+		alien.mountAttack(human);
+		alien.mountAttack(human);  //killing human first
+		human.mountAttack(alien);  //attemptint to illegally attack
+		assertEquals(0, human.getLifePoints());	 //ensure i'm dead
+		assertEquals(40, alien.getLifePoints());  //no attack mounted
+	}
+	
+	/**
+	 * can track passage of time
+	 */
+	@Test
+	public void testTimeChanged()
+	{
+		//TODO  fix timer thing
+		fail("Not yet implemented");
+	}
+	
+	/*******************************************************************
+	* Start Section for Strategy Pattern Tests
+	* ******************************************************************
+	*/
+	
+	/**
 	 * Stores life points
 	 * Keeps track of name
 	 * 

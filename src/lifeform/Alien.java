@@ -44,7 +44,7 @@ public class Alien extends LifeForm
 	 */
 	public Alien(String name, int points, RecoveryBehavior rb)
 	{
-		super(name, points);
+		super(name, points, 10);  //  default attack points for alien = 10
 		recoveryBehavior = rb;
 		maxLifePoints = points;
 	}
