@@ -7,7 +7,9 @@
 
 package lifeform;
 
-public class LifeForm
+import gameplay.TimeObserver;
+
+public class LifeForm implements TimeObserver
 {
 
 	protected String myName;
@@ -90,16 +92,23 @@ public class LifeForm
 		{
 			if (victim instanceof Human) // victim is human
 			{
-					//TODO is refactoring to be in Human subclass, override? 
+				// TODO is refactoring to be in Human subclass, override?
 				int hitVal = attackStrength - ((Human) victim).getArmorPoints();
 				victim.takeHit(hitVal);
 			}
-			else  // victim is an alien
+			else // victim is an alien
 			{
 				victim.takeHit(attackStrength);
 			}
-			
+
 		}
+
+	}
+
+	@Override
+	public void updateTime(int time)
+	{
+		// TODO Auto-generated method stub
 
 	}
 }
