@@ -13,7 +13,8 @@ import recovery.RecoveryNone;
 public class Alien extends LifeForm
 {
 	RecoveryBehavior recoveryBehavior;
-	int maxLifePoints;
+	private int maxLifePoints;
+	protected int recoveryRate;
 
 	/**
 	 * Initialize Alien, calling superclass LifeForm passing name and points to
@@ -23,11 +24,12 @@ public class Alien extends LifeForm
 	 *            - the name of your alien
 	 * @param points
 	 *            - the number of alien lifepoints left
+	 * @throws ArgumentOutOfBoundsException
 	 */
-	public Alien(String name, int points)
+	public Alien(String name, int points) throws Exception
 	{
 
-		this(name, points, new RecoveryNone());
+		this(name, points, new RecoveryNone(), 0);
 
 	}
 
@@ -41,12 +43,23 @@ public class Alien extends LifeForm
 	 *            - the number of alien lifepoints left
 	 * @param rb
 	 *            - recovery behavior object to set
+	 * @param recov
+
+	 * @throws Exception 
 	 */
-	public Alien(String name, int points, RecoveryBehavior rb)
+	public Alien(String name, int points, RecoveryBehavior rb, int recov) throws Exception
 	{
-		super(name, points, 10);  //  default attack points for alien = 10
+		super(name, points, 10); // default attack points for alien = 10
 		recoveryBehavior = rb;
 		maxLifePoints = points;
+		if (recov < 0)
+		{
+			throw new Exception("Recovery rate can't be negative");
+		}
+		else
+		{
+			recoveryRate = recov;
+		}
 	}
 
 	/**

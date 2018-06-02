@@ -8,9 +8,29 @@ package gameplay;
 
 import java.util.ArrayList;
 
-public class SimpleTimer implements Timer
+public class SimpleTimer extends Thread implements Timer
 {
-	ArrayList<TimeObserver> theObservers = new ArrayList<TimeObserver>();
+	protected ArrayList<TimeObserver> theObservers = new ArrayList<TimeObserver>();
+	protected int currentTime;
+	private int sleepVal;
+
+	/**
+	 * construct simple timer and set currentTime instance variable to 0
+	 * @param  
+	 */
+	public SimpleTimer(int sleep)
+	{
+		currentTime = 0;
+		sleepVal = sleep;
+		
+	}
+
+	public SimpleTimer()
+	{
+		this(1000);
+		currentTime = 0;
+		
+	}
 
 	/**
 	 * Add a new time observer to theObservers ArrayList. Once added, will get
@@ -48,7 +68,7 @@ public class SimpleTimer implements Timer
 	{
 		for (TimeObserver x : theObservers)
 		{
-			x.updateTime(3);
+			x.updateTime(currentTime);
 		}
 	}
 
@@ -64,4 +84,33 @@ public class SimpleTimer implements Timer
 		return theObservers.get(indx);
 	}
 
+	/**
+	 * Getter to access the current time
+	 * @return 
+	 */
+	public int getCurrentTime()
+	{
+		return currentTime;
+	}
+	/**
+	 * the main timer time generator
+	 * this guy will update the currentTime instance variable
+	 * at an interval defined by sleepVal.  sleepVal will be set
+	 * by the constructor as a passed parameter
+	 */
+	public void run()
+	{
+		for (int x = 0; x < 5; x++)
+		{
+			try
+			{
+				currentTime = x;
+				Thread.sleep(sleepVal);			
+			}
+			catch (InterruptedException e)
+			{
+				System.out.println("Something bad happened.");
+			}
+		}
+	}
 }

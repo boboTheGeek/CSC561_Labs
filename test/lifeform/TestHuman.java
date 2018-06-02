@@ -12,10 +12,6 @@ import org.junit.Test;
 public class TestHuman
 {
 
-	
-	
-	
-	
 	/*
 	 * test default attack strength = 5
 	 */
@@ -30,7 +26,7 @@ public class TestHuman
 	 * armor absorbs all damage using takeHit() when damage < armor
 	 */
 	@Test
-	public void testArmorProtection()
+	public void testArmorProtection() throws Exception
 	{
 		Human entity = new Human(7, "Dilbert", 50);
 		Alien alien = new Alien("Commander Terrible", 100);
@@ -42,7 +38,7 @@ public class TestHuman
 	 * armor absorbs all damage using takeHit() when damage < armor
 	 */
 	@Test
-	public void testArmorProtectionBoundary1()
+	public void testArmorProtectionBoundary1() throws Exception
 	{
 		Human entity = new Human(7, "Dilbert", 10);
 		Alien alien = new Alien("Commander Terrible", 100);
