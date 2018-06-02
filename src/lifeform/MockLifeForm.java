@@ -12,3 +12,4 @@ public class MockLifeForm extends LifeForm
 		super(name, points, attstr);
 	}
 }
+//
