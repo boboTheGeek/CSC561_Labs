@@ -97,7 +97,68 @@ public class TestAlien
 		assertEquals(26, alien.getLifePoints());
 
 	}
+	
+	@Test
+	public void testRecoveryRate3() throws Exception
+	{
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 3);
+		alien.takeHit(20);
 
+		MockSimpleTimer hiTimer = new MockSimpleTimer();
+		hiTimer.addTimeObserver(alien);
+		
+		assertEquals(0, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(1, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(2, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(23, alien.getLifePoints());
+
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(23, alien.getLifePoints());
+
+	}
+	
+	@Test
+	public void testRecoveryRate0() throws Exception
+	{
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 0);
+		alien.takeHit(20);
+
+		MockSimpleTimer hiTimer = new MockSimpleTimer();
+		hiTimer.addTimeObserver(alien);
+		
+		assertEquals(0, alien.myTime);
+		assertEquals(0, alien.recoveryRate);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(1, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(2, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+	}
 	/*******************************************************************
 	 * Start Section for Strategy Pattern Tests
 	 * ******************************************************************
