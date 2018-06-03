@@ -15,6 +15,7 @@ public class LifeForm implements TimeObserver
 	protected String myName;
 	protected int currentLifePoints;
 	protected int attackStrength;
+	protected int myTime;
 
 	/**
 	 * Create an instance
@@ -108,7 +109,7 @@ public class LifeForm implements TimeObserver
 	@Override
 	public void updateTime(int time)
 	{
-		// TODO Auto-generated method stub
+		myTime = time;
 
 	}
 }

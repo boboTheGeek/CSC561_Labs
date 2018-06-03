@@ -9,6 +9,7 @@ package lifeform;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import gameplay.SimpleTimer;
 import recovery.RecoveryFractional;
 import recovery.RecoveryLinear;
 import recovery.RecoveryNone;
@@ -18,7 +19,8 @@ public class TestAlien
 
 	/**
 	 * test that default attack is set to 10
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@Test
 	public void testDefaultAP() throws Exception
@@ -29,7 +31,8 @@ public class TestAlien
 
 	/**
 	 * test that when Human attacks, it damages the Alien it's attacking
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@Test
 	public void testMountAnAttack() throws Exception
@@ -42,6 +45,7 @@ public class TestAlien
 
 	/**
 	 * test recovery time setting
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -51,7 +55,48 @@ public class TestAlien
 		assertEquals(4, alien.recoveryRate);
 	}
 
-	// @Test(expected = MyNewException.class)// throws exception for negatives
+	@Test(expected = Exception.class) // throws exception for negatives
+	public void testRecoveryRateNegative() throws Exception
+	{
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), -4);
+		assertEquals(4, alien.recoveryRate);
+	}
+
+	@Test
+	public void testRecoveryRate2() throws Exception
+	{
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 2);
+		alien.takeHit(20);
+
+		MockSimpleTimer hiTimer = new MockSimpleTimer();
+		hiTimer.addTimeObserver(alien);
+		
+		assertEquals(0, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(1, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(2, alien.myTime);
+		assertEquals(23, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(23, alien.getLifePoints());
+
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(26, alien.getLifePoints());
+
+	}
 
 	/*******************************************************************
 	 * Start Section for Strategy Pattern Tests
@@ -59,8 +104,9 @@ public class TestAlien
 	 */
 	/**
 	 * can initialize an alien
-	 * @throws Exception 
-
+	 * 
+	 * @throws Exception
+	 * 
 	 */
 	@Test
 	public void testInitialize() throws Exception
@@ -78,7 +124,7 @@ public class TestAlien
 	public void testRecovery() throws Exception
 	{
 		// test fractional recovery
-		Alien entityFr = new Alien("Troy McClure", 150, new RecoveryFractional(10), 0);
+		Alien entityFr = new Alien("Troy McClure", 150, new RecoveryFractional(10), 1);
 		entityFr.setCurrentLifePoints(75);
 		entityFr.recover();
 		// 75 / 10 = 7.5 rounds up to 8
@@ -90,7 +136,8 @@ public class TestAlien
 	 * Additional tests *******************************
 	 * 
 	 * test that we can set the life points
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@Test
 	public void testSetLifePoints() throws Exception
@@ -108,4 +155,13 @@ public class TestAlien
 		assertEquals(150, entityNR.recoveryBehavior.calculateRecovery(150, 190));
 	}
 
+}
+
+class MockSimpleTimer extends SimpleTimer
+{
+	// @Override
+	public void overrideIncrementCurrentTime()
+	{
+		currentTime++;
+	}
 }

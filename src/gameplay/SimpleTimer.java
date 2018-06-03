@@ -22,14 +22,12 @@ public class SimpleTimer extends Thread implements Timer
 	{
 		currentTime = 0;
 		sleepVal = sleep;
-		
 	}
 
 	public SimpleTimer()
 	{
 		this(1000);
 		currentTime = 0;
-		
 	}
 
 	/**

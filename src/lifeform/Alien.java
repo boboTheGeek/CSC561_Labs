@@ -44,8 +44,8 @@ public class Alien extends LifeForm
 	 * @param rb
 	 *            - recovery behavior object to set
 	 * @param recov
-
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public Alien(String name, int points, RecoveryBehavior rb, int recov) throws Exception
 	{
@@ -75,8 +75,12 @@ public class Alien extends LifeForm
 	 */
 	public void recover()
 	{
-
-		currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
+		if (recoveryRate > 0)  //only recover if recovery rate is greater than 0
+		{
+			//System.out.println(myTime + "=time ," + recoveryRate + "=rate ," + "modulus " + myTime%recoveryRate);
+			if (myTime%recoveryRate == 0)
+					currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
+		}
 	}
 
 	/**
