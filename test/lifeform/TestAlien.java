@@ -18,7 +18,7 @@ public class TestAlien
 {
 
 	/**
-	 * test that default attack is set to 10
+	 * test that default attack str is 10
 	 * 
 	 * @throws Exception
 	 */
@@ -28,23 +28,9 @@ public class TestAlien
 		Alien alien = new Alien("Commander Terrible", 40);
 		assertEquals(10, alien.getAttackStrength());
 	}
-
+	
 	/**
-	 * test that when Human attacks, it damages the Alien it's attacking
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testMountAnAttack() throws Exception
-	{
-		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
-		Alien alien = new Alien("Commander Terrible", 40);
-		human.mountAttack(alien);
-		assertEquals(35, alien.getLifePoints());
-	}
-
-	/**
-	 * test recovery time setting
+	 * set recovery rate in constructor
 	 * 
 	 * @throws Exception
 	 */
@@ -55,14 +41,48 @@ public class TestAlien
 		assertEquals(4, alien.recoveryRate);
 	}
 
-	@Test(expected = Exception.class) // throws exception for negatives
-	public void testRecoveryRateNegative() throws Exception
+	
+	/**
+	 * set recovery rate in setter
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testRecoveryRateSetter() throws Exception
 	{
-		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), -4);
-		assertEquals(4, alien.recoveryRate);
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 4);
+		alien.setRecovery(2);
+		assertEquals(2, alien.recoveryRate);
 	}
 
-	@Test
+	@Test //testing rate when set at 0
+	public void testRecoveryRate0() throws Exception
+	{
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 0);
+		alien.takeHit(20);
+
+		MockSimpleTimer hiTimer = new MockSimpleTimer();
+		hiTimer.addTimeObserver(alien);
+		
+		assertEquals(0, alien.myTime);
+		assertEquals(0, alien.recoveryRate);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(1, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(2, alien.myTime);
+		assertEquals(20, alien.getLifePoints());
+	}
+
+
+	@Test  //testing first valid recovery rate
 	public void testRecoveryRate2() throws Exception
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 2);
@@ -98,7 +118,7 @@ public class TestAlien
 
 	}
 	
-	@Test
+	@Test// testing 2 more recovery rates > 0
 	public void testRecoveryRate3() throws Exception
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 3);
@@ -107,6 +127,7 @@ public class TestAlien
 		MockSimpleTimer hiTimer = new MockSimpleTimer();
 		hiTimer.addTimeObserver(alien);
 		
+		//start by checking every third cycle
 		assertEquals(0, alien.myTime);
 		assertEquals(20, alien.getLifePoints());
 		
@@ -131,34 +152,74 @@ public class TestAlien
 		hiTimer.timeChanged();
 		alien.recover();
 		assertEquals(23, alien.getLifePoints());
+		
+		///   here is the second recovery rate (every cycle)
+		alien.setRecovery(1);
+		alien.takeHit(3);
+		assertEquals(20, alien.getLifePoints());
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(23, alien.getLifePoints());
+		
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
+		assertEquals(26, alien.getLifePoints());
+
 
 	}
 	
+	
+	//test when removed from being an observer (no recovery with time)
 	@Test
-	public void testRecoveryRate0() throws Exception
+	public void testRecoveryWhenNotObserver() throws Exception
 	{
-		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 0);
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 1);
 		alien.takeHit(20);
 
 		MockSimpleTimer hiTimer = new MockSimpleTimer();
 		hiTimer.addTimeObserver(alien);
+		//check it's there
+		assertEquals(alien, hiTimer.getObserver());
+		hiTimer.removeTimeObserver(alien);
 		
-		assertEquals(0, alien.myTime);
-		assertEquals(0, alien.recoveryRate);
+		hiTimer.overrideIncrementCurrentTime();
+		hiTimer.timeChanged();
+		alien.recover();
 		assertEquals(20, alien.getLifePoints());
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
 		alien.recover();
-		assertEquals(1, alien.myTime);
 		assertEquals(20, alien.getLifePoints());
 		
-		hiTimer.overrideIncrementCurrentTime();
-		hiTimer.timeChanged();
-		alien.recover();
-		assertEquals(2, alien.myTime);
-		assertEquals(20, alien.getLifePoints());
 	}
+
+
+	//throws exception if rate is < 0
+	@Test(expected = Exception.class) // throws exception for negatives
+	public void testRecoveryRateNegative() throws Exception
+	{
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), -4);
+		assertEquals(4, alien.recoveryRate);
+	}
+	
+	/**
+	 * test that when Human attacks, it damages the Alien it's attacking
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testMountAnAttack() throws Exception
+	{
+		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
+		Alien alien = new Alien("Commander Terrible", 40);
+		human.mountAttack(alien);
+		assertEquals(35, alien.getLifePoints());
+	}
+	
+	
 	/*******************************************************************
 	 * Start Section for Strategy Pattern Tests
 	 * ******************************************************************

@@ -75,11 +75,12 @@ public class Alien extends LifeForm
 	 */
 	public void recover()
 	{
-		if (recoveryRate > 0)  //only recover if recovery rate is greater than 0
+		if (recoveryRate > 0) // only recover if recovery rate is greater than 0
 		{
-			//System.out.println(myTime + "=time ," + recoveryRate + "=rate ," + "modulus " + myTime%recoveryRate);
-			if (myTime%recoveryRate == 0)
-					currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
+			// System.out.println(myTime + "=time ," + recoveryRate + "=rate ," + "modulus "
+			// + myTime%recoveryRate);
+			if (myTime % recoveryRate == 0)
+				currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
 		}
 	}
 
@@ -92,5 +93,18 @@ public class Alien extends LifeForm
 	public void setCurrentLifePoints(int lp)
 	{
 		currentLifePoints = lp;
+	}
+
+	/**
+	 * setter for recovery rate to adjust what was set by constructor
+	 * 
+	 * @param rr
+	 *            - the rate that you want the instance variable for recoveryRate to
+	 *            be set to
+	 */
+	public void setRecovery(int rr)
+	{
+		recoveryRate = rr;
+
 	}
 }

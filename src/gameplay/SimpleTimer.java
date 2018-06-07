@@ -1,5 +1,5 @@
 /**
- * Timer mechanism 
+ * Timer mechanism that will run as a thread and makes a counter for the rest of the game objects to reference
  * 
  * @Author: Rob Miles
  */
@@ -16,7 +16,8 @@ public class SimpleTimer extends Thread implements Timer
 
 	/**
 	 * construct simple timer and set currentTime instance variable to 0
-	 * @param  
+	 * 
+	 * @param
 	 */
 	public SimpleTimer(int sleep)
 	{
@@ -31,6 +32,27 @@ public class SimpleTimer extends Thread implements Timer
 	}
 
 	/**
+	 * the main timer time generator this guy will update the currentTime instance
+	 * variable at an interval defined by sleepVal. sleepVal will be set by the
+	 * constructor as a passed parameter
+	 */
+	public void run()
+	{
+		for (int x = 0; x < 5; x++)
+		{
+			try
+			{
+				currentTime = x;
+				Thread.sleep(sleepVal);
+			}
+			catch (InterruptedException e)
+			{
+				System.out.println("Something bad happened.");
+			}
+		}
+	}
+
+	/**
 	 * Add a new time observer to theObservers ArrayList. Once added, will get
 	 * automatic time updates
 	 * 
@@ -38,7 +60,6 @@ public class SimpleTimer extends Thread implements Timer
 	 *            - is the TimeObserver instance that you want to add to the
 	 *            ArrayList of items that will recieve automatic time updates
 	 */
-
 	public void addTimeObserver(TimeObserver newObserver)
 	{
 		theObservers.add(newObserver);
@@ -61,7 +82,6 @@ public class SimpleTimer extends Thread implements Timer
 	 * update the time for each of the observers in the ArrayList that keeps track
 	 * of the objects expecting time updates
 	 */
-	// @Override
 	public void timeChanged()
 	{
 		for (TimeObserver x : theObservers)
@@ -71,44 +91,23 @@ public class SimpleTimer extends Thread implements Timer
 	}
 
 	/**
+	 * Getter to access the current time
+	 * 
+	 * @return the current time
+	 */
+	public int getCurrentTime()
+	{
+		return currentTime;
+	}
+
+	/**
 	 * return the last observer from theObservers
 	 * 
 	 * @return the last observer from theObervers ArrayList of time watchers
 	 */
 	public TimeObserver getObserver()
 	{
-		// TODO this is too strongly coupled
 		int indx = theObservers.size() - 1; // subtract 1 since array starts at 0
 		return theObservers.get(indx);
-	}
-
-	/**
-	 * Getter to access the current time
-	 * @return 
-	 */
-	public int getCurrentTime()
-	{
-		return currentTime;
-	}
-	/**
-	 * the main timer time generator
-	 * this guy will update the currentTime instance variable
-	 * at an interval defined by sleepVal.  sleepVal will be set
-	 * by the constructor as a passed parameter
-	 */
-	public void run()
-	{
-		for (int x = 0; x < 5; x++)
-		{
-			try
-			{
-				currentTime = x;
-				Thread.sleep(sleepVal);			
-			}
-			catch (InterruptedException e)
-			{
-				System.out.println("Something bad happened.");
-			}
-		}
 	}
 }

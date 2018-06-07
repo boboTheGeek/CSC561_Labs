@@ -93,23 +93,23 @@ public class LifeForm implements TimeObserver
 		{
 			if (victim instanceof Human) // victim is human
 			{
-				// TODO is refactoring to be in Human subclass, override?
+				// TODO is refactoring to be in Human subclass, override takeHit?
 				int hitVal = attackStrength - ((Human) victim).getArmorPoints();
-				victim.takeHit(hitVal);
+				if (hitVal > 0)
+				{
+					victim.takeHit(hitVal);
+				}
 			}
 			else // victim is an alien
 			{
 				victim.takeHit(attackStrength);
 			}
-
 		}
-
 	}
 
 	@Override
 	public void updateTime(int time)
 	{
 		myTime = time;
-
 	}
 }

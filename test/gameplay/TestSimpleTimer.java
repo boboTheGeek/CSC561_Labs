@@ -32,11 +32,8 @@ public class TestSimpleTimer
 	@Test
 	public void testAddTimeObserver()
 	{
-		// TODO If you make the instance variable theObservers private (ideally what you
-		// want to do) theonly way you'll know if it got added is if it is properly
-		// updated on a call to timeChanged.
 		TimeObserver newObserver = new MockSimpleTimerObserver();
-		SimpleTimer masterTimer = new MockSimpleTimer();
+		SimpleTimer masterTimer = new SimpleTimer();
 		masterTimer.addTimeObserver(newObserver);
 		assertEquals(newObserver, masterTimer.getObserver());
 	}
@@ -59,6 +56,11 @@ public class TestSimpleTimer
 	 * Develop a test to make sure timeChanged works correctly with and without
 	 * observers. Depending on whether theObservers is protected or private you may
 	 * have this test in place after doing tests for 2 and 3.
+	 * 
+	 * Here we override the time counter of the SimpletimerClass and push that to
+	 * the Obervers [we test the counter later so this test compliments it]. Mock
+	 * observer class just uses additonal getter/setter methods to return test
+	 * results but otherwise utilizes (and tests) the main methods
 	 */
 	@Test
 	public void testTimeChanged()
@@ -104,7 +106,6 @@ public class TestSimpleTimer
 		public void updateTime(int time)
 		{
 			myTime = time;
-
 		}
 
 		public int getTime()

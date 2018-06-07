@@ -55,16 +55,6 @@ public class TestLifeForm
 		assertEquals(40, alien.getLifePoints()); // no attack mounted
 	}
 
-//	/**
-//	 * can track passage of time
-//	 */
-//	@Test
-//	public void testTimeChanged()
-//	{
-//		// TODO fix timer thing
-//		fail("Not yet implemented");
-//	}
-
 	/*******************************************************************
 	 * Start Section for Strategy Pattern Tests
 	 * ******************************************************************
