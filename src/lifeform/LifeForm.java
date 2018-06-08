@@ -15,7 +15,7 @@ public class LifeForm implements TimeObserver
 	protected String myName;
 	protected int currentLifePoints;
 	protected int attackStrength;
-	protected int myTime;
+	protected int myTime = 0;
 
 	/**
 	 * Create an instance

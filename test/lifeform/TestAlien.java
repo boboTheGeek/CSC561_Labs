@@ -13,6 +13,7 @@ import gameplay.SimpleTimer;
 import recovery.RecoveryFractional;
 import recovery.RecoveryLinear;
 import recovery.RecoveryNone;
+import exceptions.RException;
 
 public class TestAlien
 {
@@ -20,10 +21,10 @@ public class TestAlien
 	/**
 	 * test that default attack str is 10
 	 * 
-	 * @throws Exception
+	 * @throws RException
 	 */
 	@Test
-	public void testDefaultAP() throws Exception
+	public void testDefaultAP() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40);
 		assertEquals(10, alien.getAttackStrength());
@@ -32,10 +33,10 @@ public class TestAlien
 	/**
 	 * set recovery rate in constructor
 	 * 
-	 * @throws Exception
+	 * @throws RException
 	 */
 	@Test
-	public void testRecoveryRate() throws Exception
+	public void testRecoveryRate() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 4);
 		assertEquals(4, alien.recoveryRate);
@@ -45,10 +46,10 @@ public class TestAlien
 	/**
 	 * set recovery rate in setter
 	 * 
-	 * @throws Exception
+	 * @throws RException
 	 */
 	@Test
-	public void testRecoveryRateSetter() throws Exception
+	public void testRecoveryRateSetter() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 4);
 		alien.setRecovery(2);
@@ -56,7 +57,7 @@ public class TestAlien
 	}
 
 	@Test //testing rate when set at 0
-	public void testRecoveryRate0() throws Exception
+	public void testRecoveryRate0() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 0);
 		alien.takeHit(20);
@@ -83,7 +84,7 @@ public class TestAlien
 
 
 	@Test  //testing first valid recovery rate
-	public void testRecoveryRate2() throws Exception
+	public void testRecoveryRate2() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 2);
 		alien.takeHit(20);
@@ -119,7 +120,7 @@ public class TestAlien
 	}
 	
 	@Test// testing 2 more recovery rates > 0
-	public void testRecoveryRate3() throws Exception
+	public void testRecoveryRate3() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 3);
 		alien.takeHit(20);
@@ -173,9 +174,9 @@ public class TestAlien
 	
 	//test when removed from being an observer (no recovery with time)
 	@Test
-	public void testRecoveryWhenNotObserver() throws Exception
+	public void testRecoveryWhenNotObserver() throws RException
 	{
-		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 1);
+		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(1), 2);
 		alien.takeHit(20);
 
 		MockSimpleTimer hiTimer = new MockSimpleTimer();
@@ -183,35 +184,37 @@ public class TestAlien
 		//check it's there
 		assertEquals(alien, hiTimer.getObserver());
 		hiTimer.removeTimeObserver(alien);
-		
+
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
+
 		alien.recover();
 		assertEquals(20, alien.getLifePoints());
-		
+
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
+
 		alien.recover();
 		assertEquals(20, alien.getLifePoints());
-		
+
 	}
 
 
 	//throws exception if rate is < 0
-	@Test(expected = Exception.class) // throws exception for negatives
-	public void testRecoveryRateNegative() throws Exception
+	@Test(expected = RException.class) // throws exception for negatives
+	public void testRecoveryRateNegative() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), -4);
-		assertEquals(4, alien.recoveryRate);
+		//assertEquals(4, alien.recoveryRate);
 	}
 	
 	/**
 	 * test that when Human attacks, it damages the Alien it's attacking
 	 * 
-	 * @throws Exception
+	 * @throws RException
 	 */
 	@Test
-	public void testMountAnAttack() throws Exception
+	public void testMountAnAttack() throws RException
 	{
 		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
 		Alien alien = new Alien("Commander Terrible", 40);
@@ -227,11 +230,11 @@ public class TestAlien
 	/**
 	 * can initialize an alien
 	 * 
-	 * @throws Exception
+	 * @throws RException
 	 * 
 	 */
 	@Test
-	public void testInitialize() throws Exception
+	public void testInitialize() throws RException
 	{
 		Alien entity = new Alien("Barnabus Rex", 200);
 		assertEquals("Barnabus Rex", entity.getName());
@@ -243,10 +246,11 @@ public class TestAlien
 	 * implementations
 	 */
 	@Test
-	public void testRecovery() throws Exception
+	public void testRecovery() throws RException
 	{
 		// test fractional recovery
 		Alien entityFr = new Alien("Troy McClure", 150, new RecoveryFractional(10), 1);
+		entityFr.updateTime(1);  //instance timer can't be 0 for recovery to work
 		entityFr.setCurrentLifePoints(75);
 		entityFr.recover();
 		// 75 / 10 = 7.5 rounds up to 8
@@ -259,10 +263,10 @@ public class TestAlien
 	 * 
 	 * test that we can set the life points
 	 * 
-	 * @throws Exception
+	 * @throws RException
 	 */
 	@Test
-	public void testSetLifePoints() throws Exception
+	public void testSetLifePoints() throws RException
 	{
 		Alien entity2 = new Alien("2Pac McClure", 150);
 		entity2.setCurrentLifePoints(200);
@@ -270,7 +274,7 @@ public class TestAlien
 	}
 
 	@Test
-	public void testRecoveryNone() throws Exception
+	public void testRecoveryNone() throws RException
 	{
 		// test no recovery
 		Alien entityNR = new Alien("Troy McClure", 150, new RecoveryNone(), 0);

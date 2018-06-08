@@ -7,6 +7,7 @@
 
 package lifeform;
 
+import exceptions.RException;
 import recovery.RecoveryBehavior;
 import recovery.RecoveryNone;
 
@@ -24,9 +25,10 @@ public class Alien extends LifeForm
 	 *            - the name of your alien
 	 * @param points
 	 *            - the number of alien lifepoints left
-	 * @throws ArgumentOutOfBoundsException
+	 * @throws RException 
+	 * 
 	 */
-	public Alien(String name, int points) throws Exception
+	public Alien(String name, int points) throws RException
 	{
 
 		this(name, points, new RecoveryNone(), 0);
@@ -45,16 +47,17 @@ public class Alien extends LifeForm
 	 *            - recovery behavior object to set
 	 * @param recov
 	 * 
-	 * @throws Exception
+	 * @throws RException 
+	 * 
 	 */
-	public Alien(String name, int points, RecoveryBehavior rb, int recov) throws Exception
+	public Alien(String name, int points, RecoveryBehavior rb, int recov) throws RException
 	{
 		super(name, points, 10); // default attack points for alien = 10
 		recoveryBehavior = rb;
 		maxLifePoints = points;
 		if (recov < 0)
 		{
-			throw new Exception("Recovery rate can't be negative");
+			throw new RException("input can't be negative dude");
 		}
 		else
 		{
@@ -75,10 +78,10 @@ public class Alien extends LifeForm
 	 */
 	public void recover()
 	{
-		if (recoveryRate > 0) // only recover if recovery rate is greater than 0
+		if ((recoveryRate > 0) && (myTime != 0)) // only recover if recovery rate is greater than 0
 		{
-			// System.out.println(myTime + "=time ," + recoveryRate + "=rate ," + "modulus "
-			// + myTime%recoveryRate);
+			//System.out.println(myTime + "=time ," + recoveryRate + "=rate ," + "modulus "
+			//+ myTime%recoveryRate);
 			if (myTime % recoveryRate == 0)
 				currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
 		}
