@@ -83,7 +83,7 @@ public class TestAlien
 	}
 
 
-	@Test  //testing first valid recovery rate
+	@Test  //testing first valid recovery rate > 0
 	public void testRecoveryRate2() throws RException
 	{
 		Alien alien = new Alien("Commander Terrible", 40, new RecoveryLinear(3), 2);

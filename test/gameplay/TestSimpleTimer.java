@@ -25,8 +25,15 @@ public class TestSimpleTimer
 	public void testInit()
 	{
 		SimpleTimer DrZoidberg = new SimpleTimer();
-		assertEquals(0, DrZoidberg.getCurrentTime());
 		assertTrue(DrZoidberg instanceof Timer);
+		assertEquals(0, DrZoidberg.getCurrentTime());
+	}
+	
+	@Test //updates time @constructor.. [counter method tested later for more complex update method]
+	public void testUpdateTime()
+	{
+		SimpleTimer DrZoidberg = new SimpleTimer();;
+		assertEquals(0, DrZoidberg.getCurrentTime());
 	}
 
 	@Test
@@ -99,6 +106,20 @@ public class TestSimpleTimer
 		}
 	}
 
+	//test mock time observer
+	@Test
+	public void testMockTimeObserver()
+	{
+
+		MockSimpleTimer masterTimer = new MockSimpleTimer(); // just so we can override currentTime
+		TimeObserver newObserver1 = new MockSimpleTimerObserver();
+		masterTimer.addTimeObserver(newObserver1);
+		masterTimer.overrideCurrentTime(); // method only for testing
+		masterTimer.timeChanged();
+		assertEquals(3, ((MockSimpleTimerObserver) newObserver1).getTime());
+	}
+	
+	
 	class MockSimpleTimerObserver implements TimeObserver
 	{
 		public int myTime = 0;

@@ -17,7 +17,7 @@ public class SimpleTimer extends Thread implements Timer
 	/**
 	 * construct simple timer and set currentTime instance variable to 0
 	 * 
-	 * @param
+	 * @param - sleep is the duration between timer increments (in ms)
 	 */
 	public SimpleTimer(int sleep)
 	{
