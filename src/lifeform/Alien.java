@@ -13,7 +13,7 @@ import recovery.RecoveryNone;
 
 public class Alien extends LifeForm
 {
-	RecoveryBehavior recoveryBehavior;
+	protected RecoveryBehavior recoveryBehavior;
 	private int maxLifePoints;
 	protected int recoveryRate;
 
@@ -101,13 +101,13 @@ public class Alien extends LifeForm
 	/**
 	 * setter for recovery rate to adjust what was set by constructor
 	 * 
-	 * @param rr
+	 * @param rate
 	 *            - the rate that you want the instance variable for recoveryRate to
 	 *            be set to
 	 */
-	public void setRecovery(int rr)
+	public void setRecovery(int rate)
 	{
-		recoveryRate = rr;
+		recoveryRate = rate;
 
 	}
 }
