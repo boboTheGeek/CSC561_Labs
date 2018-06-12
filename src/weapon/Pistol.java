@@ -1,11 +1,16 @@
+
+/**
+ * overrides the generic weapon abstract class to provide characteristic features for instance variables as well
+ * as a specific override of the damage method calculated on pistol specific parameters
+ * 
+ * @author Rob M (Pilot), Chandana G (co-pilot)
+ *
+ */
+
 package weapon;
 
 import environment.Range;
 
-/**
- * @author a008423
- *
- */
 public class Pistol extends GenericWeapon
 {
 
@@ -24,6 +29,10 @@ public class Pistol extends GenericWeapon
 
 	}
 	
+	/**
+	 * Returns the amount of damage done for a Pistol
+	 */
+	@Override
 	public int damage()
 	{
 
@@ -38,4 +47,5 @@ public class Pistol extends GenericWeapon
 		
 		
 	}
+
 }
