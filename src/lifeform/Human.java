@@ -16,6 +16,8 @@ public class Human extends LifeForm
 	 * construct human, superclass Lifeform to set name and lifepoints set armor
 	 * locally as instance variable
 	 * 
+	 * also sets default
+	 * 
 	 * @param armor
 	 *            - amount of armor protection
 	 * @param name
@@ -25,7 +27,7 @@ public class Human extends LifeForm
 	 */
 	public Human(int armor, String name, int lifepoints)
 	{
-		super(name, lifepoints);
+		super(name, lifepoints, 5); // last param is default attack points
 
 		setArmorPoints(armor);
 	}

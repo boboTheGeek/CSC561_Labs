@@ -7,13 +7,15 @@
 
 package lifeform;
 
+import exceptions.RException;
 import recovery.RecoveryBehavior;
 import recovery.RecoveryNone;
 
 public class Alien extends LifeForm
 {
-	RecoveryBehavior recoveryBehavior;
-	int maxLifePoints;
+	protected RecoveryBehavior recoveryBehavior;
+	private int maxLifePoints;
+	protected int recoveryRate;
 
 	/**
 	 * Initialize Alien, calling superclass LifeForm passing name and points to
@@ -23,11 +25,13 @@ public class Alien extends LifeForm
 	 *            - the name of your alien
 	 * @param points
 	 *            - the number of alien lifepoints left
+	 * @throws RException 
+	 * 
 	 */
-	public Alien(String name, int points)
+	public Alien(String name, int points) throws RException
 	{
 
-		this(name, points, new RecoveryNone());
+		this(name, points, new RecoveryNone(), 0);
 
 	}
 
@@ -41,12 +45,24 @@ public class Alien extends LifeForm
 	 *            - the number of alien lifepoints left
 	 * @param rb
 	 *            - recovery behavior object to set
+	 * @param recov
+	 * 
+	 * @throws RException 
+	 * 
 	 */
-	public Alien(String name, int points, RecoveryBehavior rb)
+	public Alien(String name, int points, RecoveryBehavior rb, int recov) throws RException
 	{
-		super(name, points);
+		super(name, points, 10); // default attack points for alien = 10
 		recoveryBehavior = rb;
 		maxLifePoints = points;
+		if (recov < 0)
+		{
+			throw new RException("input can't be negative dude");
+		}
+		else
+		{
+			recoveryRate = recov;
+		}
 	}
 
 	/**
@@ -62,8 +78,13 @@ public class Alien extends LifeForm
 	 */
 	public void recover()
 	{
-
-		currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
+		if ((recoveryRate > 0) && (myTime != 0)) // only recover if recovery rate is greater than 0
+		{
+			//System.out.println(myTime + "=time ," + recoveryRate + "=rate ," + "modulus "
+			//+ myTime%recoveryRate);
+			if (myTime % recoveryRate == 0)
+				currentLifePoints = recoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
+		}
 	}
 
 	/**
@@ -75,5 +96,18 @@ public class Alien extends LifeForm
 	public void setCurrentLifePoints(int lp)
 	{
 		currentLifePoints = lp;
+	}
+
+	/**
+	 * setter for recovery rate to adjust what was set by constructor
+	 * 
+	 * @param rate
+	 *            - the rate that you want the instance variable for recoveryRate to
+	 *            be set to
+	 */
+	public void setRecovery(int rate)
+	{
+		recoveryRate = rate;
+
 	}
 }
