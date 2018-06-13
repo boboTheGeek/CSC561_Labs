@@ -1,6 +1,7 @@
 package weapon;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestGenericWeapon
@@ -10,27 +11,25 @@ public class TestGenericWeapon
 	public void testInitialize()
 	{
 		GenericWeapon shootieMcTootie = new MockPistol();
-		assertEquals(96,shootieMcTootie.getMaxAmmo());
+		assertEquals(96, shootieMcTootie.getMaxAmmo());
 	}
-	
+
 	@Test
 	public void testDamage()
 	{
 		GenericWeapon shooterMcGavin = new MockPistol();
-		assertEquals(99,shooterMcGavin.damage());
-
+		assertEquals(99, shooterMcGavin.damage());
 	}
 
-	
 	@Test
 	public void testFire()
 	{
 		GenericWeapon RonaldThump = new MockPistol();
 		RonaldThump.fire();
-		assertEquals(93,RonaldThump.currentAmmo);
+		assertEquals(93, RonaldThump.currentAmmo);
 
 	}
-	
+
 	@Test
 	public void testReload()
 	{
@@ -38,36 +37,53 @@ public class TestGenericWeapon
 		shootieMcTootie.fire();
 		shootieMcTootie.fire();
 		shootieMcTootie.fire();
-		shootieMcTootie.fire();  //the guy MUST be dead by now!!!
+		shootieMcTootie.fire(); // the guy MUST be dead by now!!!
 		shootieMcTootie.reload();
-		assertEquals(96,shootieMcTootie.currentAmmo);
+		assertEquals(96, shootieMcTootie.currentAmmo);
 
 	}
-	
+
 	@Test
 	public void testUpdateTime()
 	{
 		GenericWeapon shootieMcTootie = new MockPistol();
 		shootieMcTootie.updateTime(22);
-		assertEquals(22,shootieMcTootie.currentTime);
+		assertEquals(22, shootieMcTootie.currentTime);
 
 	}
-	
+
 	@Test
 	public void testGetMaxAmmo()
 	{
 		GenericWeapon LoiseBelcher = new MockPistol();
-		assertEquals(96,LoiseBelcher.getMaxAmmo());
+		assertEquals(96, LoiseBelcher.getMaxAmmo());
 
 	}
-	
+
 	@Test
 	public void testGetMaxRange()
 	{
 		GenericWeapon shootieMcTootie = new MockPistol();
-		assertEquals(98,shootieMcTootie.getMaxRange());
+		assertEquals(98, shootieMcTootie.getMaxRange());
 
 	}
+
+	// @Test
+	// public void testFireRate()
+	// {
+	// GenericWeapon restrictorshotgun1 = new MockPistol();
+	// //SimpleTimer timeMe = new SimpleTimer(1000);
+	// //TimeObserver newObserver1 = new TimeObserver();
+	// //timeMe.addTimeObserver(newObserver1);
+	//
+	// restrictorshotgun1.damage();
+	// restrictorshotgun1.damage();
+	// restrictorshotgun1.damage();
+	//
+	//
+	// assertEquals(99,restrictorshotgun1.damage());
+	//
+	// }
 
 }
 
@@ -90,6 +106,7 @@ class MockPistol extends GenericWeapon
 	public int damage()
 	{
 		return baseDamage;
+
 	}
-	
+
 }

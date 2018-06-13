@@ -12,7 +12,10 @@ package weapon;
 public interface Weapon
 {
 	public int damage();
+
 	public int getMaxAmmo();
+
 	public int getMaxRange();
+
 	void updateTime(int time);
 }
