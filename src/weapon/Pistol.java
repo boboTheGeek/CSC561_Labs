@@ -26,26 +26,39 @@ public class Pistol extends GenericWeapon
 		this.rateOfFire = 2;
 		this.maxAmmo = 10;
 		this.currentAmmo = this.maxAmmo;
+		this.shotCounter = this.rateOfFire;
 
 	}
-	
+
 	/**
 	 * Returns the amount of damage done for a Pistol
+	 * 
+	 * Checks that there is ammo left and that the weapon is in range to do damage
+	 * 
+	 * checks that the shot counter is still valid (can only take so many shots per
+	 * cycle
+	 * 
+	 * otherwise returns no damage
 	 */
 	@Override
 	public int damage()
 	{
 
-		
-		if ((currentAmmo == 0) || (maxRange < Range.distance)) {
+		if ((currentAmmo == 0) || (maxRange < Range.distance))
+		{
 			fire();
 			return 0;
-		} else {
-			fire();
-			return (int) ((int) (float) baseDamage * (((float)(maxRange - Range.distance + 5)/maxRange)));
 		}
-		
-		
+		else if (shotCounter > 0)
+		{
+			fire();
+			return (int) ((int) (float) baseDamage * (((float) (maxRange - Range.distance + 5) / maxRange)));
+		}
+		else
+		{
+			return 0;
+		}
+
 	}
 
 }

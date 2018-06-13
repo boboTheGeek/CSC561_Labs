@@ -18,7 +18,7 @@ public abstract class GenericWeapon implements Weapon
 	protected int maxAmmo;
 	protected int currentTime;
 	protected int currentAmmo;
-	private int shotCounter;
+	protected int shotCounter;
 
 	/**
 	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
@@ -38,6 +38,7 @@ public abstract class GenericWeapon implements Weapon
 		if (currentAmmo != 0)
 		{
 			currentAmmo--;
+			shotCounter--;
 		}
 	}
 
@@ -52,12 +53,16 @@ public abstract class GenericWeapon implements Weapon
 
 	/**
 	 * Allows a weapon instance to have a time counter which will be used to implement the firing rate
+	 * 
+	 * when time is updated, the shot counter is reset to the starting point for another round
+	 * 
 	 * @param time - just what it sounds like
 	 */
 
 	public void updateTime(int time)
 	{
 		currentTime = time;
+		shotCounter = rateOfFire;
 	}
 	
 	/**
