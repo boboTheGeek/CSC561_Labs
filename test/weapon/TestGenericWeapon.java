@@ -60,7 +60,7 @@ public class TestGenericWeapon
 		assertEquals(89, restrictorshotgun1.damage());
 		for (int x = 120; x >= 0; x--)
 		{
-			restrictorshotgun1.damage();  //deplete remaining turns per rate
+			restrictorshotgun1.damage(); // deplete remaining turns per rate
 		}
 		//
 		assertEquals(0, restrictorshotgun1.damage());
@@ -68,12 +68,12 @@ public class TestGenericWeapon
 		assertEquals(97, restrictorshotgun1.shotCounter);
 		for (int x = 100; x >= 0; x--)
 		{
-			restrictorshotgun1.damage();  //deplete remaining turns per rate
+			restrictorshotgun1.damage(); // deplete remaining turns per rate
 		}
 		restrictorshotgun1.reload();
 		for (int x = 100; x >= 0; x--)
 		{
-			restrictorshotgun1.damage();  //deplete remaining turns per rate
+			restrictorshotgun1.damage(); // deplete remaining turns per rate
 		}
 		assertEquals(0, restrictorshotgun1.shotCounter);
 		assertEquals(0, restrictorshotgun1.damage());

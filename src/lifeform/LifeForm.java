@@ -115,16 +115,30 @@ public class LifeForm implements TimeObserver
 		myTime = time;
 	}
 
+	/**
+	 * Allows a life form to pick up a weapon which is stored in in instance
+	 * variable in LifeForm. Will not allow that to happen if there is already a
+	 * weapon there.
+	 * 
+	 * @param w
+	 *            - the weapon to pick up and store
+	 */
 	public void pickUpWeapon(Weapon w)
 	{
-		myWeapon = w;
+		if (myWeapon == null)
+		{
+			myWeapon = w;
+		}
 	}
 
+	/**
+	 * Allows a life form to drop whatever weapon is being held (in the local
+	 * instance variable). Will assign weapon slot to null.
+	 */
 	public void dropWeapon()
 	{
 		myWeapon = null;
-		
+
 	}
-	
-	
+
 }

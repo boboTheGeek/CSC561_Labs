@@ -27,7 +27,7 @@ public class TestLifeForm
 		entity.pickUpWeapon(gunnyGunnerson);
 		assertEquals(gunnyGunnerson, entity.myWeapon);
 	}
-	
+
 	@Test
 	public void testDropWeapon()
 	{
@@ -38,14 +38,23 @@ public class TestLifeForm
 		entity.dropWeapon();
 		assertEquals(null, entity.myWeapon);
 	}
-	
-	
-	
+
+	@Test // doesn't pick up a second weapon if there is already on in present
+	public void testCanNotPickup2()
+	{
+		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
+		Weapon squirrelHunter = new MockShooter();
+		Weapon secondShooter = new MockShooter();
+		entity.pickUpWeapon(squirrelHunter);
+		assertEquals(squirrelHunter, entity.myWeapon);
+		entity.pickUpWeapon(secondShooter);
+		assertEquals(squirrelHunter, entity.myWeapon);
+	}
+
 	/*****************************************
 	 * Start of lab 3 tests*******************
 	 */
-	
-	
+
 	/**
 	 * testing getAttackStrength returns present attack strength of the LifeForm
 	 */
@@ -148,7 +157,6 @@ public class TestLifeForm
 
 }
 
-
 class MockShooter extends GenericWeapon
 {
 
@@ -175,4 +183,3 @@ class MockShooter extends GenericWeapon
 	}
 
 }
-
