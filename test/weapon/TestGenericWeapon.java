@@ -58,25 +58,25 @@ public class TestGenericWeapon
 		timeMe.addTimeObserver(restrictorshotgun1);
 		assertEquals(97, restrictorshotgun1.shotCounter);
 		assertEquals(89, restrictorshotgun1.damage());
-		for (int x = 120; x >= 0; x--)
-		{
-			restrictorshotgun1.damage(); // deplete remaining turns per rate
-		}
-		//
-		assertEquals(0, restrictorshotgun1.damage());
-		timeMe.timeChanged();
-		assertEquals(97, restrictorshotgun1.shotCounter);
 		for (int x = 100; x >= 0; x--)
 		{
 			restrictorshotgun1.damage(); // deplete remaining turns per rate
 		}
+		// reload and deplete further because we ran out of ammo (so won't use turn)
 		restrictorshotgun1.reload();
-		for (int x = 100; x >= 0; x--)
+		for (int x = 10; x >= 0; x--)
 		{
-			restrictorshotgun1.damage(); // deplete remaining turns per rate
+			restrictorshotgun1.damage();
 		}
 		assertEquals(0, restrictorshotgun1.shotCounter);
 		assertEquals(0, restrictorshotgun1.damage());
+
+		// reset the shotCounter by incremting the timer
+		// damage returns Mock damage calculation of 89
+		timeMe.timeChanged();
+		assertEquals(97, restrictorshotgun1.shotCounter);
+		assertEquals(89, restrictorshotgun1.damage());
+
 	}
 
 	@Test
@@ -110,10 +110,11 @@ public class TestGenericWeapon
 		assertEquals(98, shootieMcTootie.getMaxRange());
 
 	}
-	
+
 	@Test
-	public void TestCurrentAmmo() {
-		GenericWeapon  gw = new MockChainGun();
+	public void TestCurrentAmmo()
+	{
+		GenericWeapon gw = new MockChainGun();
 		assertEquals(96, gw.getMaxAmmo());
 		assertEquals(94, gw.getCurrentAmmo());
 	}
@@ -145,10 +146,10 @@ class MockPistol extends GenericWeapon
 
 	}
 }
-	
+
 class MockChainGun extends GenericWeapon
-{	
-	
+{
+
 	MockChainGun()
 	{
 		baseDamage = 99;
