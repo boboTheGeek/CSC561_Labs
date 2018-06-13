@@ -1,7 +1,7 @@
 /**
  * testing for scope attachment
  * 
- * @author Rob Miles
+ * @author Rob Miles, Chandana G
  */
 
 package weapon;
@@ -14,7 +14,9 @@ import environment.Range;
 
 public class TestScope
 {
-
+	/** 
+	 * Test for weapon with one attachment 
+	 */
 	@Test
 	public void testDamage()
 	{
@@ -25,7 +27,9 @@ public class TestScope
 		// 99 * (1 + ((98 - 0)/98)) = 198
 		assertEquals(178, inSight.damage());
 	}
-
+	/** 
+	 * Test for weapon with two attachments 
+	 */
 	@Test
 	public void test2Attachments()
 	{

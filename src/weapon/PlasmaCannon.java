@@ -1,12 +1,13 @@
-package weapon;
 /**
  * overrides the generic weapon abstract class to provide characteristic
  * features for instance variables as well as a specific override of the damage
- * method calculated on plasma canno specific parameters
+ * method calculated on plasma cannon specific parameters
  * 
- * @author Chandana G (Pilot), Rob M (co-pilot)
+ * @author Chandana G, Rob M 
  *
  */
+package weapon;
+
 public class PlasmaCannon extends GenericWeapon
 {
 	/**

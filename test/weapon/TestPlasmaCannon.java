@@ -1,3 +1,11 @@
+/**
+ * overrides the generic weapon abstract class to provide characteristic
+ * features for instance variables as well as a specific override of the damage
+ * method calculated on plasma cannon specific parameters
+ * 
+ * @author Chandana G, Rob M 
+ *
+ */
 package weapon;
 
 import static org.junit.Assert.*;
@@ -6,14 +14,7 @@ import org.junit.Test;
 
 import environment.Range;
 
-/**
- * overrides the generic weapon abstract class to provide characteristic
- * features for instance variables as well as a specific override of the damage
- * method calculated on plasma canno specific parameters
- * 
- * @author Chandana G (Pilot), Rob M (co-pilot)
- *
- */
+
 public class TestPlasmaCannon
 {
 
@@ -28,7 +29,10 @@ public class TestPlasmaCannon
 		assertEquals(1, pc.rateOfFire);
 		assertEquals(4, pc.getMaxAmmo());
 	}
-
+	/**
+	 * Tests for checking the amount of damage done by the weapon when 
+	 * the target is within max range and outside the max range
+	 */
 	@Test
 	public void testDamage()
 	{
@@ -39,14 +43,18 @@ public class TestPlasmaCannon
 		assertEquals(0, pc.damage());
 
 	}
-
+	/**
+	 * It returns the updated current ammo for the weapon after the weapon's fired, 
+	 */
 	@Test
 	public void testUpdateAmmo()
 	{
 		pc.fire();
 		assertEquals(3, pc.currentAmmo);
 	}
-
+	/**
+	 * Reloads the weapon by setting its current ammo to the max ammo
+	 */
 	@Test
 	public void testReload()
 	{

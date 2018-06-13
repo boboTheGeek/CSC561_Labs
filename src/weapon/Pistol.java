@@ -1,6 +1,7 @@
 
 /**
  * overrides the generic weapon abstract class to provide characteristic features for instance variables as well
+
  * as a specific override of the damage method calculated on pistol specific parameters
  * 
  * @author Rob M (Pilot), Chandana G (co-pilot)

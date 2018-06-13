@@ -1,11 +1,12 @@
 /**
  * Generic weapon is an abstract class that implements the Weapon interface.  
+
  * The common instance characteristic variables are  baseDamage, maxRange, 
  * rateOfFire, maxAmmo, currentTime and currentAmmo.  Most are set by the constructors from the extending weapon classes
  * 
  * damage is the main method which will be overridden by each weapon type to provide a unique amount of damage
  * 
- * @author Rob Miles (pilot) Chandana G (copilot)
+ * @author Rob Miles, Chandana G 
  *
  */
 package weapon;
@@ -25,8 +26,8 @@ public abstract class GenericWeapon implements Weapon
 
 	/**
 	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
-	 */
-	/**
+	 *
+	 *
 	 * Returns the amount of damage done for a Pistol
 	 * 
 	 * Checks that there is ammo left and that the weapon is in range to do damage

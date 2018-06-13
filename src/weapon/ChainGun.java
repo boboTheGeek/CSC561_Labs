@@ -1,15 +1,15 @@
-package weapon;
-
-import environment.Range;
-
 /**
  * overrides the generic weapon abstract class to provide characteristic
  * features for instance variables as well as a specific override of the damage
  * method calculated on chain gun specific parameters
  * 
- * @author Chandana G (Pilot), Rob M (co-pilot)
+ * @author Chandana G, Rob M 
  *
  */
+package weapon;
+
+import environment.Range;
+
 public class ChainGun extends GenericWeapon
 {
 

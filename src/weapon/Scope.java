@@ -3,7 +3,7 @@
  * 
  * Note; that weapon could be another attachment that wraps the initial weapon.  
  * 
- * @author Rob Miles
+ * @author Rob Miles, Chandana G
  */
 
 package weapon;

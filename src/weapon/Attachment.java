@@ -1,9 +1,8 @@
-/**
- * Abstract attachment class to manage weapon decorators (attachments that modify the Weapon's damage behavior)
- * 
- * @Author Rob M
- */
 
+/**
+* Abstract attachment class to manage weapon decorators (attachments that modify the Weapon's damage behavior)  
+* @Author Rob M, Chandana G
+*/
 package weapon;
 
 public abstract class Attachment implements Weapon
@@ -14,7 +13,7 @@ public abstract class Attachment implements Weapon
 	/**
 	 * When creating the attachment object, pass in the weapon that you want to
 	 * decorate (wrap). the weapon is stored in an instance variable we define in
-	 * this Abstract Class leve for all attachement subclasses
+	 * this Abstract Class level for all attachment subclasses
 	 * 
 	 * It will only allow 2 attachments to wrap/decorate the gun.
 	 * 

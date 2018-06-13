@@ -1,3 +1,11 @@
+/**
+ * 
+ * Power Booster attachment will decorate (wrap and modify) the damage done by the weapon that it's wrapping.
+ * 
+ * Note: that weapon could be another attachment that wraps the initial weapon.  
+ * 
+ *@author Chandana G, Rob M
+ */
 package weapon;
 
 public class PowerBooster extends Attachment
@@ -8,7 +16,9 @@ public class PowerBooster extends Attachment
 		super(w);
 		
 	}
-
+	/**
+	 * Determine and return the damage to decorate the weapon damage with
+	 */
 	 public int damage()
 	 
 	  {
@@ -16,7 +26,6 @@ public class PowerBooster extends Attachment
 		float x = (float)weapon.getCurrentAmmo()/weapon.getMaxAmmo();
 		float y = 1 + x;
 	    int damage = (int) ((int) ((float)weapon.damage() * y));
-	    System.out.println("damage" + damage);
 	    return damage;
 	  
 	  }
