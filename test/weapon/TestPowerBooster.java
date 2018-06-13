@@ -28,10 +28,10 @@ public class TestPowerBooster {
 	public void test2Attachments()
 	{
 		Weapon chaingun = new MockChainGun();
-		PowerBooster pb = new PowerBooster(chaingun);
+		PowerBooster pb = new PowerBooster(chaingun); 
 		assertEquals(195, pb.damage());
-		pb = new PowerBooster(pb);
-		assertEquals(381, pb.damage());
+		PowerBooster pb2 = new PowerBooster(pb);		
+		assertEquals(381, pb2.damage());
 	}
 	
 

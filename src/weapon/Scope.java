@@ -26,11 +26,8 @@ public class Scope extends Attachment
 
 		int x = weapon.getMaxRange() - Range.distance;
 		float y = 1 + ((float)x / weapon.getMaxRange());
-		float z = weapon.damage() * y;
+		float z = (float)weapon.damage() * y;
 		return (int) z;
 	}
-
-
-
 
 }

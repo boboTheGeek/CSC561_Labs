@@ -43,7 +43,7 @@ public class TestScope
 
 		Scope inSight2 = new Scope(inSight);
 		 //178 * (1 + ((98 - 0)/98)) = 356  [aka 178 * 2]
-		assertEquals(366, inSight2.damage());
+		assertEquals(356, inSight2.damage());
 	}
 
 }
