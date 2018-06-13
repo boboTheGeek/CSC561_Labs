@@ -6,7 +6,7 @@
 
 package weapon;
 
-public abstract class Attachment
+public abstract class Attachment implements Weapon
 {
 	protected Weapon weapon;
 	int numberAttachments = 0;
@@ -36,6 +36,27 @@ public abstract class Attachment
 
 		return numberAttachments;
 
+	}
+	
+	@Override
+	public int getMaxAmmo()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMaxRange()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void updateTime(int time)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

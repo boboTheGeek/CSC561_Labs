@@ -37,9 +37,9 @@ public class TestScope
 		// 99 * (1 + ((98 - 0)/98)) = 198
 		assertEquals(178, inSight.damage());
 
-		// Scope inSight2 = new Scope(inSight);
-		// // 99 * (1 + ((98 - 0)/98)) = 198
-		// assertEquals(200, FinSight2.damage());
+		 Scope inSight2 = new Scope(inSight);
+		 // 99 * (1 + ((98 - 0)/98)) = 198
+		 assertEquals(200, inSight2.damage());
 	}
 
 }
