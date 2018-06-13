@@ -25,35 +25,12 @@ public class Scope extends Attachment
 	{
 
 		int x = weapon.getMaxRange() - Range.distance;
-		float y = 1 + (x / weapon.getMaxRange());
+		float y = 1 + ((float)x / weapon.getMaxRange());
 		float z = weapon.damage() * y;
 		return (int) z;
 	}
 
-	@Override
-	public int getMaxAmmo() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public int getMaxRange() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public void updateTime(int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getCurrentAmmo() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
 
 }
