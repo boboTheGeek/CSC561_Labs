@@ -37,26 +37,32 @@ public abstract class Attachment implements Weapon
 		return numberAttachments;
 
 	}
-	
+
 	@Override
 	public int getMaxAmmo()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+
+		return weapon.getMaxAmmo();
 	}
 
 	@Override
 	public int getMaxRange()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+
+		return weapon.getMaxRange();
 	}
 
 	@Override
 	public void updateTime(int time)
 	{
-		// TODO Auto-generated method stub
-		
+
+	}
+	
+	@Override
+	public int getCurrentAmmo()
+	{
+
+		return weapon.getCurrentAmmo();
 	}
 
 }
