@@ -35,7 +35,6 @@ public class TestChainGun
 		cg.fire();
 		assertEquals(39, cg.currentAmmo);
 	}
-
 	@Test
 	public void testReload()
 	{

@@ -12,7 +12,7 @@ public class ChainGun extends GenericWeapon{
 
 
 	/**
-	 * constructor sets the constants for instance variables related to Chain Gun.
+	 * constructor sets the constants for instance variables for Chain Gun.
 	 * baseDamage = 15; maxRange = 30; rateOfFire = 4; maxAmmo = 40;
 	 */
 	ChainGun()
@@ -45,10 +45,11 @@ public class ChainGun extends GenericWeapon{
 			fire();	
 			return 0;
 		}
-		else
+		else if(shotCounter > 0)
 		{
 			fire();
 			return (int) ((int) (float) baseDamage * (((float) (Range.distance) / maxRange)));
 		}
+		else return 0;
 	}
 }
