@@ -23,7 +23,7 @@ public class TestScope
 		Weapon myGun = new MockPistol();
 		Scope inSight = new Scope(myGun);
 		// 99 * (1 + ((98 - 0)/98)) = 198
-		assertEquals(198, inSight.damage());
+		assertEquals(178, inSight.damage());
 	}
 
 	@Test
@@ -35,7 +35,7 @@ public class TestScope
 		Scope inSight = new Scope(myGun);
 
 		// 99 * (1 + ((98 - 0)/98)) = 198
-		assertEquals(198, inSight.damage());
+		assertEquals(178, inSight.damage());
 
 		// Scope inSight2 = new Scope(inSight);
 		// // 99 * (1 + ((98 - 0)/98)) = 198

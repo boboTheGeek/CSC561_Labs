@@ -1,15 +1,17 @@
 package weapon;
 
 import environment.Range;
+
 /**
- * overrides the generic weapon abstract class to provide characteristic features for instance variables as well
- * as a specific override of the damage method calculated on pistol specific parameters
+ * overrides the generic weapon abstract class to provide characteristic
+ * features for instance variables as well as a specific override of the damage
+ * method calculated on chain gun specific parameters
  * 
- * @author Chandana G (Pilot), Rob M  (co-pilot)
+ * @author Chandana G (Pilot), Rob M (co-pilot)
  *
  */
-public class ChainGun extends GenericWeapon{
-
+public class ChainGun extends GenericWeapon
+{
 
 	/**
 	 * constructor sets the constants for instance variables for Chain Gun.
@@ -30,7 +32,8 @@ public class ChainGun extends GenericWeapon{
 	/**
 	 * Returns the amount of damage done by the ChainGun
 	 * 
-	 * Checks the range of the weapon, the further the range is the more damage the weapon does
+	 * Checks the range of the weapon, the further the range is the more damage the
+	 * weapon does
 	 * 
 	 * checks that the shot counter is still valid (can only take so many shots per
 	 * cycle
@@ -38,18 +41,10 @@ public class ChainGun extends GenericWeapon{
 	 * otherwise returns no damage
 	 */
 	@Override
-	public int damage()
+	public int damageCalculation()
 	{
-		if ((currentAmmo == 0) || (maxRange < Range.distance))
-		{
-			fire();	
-			return 0;
-		}
-		else if(shotCounter > 0)
-		{
-			fire();
-			return (int) ((int) (float) baseDamage * (((float) (Range.distance) / maxRange)));
-		}
-		else return 0;
+
+		return (int) ((int) (float) baseDamage * (((float) (Range.distance) / maxRange)));
+
 	}
 }
