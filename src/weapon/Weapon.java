@@ -22,4 +22,8 @@ public interface Weapon extends TimeObserver
 	void updateTime(int time);
 
 	public int getAttachmentNumber();
+	
+	public int getCurrentAmmo();
+	
+	
 }

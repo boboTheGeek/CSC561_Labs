@@ -29,7 +29,6 @@ public class TestScope
 	@Test
 	public void test2Attachments()
 	{
-
 		Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		Scope inSight = new Scope(myGun);

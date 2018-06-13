@@ -48,6 +48,12 @@ public class Scope extends Attachment
 		
 	}
 
+	@Override
+	public int getCurrentAmmo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }

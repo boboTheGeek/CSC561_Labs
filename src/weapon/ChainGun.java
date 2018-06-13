@@ -47,4 +47,5 @@ public class ChainGun extends GenericWeapon
 		return (int) ((int) (float) baseDamage * (((float) (Range.distance) / maxRange)));
 
 	}
+
 }

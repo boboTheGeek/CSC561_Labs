@@ -110,6 +110,13 @@ public class TestGenericWeapon
 		assertEquals(98, shootieMcTootie.getMaxRange());
 
 	}
+	
+	@Test
+	public void TestCurrentAmmo() {
+		GenericWeapon  gw = new MockChainGun();
+		assertEquals(96, gw.getMaxAmmo());
+		assertEquals(94, gw.getCurrentAmmo());
+	}
 
 }
 
@@ -137,5 +144,30 @@ class MockPistol extends GenericWeapon
 		return baseDamage - 10;
 
 	}
+}
+	
+class MockChainGun extends GenericWeapon
+{	
+	
+	MockChainGun()
+	{
+		baseDamage = 99;
+		maxRange = 98;
+		rateOfFire = 97;
+		maxAmmo = 96;
+		currentTime = 95;
+		currentAmmo = 94;
+		shotCounter = 97;
+	}
 
+	/**
+	 * 
+	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
+	 */
+	@Override
+	public int damageCalculation()
+	{
+		return baseDamage;
+
+	}
 }
