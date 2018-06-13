@@ -45,7 +45,7 @@ public class TestPistol
 		shooter1.fire();
 		assertEquals(9, shooter1.currentAmmo);
 		shooter1.reload();
-		assertEquals(10, shooter1.baseDamage);
+		assertEquals(10, shooter1.currentAmmo);
 	}
 
 }
