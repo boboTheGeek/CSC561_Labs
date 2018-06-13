@@ -30,6 +30,24 @@ public class Scope extends Attachment
 		return (int) z;
 	}
 
+	@Override
+	public int getMaxAmmo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMaxRange() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void updateTime(int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }
