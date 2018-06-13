@@ -9,7 +9,9 @@
 
 package weapon;
 
-public interface Weapon
+import gameplay.TimeObserver;
+
+public interface Weapon extends TimeObserver 
 {
 	public int damage();
 
@@ -18,4 +20,6 @@ public interface Weapon
 	public int getMaxRange();
 
 	void updateTime(int time);
+
+	public int getAttachmentNumber();
 }

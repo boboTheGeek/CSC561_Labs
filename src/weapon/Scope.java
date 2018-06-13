@@ -18,6 +18,9 @@ public class Scope extends Attachment
 		super(w);
 	}
 
+	/**
+	 * Determine and return the damage to decorate the weapon damage with
+	 */
 	public int damage()
 	{
 

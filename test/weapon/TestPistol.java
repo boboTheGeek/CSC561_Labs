@@ -30,6 +30,19 @@ public class TestPistol
 
 	}
 
+	
+	@Test  //does not do damage if out of ammo
+	public void testOutOfAmmo()
+	{
+		GenericWeapon shooterMcGavin = new Pistol();
+		
+		for (int x = 100; x >= 0; x-- )
+			shooterMcGavin.fire();
+		assertEquals(0, shooterMcGavin.currentAmmo);
+		assertEquals(0, shooterMcGavin.damage());
+	}
+	
+
 	@Test
 	public void testUpdateAmmo()
 	{

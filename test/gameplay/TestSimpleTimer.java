@@ -120,23 +120,23 @@ public class TestSimpleTimer
 	}
 	
 	
-	class MockSimpleTimerObserver implements TimeObserver
-	{
-		public int myTime = 0;
 
-		public void updateTime(int time)
-		{
-			myTime = time;
-		}
-
-		public int getTime()
-		{
-			return myTime;
-		}
-
-	}
 }
+class MockSimpleTimerObserver implements TimeObserver
+{
+	public int myTime = 0;
 
+	public void updateTime(int time)
+	{
+		myTime = time;
+	}
+
+	public int getTime()
+	{
+		return myTime;
+	}
+
+}
 class MockSimpleTimer extends SimpleTimer
 {
 	// @Override

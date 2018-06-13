@@ -110,4 +110,11 @@ public class Alien extends LifeForm
 		recoveryRate = rate;
 
 	}
+	
+	@Override
+	public void updateTime(int time)
+	{
+		myTime = time;
+		recover();
+	}
 }

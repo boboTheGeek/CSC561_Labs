@@ -1,46 +1,89 @@
+/**
+ * @author Rob M, Chandana G
+ */
+
 package weapon;
 
 import org.junit.Test;
 
+import gameplay.SimpleTimer;
 import static org.junit.Assert.*;
 
 public class TestGenericWeapon
 {
+
+	@Test // uses ammo when fired
+	public void testFire()
+	{
+		GenericWeapon RonaldThump = new MockPistol();
+		assertEquals(94, RonaldThump.currentAmmo);
+		RonaldThump.fire();
+		assertEquals(93, RonaldThump.currentAmmo);
+
+	}
+	// rate of fire works correctly with simple timer
+
+	@Test // can be reloaded
+	public void testReload()
+	{
+		GenericWeapon shootieMcTootie = new MockPistol();
+
+		shootieMcTootie.fire();
+		shootieMcTootie.fire();
+		shootieMcTootie.fire();
+		shootieMcTootie.fire(); // the guy MUST be dead by now!!!
+		assertEquals(90, shootieMcTootie.currentAmmo);
+		shootieMcTootie.reload();
+		assertEquals(96, shootieMcTootie.currentAmmo);
+
+	}
+
+	@Test // does not do damage if out of ammo
+	public void testDamage()
+	{
+		GenericWeapon shooterMcGavin = new Pistol();
+
+		for (int x = 100; x >= 0; x--)
+			shooterMcGavin.fire();
+		assertEquals(0, shooterMcGavin.currentAmmo);
+		assertEquals(0, shooterMcGavin.damage());
+	}
+
+	// does no damage (but does fire) if target beyond max range
+	@Test
+	public void testFireRate()
+	{
+		GenericWeapon restrictorshotgun1 = new MockPistol();
+		SimpleTimer timeMe = new SimpleTimer(1000);
+		timeMe.addTimeObserver(restrictorshotgun1);
+		assertEquals(97, restrictorshotgun1.shotCounter);
+		assertEquals(89, restrictorshotgun1.damage());
+		for (int x = 120; x >= 0; x--)
+		{
+			restrictorshotgun1.damage();  //deplete remaining turns per rate
+		}
+		//
+		assertEquals(0, restrictorshotgun1.damage());
+		timeMe.timeChanged();
+		assertEquals(97, restrictorshotgun1.shotCounter);
+		for (int x = 100; x >= 0; x--)
+		{
+			restrictorshotgun1.damage();  //deplete remaining turns per rate
+		}
+		restrictorshotgun1.reload();
+		for (int x = 100; x >= 0; x--)
+		{
+			restrictorshotgun1.damage();  //deplete remaining turns per rate
+		}
+		assertEquals(0, restrictorshotgun1.shotCounter);
+		assertEquals(0, restrictorshotgun1.damage());
+	}
 
 	@Test
 	public void testInitialize()
 	{
 		GenericWeapon shootieMcTootie = new MockPistol();
 		assertEquals(96, shootieMcTootie.getMaxAmmo());
-	}
-
-	@Test
-	public void testDamage()
-	{
-		GenericWeapon shooterMcGavin = new MockPistol();
-		assertEquals(99, shooterMcGavin.damage());
-	}
-
-	@Test
-	public void testFire()
-	{
-		GenericWeapon RonaldThump = new MockPistol();
-		RonaldThump.fire();
-		assertEquals(93, RonaldThump.currentAmmo);
-
-	}
-
-	@Test
-	public void testReload()
-	{
-		GenericWeapon shootieMcTootie = new MockPistol();
-		shootieMcTootie.fire();
-		shootieMcTootie.fire();
-		shootieMcTootie.fire();
-		shootieMcTootie.fire(); // the guy MUST be dead by now!!!
-		shootieMcTootie.reload();
-		assertEquals(96, shootieMcTootie.currentAmmo);
-
 	}
 
 	@Test
@@ -68,23 +111,6 @@ public class TestGenericWeapon
 
 	}
 
-	// @Test
-	// public void testFireRate()
-	// {
-	// GenericWeapon restrictorshotgun1 = new MockPistol();
-	// //SimpleTimer timeMe = new SimpleTimer(1000);
-	// //TimeObserver newObserver1 = new TimeObserver();
-	// //timeMe.addTimeObserver(newObserver1);
-	//
-	// restrictorshotgun1.damage();
-	// restrictorshotgun1.damage();
-	// restrictorshotgun1.damage();
-	//
-	//
-	// assertEquals(99,restrictorshotgun1.damage());
-	//
-	// }
-
 }
 
 class MockPistol extends GenericWeapon
@@ -98,14 +124,17 @@ class MockPistol extends GenericWeapon
 		maxAmmo = 96;
 		currentTime = 95;
 		currentAmmo = 94;
+		shotCounter = 97;
 	}
 
 	/**
 	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
 	 */
-	public int damage()
+	@Override
+	public int damageCalculation()
 	{
-		return baseDamage;
+
+		return baseDamage - 10;
 
 	}
 

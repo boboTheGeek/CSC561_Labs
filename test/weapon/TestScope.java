@@ -1,3 +1,9 @@
+/**
+ * testing for scope attachment
+ * 
+ * @author Rob Miles
+ */
+
 package weapon;
 
 import static org.junit.Assert.*;
@@ -18,6 +24,22 @@ public class TestScope
 		Scope inSight = new Scope(myGun);
 		// 99 * (1 + ((98 - 0)/98)) = 198
 		assertEquals(198, inSight.damage());
+	}
+
+	@Test
+	public void test2Attachments()
+	{
+
+		Range.distance = 0;
+		Weapon myGun = new MockPistol();
+		Scope inSight = new Scope(myGun);
+
+		// 99 * (1 + ((98 - 0)/98)) = 198
+		assertEquals(198, inSight.damage());
+
+		// Scope inSight2 = new Scope(inSight);
+		// // 99 * (1 + ((98 - 0)/98)) = 198
+		// assertEquals(200, FinSight2.damage());
 	}
 
 }
