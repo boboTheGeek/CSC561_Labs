@@ -25,5 +25,7 @@ public interface Weapon extends TimeObserver
 	
 	public int getCurrentAmmo();
 	
+	public void reload();
+	
 	
 }

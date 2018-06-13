@@ -131,11 +131,11 @@ public abstract class GenericWeapon implements Weapon
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	public int getCurrentAmmo()
 	{
-		System.out.println(currentAmmo);
+
 		return currentAmmo;
-		
+
 	}
 }
