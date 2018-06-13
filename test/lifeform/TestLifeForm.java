@@ -9,6 +9,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.GenericWeapon;
+import weapon.Weapon;
 
 /**
  * Tests the functionality provided by the LifeForm class
@@ -17,6 +19,33 @@ import lifeform.MockLifeForm;
 public class TestLifeForm
 {
 
+	@Test
+	public void testGetWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
+		Weapon gunnyGunnerson = new MockShooter();
+		entity.pickUpWeapon(gunnyGunnerson);
+		assertEquals(gunnyGunnerson, entity.myWeapon);
+	}
+	
+	@Test
+	public void testDropWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
+		Weapon squirrelHunter = new MockShooter();
+		entity.pickUpWeapon(squirrelHunter);
+		assertEquals(squirrelHunter, entity.myWeapon);
+		entity.dropWeapon();
+		assertEquals(null, entity.myWeapon);
+	}
+	
+	
+	
+	/*****************************************
+	 * Start of lab 3 tests*******************
+	 */
+	
+	
 	/**
 	 * testing getAttackStrength returns present attack strength of the LifeForm
 	 */
@@ -119,4 +148,31 @@ public class TestLifeForm
 
 }
 
+
+class MockShooter extends GenericWeapon
+{
+
+	MockShooter()
+	{
+		baseDamage = 10;
+		maxRange = 10;
+		rateOfFire = 3;
+		maxAmmo = 10;
+		currentTime = 0;
+		currentAmmo = 10;
+		shotCounter = 3;
+	}
+
+	/**
+	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
+	 */
+	@Override
+	public int damageCalculation()
+	{
+
+		return baseDamage - 2;
+
+	}
+
+}
 

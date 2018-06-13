@@ -10,6 +10,8 @@
  */
 package weapon;
 
+import environment.Range;
+
 public abstract class GenericWeapon implements Weapon
 {
 	protected int baseDamage;
@@ -19,13 +21,40 @@ public abstract class GenericWeapon implements Weapon
 	protected int currentTime;
 	protected int currentAmmo;
 	protected int shotCounter;
+	private int attachmentNumber = 0;
 
 	/**
 	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
 	 */
+	/**
+	 * Returns the amount of damage done for a Pistol
+	 * 
+	 * Checks that there is ammo left and that the weapon is in range to do damage
+	 * 
+	 * checks that the shot counter is still valid (can only take so many shots per
+	 * cycle
+	 * 
+	 * otherwise returns no damage
+	 */
+	@Override
 	public int damage()
 	{
-		return 0;
+
+		if ((currentAmmo == 0) || (maxRange < Range.distance))
+		{
+			fire();
+			return 0;
+		}
+		else if (shotCounter > 0)
+		{
+			fire();
+			return damageCalculation();
+		}
+		else
+		{
+			return 0;
+		}
+
 	}
 
 	/**
@@ -52,11 +81,14 @@ public abstract class GenericWeapon implements Weapon
 	}
 
 	/**
-	 * Allows a weapon instance to have a time counter which will be used to implement the firing rate
+	 * Allows a weapon instance to have a time counter which will be used to
+	 * implement the firing rate
 	 * 
-	 * when time is updated, the shot counter is reset to the starting point for another round
+	 * when time is updated, the shot counter is reset to the starting point for
+	 * another round
 	 * 
-	 * @param time - just what it sounds like
+	 * @param time
+	 *            - just what it sounds like
 	 */
 
 	public void updateTime(int time)
@@ -64,9 +96,10 @@ public abstract class GenericWeapon implements Weapon
 		currentTime = time;
 		shotCounter = rateOfFire;
 	}
-	
+
 	/**
-	 * returns the maximum amount of ammo the weapon can hold set by the local istance variable
+	 * returns the maximum amount of ammo the weapon can hold set by the local
+	 * istance variable
 	 */
 	public int getMaxAmmo()
 	{
@@ -74,11 +107,28 @@ public abstract class GenericWeapon implements Weapon
 	}
 
 	/**
-	 * returns the maximum range that the weapon can shoot/reach set by the local instance variable
+	 * returns the maximum range that the weapon can shoot/reach set by the local
+	 * instance variable
 	 */
 	public int getMaxRange()
 	{
 		return maxRange;
+	}
+
+	public int getAttachmentNumber()
+	{
+		return attachmentNumber;
+	}
+
+	/**
+	 * to be overridden by weapon implementations
+	 * 
+	 * @return the requested damage
+	 */
+	public int damageCalculation()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
