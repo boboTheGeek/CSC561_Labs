@@ -12,9 +12,15 @@ public class PowerBooster extends Attachment
 	 public int damage()
 	 
 	  {
-	    int damage = (int) ((int)weapon.damage() * (float)( 1 + (float)(weapon.getCurrentAmmo()/weapon.getMaxAmmo())));
+		 
+		/*float x = weapon.getCurrentAmmo()/weapon.getMaxAmmo();
+		float y = 1 + x;
+		System.out.println(x + "..." + y);
+	    int damage = (int) ((int) weapon.damage() * y);
+	    
 	    System.out.println("damage" + damage);
-	 
+	 */
+		int damage = (int) ((int) weapon.damage() * (1 + (weapon.getCurrentAmmo()/weapon.getMaxAmmo())));
 	    return damage;
 	  
 	  }

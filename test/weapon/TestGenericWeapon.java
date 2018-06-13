@@ -129,7 +129,7 @@ class MockPistol extends GenericWeapon
 		maxRange = 98;
 		rateOfFire = 97;
 		maxAmmo = 96;
-		currentTime = 95;
+		currentTime = 93;
 		currentAmmo = 94;
 		shotCounter = 97;
 	}
