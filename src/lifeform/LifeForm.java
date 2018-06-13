@@ -8,6 +8,7 @@
 package lifeform;
 
 import gameplay.TimeObserver;
+import weapon.Weapon;
 
 public class LifeForm implements TimeObserver
 {
@@ -16,6 +17,7 @@ public class LifeForm implements TimeObserver
 	protected int currentLifePoints;
 	protected int attackStrength;
 	protected int myTime = 0;
+	protected Weapon myWeapon;
 
 	/**
 	 * Create an instance
@@ -112,4 +114,17 @@ public class LifeForm implements TimeObserver
 	{
 		myTime = time;
 	}
+
+	public void pickUpWeapon(Weapon w)
+	{
+		myWeapon = w;
+	}
+
+	public void dropWeapon()
+	{
+		myWeapon = null;
+		
+	}
+	
+	
 }
