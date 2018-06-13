@@ -20,7 +20,7 @@ public class TestPowerBooster {
 	{
 		Weapon chaingun = new MockChainGun();
 		PowerBooster pb = new PowerBooster(chaingun);
-		assertEquals(194, pb.damage());
+		assertEquals(195, pb.damage());
 		pb = new PowerBooster(pb);
 		assertEquals(381, pb.damage());
 	}
