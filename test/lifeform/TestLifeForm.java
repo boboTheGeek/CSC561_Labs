@@ -7,9 +7,13 @@ package lifeform;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import environment.Range;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.ChainGun;
 import weapon.GenericWeapon;
+import weapon.Pistol;
 import weapon.Weapon;
 
 /**
@@ -19,24 +23,13 @@ import weapon.Weapon;
 public class TestLifeForm
 {
 
-	@Test
+	@Test // testing pickup of weapon
 	public void testGetWeapon()
 	{
 		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
 		Weapon gunnyGunnerson = new MockShooter();
 		entity.pickUpWeapon(gunnyGunnerson);
 		assertEquals(gunnyGunnerson, entity.myWeapon);
-	}
-
-	@Test
-	public void testDropWeapon()
-	{
-		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
-		Weapon squirrelHunter = new MockShooter();
-		entity.pickUpWeapon(squirrelHunter);
-		assertEquals(squirrelHunter, entity.myWeapon);
-		entity.dropWeapon();
-		assertEquals(null, entity.myWeapon);
 	}
 
 	@Test // doesn't pick up a second weapon if there is already on in present
@@ -51,8 +44,108 @@ public class TestLifeForm
 		assertEquals(squirrelHunter, entity.myWeapon);
 	}
 
+	@Test
+	public void testDropWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
+		Weapon squirrelHunter = new MockShooter();
+		entity.pickUpWeapon(squirrelHunter);
+		assertEquals(squirrelHunter, entity.myWeapon);
+		entity.dropWeapon();
+		assertEquals(null, entity.myWeapon);
+	}
+
+	@Test // testing attack strength used when no weapon present
+	public void testNoWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
+		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
+		Weapon squirrelHunter = new MockShooter();
+		Range.distance = 2;
+		entity.pickUpWeapon(squirrelHunter);
+		assertEquals(squirrelHunter, entity.myWeapon);
+		entity.dropWeapon();
+		assertEquals(null, entity.myWeapon);
+		// entity2 has 30 life points
+		// entity has attack strength of 5
+		// attacking without a weapon should mean 30 - 5
+		entity.mountAttack(entity2);
+		assertEquals(25, entity2.getLifePoints());
+
+		entity.pickUpWeapon(squirrelHunter);
+	}
+
+	@Test // testing attack strength NOT used when out of range (distance > 10 feet)
+	public void testAttackOutOfRange()
+	{
+		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
+		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
+		Range.distance = 13;
+		// no damage should be done becasue it's greater than 10 feet to attack and
+		// no weapon is present
+		entity.mountAttack(entity2);
+		assertEquals(30, entity2.getLifePoints());
+	}
+
+	@Test // testing attack strength used when no ammo left
+	public void testNoAmmo()
+	{
+		Range.distance = 2;
+		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
+		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
+		Weapon gun = new Pistol();
+		entity.pickUpWeapon(gun);
+		for (int x = 0; x < 10; x++)
+		{
+			gun.damage();
+			gun.updateTime(1);
+		}
+		// entity2 has 30 life points
+		// entity has attack strength of 5
+		// attacking without a weapon should mean 30 - 5
+		entity.mountAttack(entity2);
+		assertEquals(25, entity2.getLifePoints());
+
+	}
+
+	@Test
+	public void testReload()
+	{
+		LifeForm entity = new MockLifeForm("Alien Fred", 30, 7);
+		Weapon squirrelHunter = new MockShooter();
+		entity.pickUpWeapon(squirrelHunter);
+
+		squirrelHunter.damage();
+		squirrelHunter.damage();
+		squirrelHunter.damage();// waste some shots
+
+		assertEquals(7, squirrelHunter.getCurrentAmmo()); // check they're gone
+
+		entity.reloadWeapon();
+		assertEquals(10, entity.myWeapon.getCurrentAmmo());
+
+	}
+
+	@Test
+	public void test2differentWeapons()
+	{
+		Range.distance = 2;
+		LifeForm entity = new MockLifeForm("Alien Fred", 30, 7);
+		LifeForm entity2 = new MockLifeForm("Sargent Snazzypants", 40, 5);
+		Weapon x = new Pistol();
+		Weapon y = new ChainGun();
+		entity.pickUpWeapon(x);
+		entity.mountAttack(entity2);
+		assertEquals(29, entity2.getLifePoints());
+		entity.dropWeapon();
+		entity.pickUpWeapon(y);
+		entity.mountAttack(entity2);
+		assertEquals(28, entity2.getLifePoints());
+
+	}
+
 	/*****************************************
-	 * Start of lab 3 tests*******************
+	 * Start of lab 3 tests for Observer pattern*******************
 	 */
 
 	/**

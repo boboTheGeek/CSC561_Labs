@@ -14,7 +14,7 @@ public class PlasmaCannon extends GenericWeapon
 	 * constructor sets the constants for instance variables for Plasma Cannon.
 	 * baseDamage = 50; maxRange = 20; rateOfFire = 1; maxAmmo = 4;
 	 */
-	PlasmaCannon()
+	public PlasmaCannon()
 	{
 
 		this.baseDamage = 50;
