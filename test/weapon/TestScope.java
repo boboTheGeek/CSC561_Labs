@@ -76,7 +76,7 @@ public class TestScope
 	}
 	
 	/**
-	 * Testing for weapon with a combination of two attachments (Scope + Stabilizer)
+	 * Testing for weapon with a combination of three attachments 
 	 */
 	@Test
 	public void test3attachments()
