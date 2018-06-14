@@ -74,5 +74,21 @@ public class TestScope
 		Scope inSight2 = new Scope(sb);
 		assertEquals(10, inSight2.damage());
 	}
+	
+	/**
+	 * Testing for weapon with a combination of two attachments (Scope + Stabilizer)
+	 */
+	@Test
+	public void test3attachments()
+	{
+		Range.distance = 0;
+		Weapon myGun = new MockPistol();
+		PowerBooster sb = new Stabilizer(myGun);
+		assertEquals(5, sb.damage());
+		Scope inSight2 = new Scope(sb);
+		assertEquals(10, inSight2.damage());
+		Scope inSight3 = new Scope(inSight2);
+		assertNull(inSight3.weapon);
+	}
 
 }

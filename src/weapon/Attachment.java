@@ -28,10 +28,15 @@ public abstract class Attachment implements Weapon
 		{
 			weapon = w;
 		}
+		else if (w.getAttachmentNumber() + 1 == 3)
+		{
+			weapon = null;
+		}
 	}
 
 	/**
-	 * Allows access to pick up the number of attachments that are decorating the weapon.   Max will be 2
+	 * Allows access to pick up the number of attachments that are decorating the
+	 * weapon. Max will be 2
 	 */
 	public int getAttachmentNumber()
 	{
@@ -41,7 +46,8 @@ public abstract class Attachment implements Weapon
 	}
 
 	/**
-	 * allows access to the child weapon's amo so it can be passed and used in decoration methods
+	 * allows access to the child weapon's amo so it can be passed and used in
+	 * decoration methods
 	 */
 	@Override
 	public int getMaxAmmo()
@@ -49,8 +55,10 @@ public abstract class Attachment implements Weapon
 
 		return weapon.getMaxAmmo();
 	}
+
 	/**
-	 * allows access to the child weapon's maxRange so it can be passed and used in decoration methods
+	 * allows access to the child weapon's maxRange so it can be passed and used in
+	 * decoration methods
 	 */
 	@Override
 	public int getMaxRange()
@@ -67,9 +75,10 @@ public abstract class Attachment implements Weapon
 	{
 
 	}
-	
+
 	/**
-	 * allows access ot the child weapon's current ammo so it can be used in decoration methods
+	 * allows access ot the child weapon's current ammo so it can be used in
+	 * decoration methods
 	 */
 	@Override
 	public int getCurrentAmmo()
@@ -77,9 +86,9 @@ public abstract class Attachment implements Weapon
 
 		return weapon.getCurrentAmmo();
 	}
-	
+
 	/**
-* provides access to weapon's reload method that returns ammo to max ammo level
+	 * provides access to weapon's reload method that returns ammo to max ammo level
 	 */
 	@Override
 	public void reload()
