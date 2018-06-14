@@ -41,7 +41,7 @@ public class TestPowerBooster
 	public void test2AttachmentCombinations()
 	{
 		/**
-		 * Scope + Power Booster
+		 * Power Booster + Scope
 		 */
 		Weapon chaingun = new MockChainGun();
 		PowerBooster pb = new PowerBooster(chaingun); 
@@ -49,6 +49,15 @@ public class TestPowerBooster
 		Range.distance = 0;
 		Scope s = new Scope(pb);		
 		assertEquals(388, s.damage());
+		
+		/**
+		 * PowerBooster + Stabilizer
+		 */
+		Weapon chainGun = new MockChainGun();
+		Stabilizer sz = new Stabilizer(chainGun);
+		assertEquals(5, sz.damage());
+		PowerBooster sb = new PowerBooster(sz);
+		assertEquals(9, sb.damage());
 	}
 }
 
