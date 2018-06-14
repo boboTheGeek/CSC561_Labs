@@ -48,7 +48,7 @@ public class TestScope
 	
 	@Test
 	public void testPowerBoosterScope()
-	{
+	{  
 		Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		PowerBooster pb = new PowerBooster(myGun);

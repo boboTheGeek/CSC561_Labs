@@ -9,6 +9,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import environment.Range;
+
 public class TestPowerBooster
 {
 	/**
@@ -34,5 +36,19 @@ public class TestPowerBooster
 		PowerBooster pb2 = new PowerBooster(pb);
 		assertEquals(381, pb2.damage());
 	}
-
+	
+	@Test
+	public void test2AttachmentCombinations()
+	{
+		/**
+		 * Scope + Power Booster
+		 */
+		Weapon chaingun = new MockChainGun();
+		PowerBooster pb = new PowerBooster(chaingun); 
+		assertEquals(195, pb.damage());
+		Range.distance = 0;
+		Scope s = new Scope(pb);		
+		assertEquals(388, s.damage());
+	}
 }
+
