@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class TestGenericWeapon
 {
-	
+
 	@Test // uses ammo when fired
 	public void testFire()
 	{
@@ -122,6 +122,7 @@ public class TestGenericWeapon
 	}
 
 }
+
 /**
  * Mock class for Pistol that extends GenericWeapon
  */
@@ -150,9 +151,10 @@ class MockPistol extends GenericWeapon
 
 	}
 }
+
 /**
  * Mock class for ChainGun that extends GenericWeapon
- */	
+ */
 class MockChainGun extends GenericWeapon
 {
 
@@ -169,7 +171,7 @@ class MockChainGun extends GenericWeapon
 
 	/**
 	 * 
-	 * Returns the amount of damage caused by the weapon 
+	 * Returns the amount of damage caused by the weapon
 	 */
 	@Override
 	public int damageCalculation()

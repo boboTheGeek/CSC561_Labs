@@ -45,5 +45,32 @@ public class TestScope
 		 //178 * (1 + ((98 - 0)/98)) = 356  [aka 178 * 2]
 		assertEquals(356, inSight2.damage());
 	}
+	
+	@Test
+	public void testPowerBoosterScope()
+	{
+		Range.distance = 0;
+		Weapon myGun = new MockPistol();
+		PowerBooster pb = new PowerBooster(myGun);
+
+		// 89 * (1 + ((98 - 0)/98)) =  [aka 89 *2]
+		assertEquals(176, pb.damage());
+		Scope inSight2 = new Scope(pb);
+		 //178 * (1 + ((98 - 0)/98)) = 356  [aka 178 * 2]
+		assertEquals(350, inSight2.damage());
+	}
+	@Test
+	public void testStabilizerScope()
+	{
+		Range.distance = 0;
+		Weapon myGun = new MockPistol();
+		PowerBooster sb = new Stabilizer(myGun);
+
+		// 89 * (1 + ((98 - 0)/98)) =  [aka 89 *2]
+		assertEquals(5, sb.damage());
+		Scope inSight2 = new Scope(sb);
+		 //178 * (1 + ((98 - 0)/98)) = 356  [aka 178 * 2]
+		assertEquals(10, inSight2.damage());
+	}
 
 }
