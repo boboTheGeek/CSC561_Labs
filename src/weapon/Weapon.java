@@ -11,7 +11,7 @@ package weapon;
 
 import gameplay.TimeObserver;
 
-public interface Weapon extends TimeObserver
+public interface Weapon extends TimeObserver 
 {
 	public int damage();
 
@@ -22,9 +22,10 @@ public interface Weapon extends TimeObserver
 	void updateTime(int time);
 
 	public int getAttachmentNumber();
-
+	
 	public int getCurrentAmmo();
-
+	
 	public void reload();
-
+	
+	
 }

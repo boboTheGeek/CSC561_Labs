@@ -7,7 +7,6 @@
 
 package lifeform;
 
-import environment.Range;
 import gameplay.TimeObserver;
 import weapon.Weapon;
 
@@ -92,22 +91,12 @@ public class LifeForm implements TimeObserver
 
 	public void mountAttack(LifeForm victim)
 	{
-		int calcAttackStrength = 0;
-		if ((myWeapon != null) && (myWeapon.getCurrentAmmo() > 0))
-		{
-			calcAttackStrength = myWeapon.damage();
-		}
-		else if (Range.distance < 10)
-		{
-			calcAttackStrength = attackStrength;
-		}
-
 		if (currentLifePoints != 0)
 		{
 			if (victim instanceof Human) // victim is human
 			{
 				// TODO is refactoring to be in Human subclass, override takeHit?
-				int hitVal = calcAttackStrength - ((Human) victim).getArmorPoints();
+				int hitVal = attackStrength - ((Human) victim).getArmorPoints();
 				if (hitVal > 0)
 				{
 					victim.takeHit(hitVal);
@@ -115,7 +104,7 @@ public class LifeForm implements TimeObserver
 			}
 			else // victim is an alien
 			{
-				victim.takeHit(calcAttackStrength);
+				victim.takeHit(attackStrength);
 			}
 		}
 	}
@@ -149,12 +138,6 @@ public class LifeForm implements TimeObserver
 	public void dropWeapon()
 	{
 		myWeapon = null;
-
-	}
-
-	public void reloadWeapon()
-	{
-		myWeapon.reload();
 
 	}
 

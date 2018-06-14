@@ -19,7 +19,7 @@ public class Pistol extends GenericWeapon
 	 * constructor sets the constants for instance variables related to Pistol.
 	 * baseDamage = 10; maxRange = 25; rateOfFire = 2; maxAmmo = 10;
 	 */
-	public Pistol()
+	Pistol()
 	{
 
 		this.baseDamage = 10;

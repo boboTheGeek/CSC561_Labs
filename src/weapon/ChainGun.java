@@ -17,7 +17,7 @@ public class ChainGun extends GenericWeapon
 	 * constructor sets the constants for instance variables for Chain Gun.
 	 * baseDamage = 15; maxRange = 30; rateOfFire = 4; maxAmmo = 40;
 	 */
-	public ChainGun()
+	ChainGun()
 	{
 
 		this.baseDamage = 15;
