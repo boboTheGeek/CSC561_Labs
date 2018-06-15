@@ -7,7 +7,9 @@
 
 package lifeform;
 
+import environment.Range;
 import gameplay.TimeObserver;
+import weapon.Weapon;
 
 public class LifeForm implements TimeObserver
 {
@@ -16,6 +18,7 @@ public class LifeForm implements TimeObserver
 	protected int currentLifePoints;
 	protected int attackStrength;
 	protected int myTime = 0;
+	protected Weapon myWeapon;
 
 	/**
 	 * Create an instance
@@ -89,12 +92,22 @@ public class LifeForm implements TimeObserver
 
 	public void mountAttack(LifeForm victim)
 	{
+		int calcAttackStrength = 0;
+		if ((myWeapon != null) && (myWeapon.getCurrentAmmo() > 0))
+		{
+			calcAttackStrength = myWeapon.damage();
+		}
+		else if (Range.distance < 10)
+		{
+			calcAttackStrength = attackStrength;
+		}
+
 		if (currentLifePoints != 0)
 		{
 			if (victim instanceof Human) // victim is human
 			{
 				// TODO is refactoring to be in Human subclass, override takeHit?
-				int hitVal = attackStrength - ((Human) victim).getArmorPoints();
+				int hitVal = calcAttackStrength - ((Human) victim).getArmorPoints();
 				if (hitVal > 0)
 				{
 					victim.takeHit(hitVal);
@@ -102,7 +115,7 @@ public class LifeForm implements TimeObserver
 			}
 			else // victim is an alien
 			{
-				victim.takeHit(attackStrength);
+				victim.takeHit(calcAttackStrength);
 			}
 		}
 	}
@@ -112,4 +125,37 @@ public class LifeForm implements TimeObserver
 	{
 		myTime = time;
 	}
+
+	/**
+	 * Allows a life form to pick up a weapon which is stored in in instance
+	 * variable in LifeForm. Will not allow that to happen if there is already a
+	 * weapon there.
+	 * 
+	 * @param w
+	 *            - the weapon to pick up and store
+	 */
+	public void pickUpWeapon(Weapon w)
+	{
+		if (myWeapon == null)
+		{
+			myWeapon = w;
+		}
+	}
+
+	/**
+	 * Allows a life form to drop whatever weapon is being held (in the local
+	 * instance variable). Will assign weapon slot to null.
+	 */
+	public void dropWeapon()
+	{
+		myWeapon = null;
+
+	}
+
+	public void reloadWeapon()
+	{
+		myWeapon.reload();
+
+	}
+
 }

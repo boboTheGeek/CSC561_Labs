@@ -71,7 +71,6 @@ public class TestAlien
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(1, alien.myTime);
 		assertEquals(20, alien.getLifePoints());
 		
@@ -97,24 +96,20 @@ public class TestAlien
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(1, alien.myTime);
 		assertEquals(20, alien.getLifePoints());
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(2, alien.myTime);
 		assertEquals(23, alien.getLifePoints());
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(23, alien.getLifePoints());
 
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(26, alien.getLifePoints());
 
 	}
@@ -134,24 +129,20 @@ public class TestAlien
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(1, alien.myTime);
 		assertEquals(20, alien.getLifePoints());
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(2, alien.myTime);
 		assertEquals(20, alien.getLifePoints());
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(23, alien.getLifePoints());
 
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(23, alien.getLifePoints());
 		
 		///   here is the second recovery rate (every cycle)
@@ -160,12 +151,10 @@ public class TestAlien
 		assertEquals(20, alien.getLifePoints());
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(23, alien.getLifePoints());
 		
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
-		alien.recover();
 		assertEquals(26, alien.getLifePoints());
 
 
@@ -188,13 +177,11 @@ public class TestAlien
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
 
-		alien.recover();
 		assertEquals(20, alien.getLifePoints());
 
 		hiTimer.overrideIncrementCurrentTime();
 		hiTimer.timeChanged();
 
-		alien.recover();
 		assertEquals(20, alien.getLifePoints());
 
 	}
