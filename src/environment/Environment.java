@@ -6,14 +6,20 @@
 
 package environment;
 
+import java.util.HashMap;
+
 import lifeform.LifeForm;
+import weapon.Weapon;
 
 public class Environment
 {
 
+	public static Environment theWorld;
 	private Cell[][] cells;
 	private int numrows;
 	private int numcols;
+	private HashMap<LifeForm, Cell> entityLocations = new HashMap<>();
+	private HashMap<Weapon, Cell> weaponLocations = new HashMap<>();
 
 	/**
 	 * Initialize environment instance with specified 2D dimensions
@@ -24,13 +30,28 @@ public class Environment
 	 * @param cols
 	 *            - the number of columns in the 2D environment array
 	 */
-	public Environment(int rows, int cols)
+	private Environment(int rows, int cols)
 	{
 
 		cells = new Cell[rows][cols];
 		numrows = rows;
 		numcols = cols;
 
+	}
+
+	public static void creatWorld(int rows, int cols)
+	{
+		if (theWorld == null)
+		{
+			theWorld = new Environment(rows, cols);
+		}
+
+	}
+	
+	public static Environment getWorld()
+	{
+
+		return theWorld;
 	}
 
 	/**
@@ -57,9 +78,9 @@ public class Environment
 			Cell containerCell = new Cell();
 			containerCell.addLifeForm(entity);
 			cells[row][col] = containerCell;
+			entityLocations.put(entity, containerCell);
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -83,8 +104,7 @@ public class Environment
 		{
 
 			return cells[row][col].getLifeForm();
-		}
-		else
+		} else
 		{
 			return null;
 		}
@@ -103,19 +123,28 @@ public class Environment
 	 * 
 	 * @return life form removed else null
 	 */
-	public LifeForm removeLifeForm(int row, int col)
+	public LifeForm removeLifeFormByCell(int row, int col)
 	{
 		if (cells[row][col] != null)
 		{
 			LifeForm removeMe = cells[row][col].getLifeForm();
 			cells[row][col] = null;
+			entityLocations.remove(removeMe);
 			return removeMe;
-		}
-		else
+		} else
 		{
 			return null;
 		}
 
 	}
+
+	public void addWeapon(Weapon wep, int row, int col)
+	{
+		
+		weaponLocations.put(wep, cells[row][col]);
+		
+	}
+
+
 
 }

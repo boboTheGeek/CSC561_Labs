@@ -1,5 +1,5 @@
 /**
- * Test cases for Environment class
+ * Test  cases for Environment class
  * @Author: Rob Miles
  */
 
@@ -12,9 +12,57 @@ import org.junit.Test;
 import environment.Environment;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.Pistol;
+import weapon.Weapon;
 
 public class TestEnvironment
 {
+
+	@Test // test initialization works as singleton
+	public void testSigleton()
+	{
+		Environment.creatWorld(4, 5);
+		Environment theWorld = Environment.getWorld();
+
+	}
+
+	@Test // test can clear the singleton from previous settings
+	public void testClearWorld()
+	{
+	}
+
+	@Test // test we can Add/Remove a weapon from a specific location
+	public void testAddRemoveWeapon()
+	{
+		Weapon pewPewPew = new Pistol();
+
+		Environment.creatWorld(4, 4);
+		//Environment.theWorld.addWeapon(pewPewPew, 0, 0);
+		
+
+	}
+
+	@Test // test we can determine range along the same row
+	public void testDetermineRowDistance()
+	{
+	}
+
+	@Test // test we can determine range along the same column
+	public void testDetermineColumnDistance()
+	{
+	}
+
+	@Test // test we can determine range from diagonal reference position
+	public void testDetermineDiagonalDistance()
+	{
+	}
+
+	/****************************************************************************
+	 * Old tests from previous labs start here
+	 * ****************************************************************************
+	 * 
+	 * 
+	 */
 	/**
 	 * Test a basic positive case instantiating an Environment and populating a cell
 	 * with a LifeForm
@@ -26,7 +74,9 @@ public class TestEnvironment
 		/*
 		 * Create an Environment instance that consists of 2 rows and 3 columns.
 		 */
-		Environment myEnvironment = new Environment(2, 3);
+
+		Environment.creatWorld(2, 3);
+		Environment myEnvironment = Environment.getWorld();
 
 		/*
 		 * Create and add LifeForm instance to store in the Environment.
@@ -53,13 +103,13 @@ public class TestEnvironment
 		/*
 		 * test that we can remove a LifeForm from a cell
 		 */
-		LifeForm removeMe = myEnvironment.removeLifeForm(1, 2);
+		LifeForm removeMe = myEnvironment.removeLifeFormByCell(1, 2);
 		assertEquals(jill, removeMe);
 
 		/*
 		 * test we can handle if we try to remove LifeForm from a blank cell
 		 */
-		assertEquals(null, myEnvironment.removeLifeForm(1, 2));
+		assertEquals(null, myEnvironment.removeLifeFormByCell(1, 2));
 
 		/*
 		 * test we can handle if we try to get from a blank cell
