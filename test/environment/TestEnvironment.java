@@ -1,5 +1,5 @@
 /**
- * Test cases for Environment class
+ * Test  cases for Environment class
  * @Author: Rob Miles
  */
 
@@ -10,23 +10,78 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import environment.Environment;
+import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.Pistol;
+import weapon.Weapon;
 
 public class TestEnvironment
 {
+
+	@Test // test initialization works as singleton
+	public void testSigleton()
+	{
+		Environment.createWorld(4, 5);
+		Environment theWorld = Environment.getWorld();
+		assertTrue(Environment.theWorld instanceof Environment);
+	}
+
+	@Test // test can clear the singleton from previous settings
+	public void testClearWorld()
+	{
+	}
+
+	@Test // test we can Add/Remove a weapon from a specific location
+	public void testAddRemoveWeapon() throws RException
+	{
+		Environment.resetWorld();
+		Weapon pewPewPew = new Pistol();
+
+		Environment.createWorld(10, 10);
+		Environment.theWorld.addWeapon(2,2, pewPewPew);
+		assertEquals(pewPewPew, Environment.theWorld.getWeapon(2,2, pewPewPew));
+		Environment.theWorld.removeWeaponByCell(2,2, pewPewPew);
+		assertNull(Environment.theWorld.getWeapon(2,2, pewPewPew));
+
+	}
+
+	@Test // test we can determine range along the same row
+	public void testDetermineRowDistance()
+	{
+	}
+
+	@Test // test we can determine range along the same column
+	public void testDetermineColumnDistance()
+	{
+	}
+
+	@Test // test we can determine range from diagonal reference position
+	public void testDetermineDiagonalDistance()
+	{
+	}
+
+	/****************************************************************************
+	 * Old tests from previous labs start here
+	 * ****************************************************************************
+	 * 
+	 * 
+	 */
 	/**
 	 * Test a basic positive case instantiating an Environment and populating a cell
 	 * with a LifeForm
+	 * @throws RException 
 	 */
 	@Test
-	public void makeBasicEnvt()
+	public void makeBasicEnvt() throws RException
 	{
 
 		/*
 		 * Create an Environment instance that consists of 2 rows and 3 columns.
 		 */
-		Environment myEnvironment = new Environment(2, 3);
+
+		Environment.createWorld(2, 3);
+		Environment myEnvironment = Environment.getWorld();
 
 		/*
 		 * Create and add LifeForm instance to store in the Environment.
@@ -50,16 +105,17 @@ public class TestEnvironment
 		 */
 		assertFalse(myEnvironment.addLifeForm(5, 7, jill));
 
+
 		/*
 		 * test that we can remove a LifeForm from a cell
 		 */
-		LifeForm removeMe = myEnvironment.removeLifeForm(1, 2);
+		LifeForm removeMe = myEnvironment.removeLifeFormByCell(1, 2);
 		assertEquals(jill, removeMe);
 
 		/*
 		 * test we can handle if we try to remove LifeForm from a blank cell
 		 */
-		assertEquals(null, myEnvironment.removeLifeForm(1, 2));
+		assertEquals(null, myEnvironment.removeLifeFormByCell(1, 2));
 
 		/*
 		 * test we can handle if we try to get from a blank cell

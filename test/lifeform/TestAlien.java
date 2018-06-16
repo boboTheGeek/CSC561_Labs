@@ -188,6 +188,7 @@ public class TestAlien
 
 
 	//throws exception if rate is < 0
+	@SuppressWarnings("unused")
 	@Test(expected = RException.class) // throws exception for negatives
 	public void testRecoveryRateNegative() throws RException
 	{

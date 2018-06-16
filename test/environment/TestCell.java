@@ -20,6 +20,7 @@ import weapon.Weapon;
 public class TestCell
 {
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testAddWeapon() throws RException
 	{
