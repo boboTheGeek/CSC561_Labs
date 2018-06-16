@@ -41,12 +41,10 @@ public class Cell
 		{
 			identity = entity;
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
-
 	}
 
 	/**
@@ -62,45 +60,67 @@ public class Cell
 			LifeForm id = identity;
 			identity = null;
 			return id;
-		}
-		else
+		} else
 		{
 			return null;
 		}
-
 	}
 
+	/**
+	 * Adds a weapon to a cell, will fill the first position if that is not already
+	 * filled with a weapon, otherwise will fill the second position. Trying to add
+	 * a weapon when both slots are filled results in an exception
+	 * 
+	 * @param w
+	 *            - the weapon to add to the cell
+	 * @throws RException
+	 */
 	public void addWeapon(Weapon w) throws RException
 	{
 		if (weapon1 == null)
 		{
 			weapon1 = w;
-		}
-		else if (weapon2 == null)
+		} else if (weapon2 == null)
 		{
 			weapon2 = w;
-		}
-		else if ((weapon1 != null) && (weapon2 != null))
+		} else if ((weapon1 != null) && (weapon2 != null))
 		{
 			throw new RException("this cell is full of weapons already");
 		}
-
 	}
 
+	/**
+	 * removes a specific weapon from the cell
+	 * 
+	 * @param w
+	 *            - the weapon that should be removed
+	 * @throws RException
+	 */
 	public void removeWeapon(Weapon w) throws RException
 	{
 		if (weapon1 == w)
 		{
 			weapon1 = null;
-		}
-		else if (weapon2 == w)
+		} else if (weapon2 == w)
 		{
 			weapon2 = null;
-		}
-		else
+		} else
 		{
 			throw new RException("Weapon can't be found; therefore can't be removed");
 		}
+	}
 
+	public Weapon getWeapon(Weapon w) throws RException
+	{
+		if (weapon1 == w)
+		{
+			return weapon1;
+		} else if (weapon2 == w)
+		{
+			return weapon2;
+		} else
+		{
+			throw new RException("Weapon can't be found");
+		}
 	}
 }

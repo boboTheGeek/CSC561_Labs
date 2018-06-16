@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import environment.Environment;
+import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.Pistol;
@@ -21,9 +22,9 @@ public class TestEnvironment
 	@Test // test initialization works as singleton
 	public void testSigleton()
 	{
-		Environment.creatWorld(4, 5);
+		Environment.createWorld(4, 5);
 		Environment theWorld = Environment.getWorld();
-
+		assertTrue(Environment.theWorld instanceof Environment);
 	}
 
 	@Test // test can clear the singleton from previous settings
@@ -32,13 +33,16 @@ public class TestEnvironment
 	}
 
 	@Test // test we can Add/Remove a weapon from a specific location
-	public void testAddRemoveWeapon()
+	public void testAddRemoveWeapon() throws RException
 	{
+		Environment.resetWorld();
 		Weapon pewPewPew = new Pistol();
 
-		Environment.creatWorld(4, 4);
-		//Environment.theWorld.addWeapon(pewPewPew, 0, 0);
-		
+		Environment.createWorld(10, 10);
+		Environment.theWorld.addWeapon(2,2, pewPewPew);
+		assertEquals(pewPewPew, Environment.theWorld.getWeapon(2,2, pewPewPew));
+		Environment.theWorld.removeWeaponByCell(2,2, pewPewPew);
+		assertNull(Environment.theWorld.getWeapon(2,2, pewPewPew));
 
 	}
 
@@ -66,16 +70,17 @@ public class TestEnvironment
 	/**
 	 * Test a basic positive case instantiating an Environment and populating a cell
 	 * with a LifeForm
+	 * @throws RException 
 	 */
 	@Test
-	public void makeBasicEnvt()
+	public void makeBasicEnvt() throws RException
 	{
 
 		/*
 		 * Create an Environment instance that consists of 2 rows and 3 columns.
 		 */
 
-		Environment.creatWorld(2, 3);
+		Environment.createWorld(2, 3);
 		Environment myEnvironment = Environment.getWorld();
 
 		/*
@@ -99,6 +104,7 @@ public class TestEnvironment
 		 * test for adding item out of bounds location 5, 7 doesn't exist
 		 */
 		assertFalse(myEnvironment.addLifeForm(5, 7, jill));
+
 
 		/*
 		 * test that we can remove a LifeForm from a cell
