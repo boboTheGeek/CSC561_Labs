@@ -7,13 +7,16 @@
 
 package environment;
 
+import exceptions.RException;
 import lifeform.LifeForm;
-
+import weapon.Weapon;
 
 public class Cell
 {
 
 	protected LifeForm identity;
+	protected Weapon weapon1;
+	protected Weapon weapon2;
 
 	/**
 	 * @return the LifeForm in this Cell.
@@ -63,6 +66,40 @@ public class Cell
 		else
 		{
 			return null;
+		}
+
+	}
+
+	public void addWeapon(Weapon w) throws RException
+	{
+		if (weapon1 == null)
+		{
+			weapon1 = w;
+		}
+		else if (weapon2 == null)
+		{
+			weapon2 = w;
+		}
+		else if ((weapon1 != null) && (weapon2 != null))
+		{
+			throw new RException("this cell is full of weapons already");
+		}
+
+	}
+
+	public void removeWeapon(Weapon w) throws RException
+	{
+		if (weapon1 == w)
+		{
+			weapon1 = null;
+		}
+		else if (weapon2 == w)
+		{
+			weapon2 = null;
+		}
+		else
+		{
+			throw new RException("Weapon can't be found; therefore can't be removed");
 		}
 
 	}

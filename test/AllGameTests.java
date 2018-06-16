@@ -1,3 +1,4 @@
+
 /**
  * Test Suite for full game
  * Author: Rob Miles, Chandana G
@@ -27,22 +28,9 @@ import weapon.TestScope;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
-{ 		TestLifeForm.class, 
-		TestCell.class, 
-		TestEnvironment.class, 
-		TestHuman.class, 
-		TestAlien.class, 
-		TestRecoveryNone.class,
-		TestRecoveryLinear.class, 
-		TestRecoveryFractional.class, 
-		TestSimpleTimer.class, 
-		TestChainGun.class, 
-		TestGenericWeapon.class, 
-		TestPistol.class, 
-		TestPlasmaCannon.class, 
-		TestPowerBooster.class,
-		TestScope.class 
-})
+{ TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
+		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestChainGun.class,
+		TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class, TestScope.class })
 
 public class AllGameTests
 {
