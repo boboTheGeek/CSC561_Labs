@@ -39,26 +39,55 @@ public class TestEnvironment
 		Weapon pewPewPew = new Pistol();
 
 		Environment.createWorld(10, 10);
-		Environment.theWorld.addWeapon(2,2, pewPewPew);
-		assertEquals(pewPewPew, Environment.theWorld.getWeapon(2,2, pewPewPew));
-		Environment.theWorld.removeWeaponByCell(2,2, pewPewPew);
-		assertNull(Environment.theWorld.getWeapon(2,2, pewPewPew));
+		Environment.theWorld.addWeapon(2, 2, pewPewPew);
+		assertEquals(pewPewPew, Environment.theWorld.getWeapon(2, 2, pewPewPew));
+		Environment.theWorld.removeWeaponByCell(2, 2, pewPewPew);
+		assertNull(Environment.theWorld.getWeapon(2, 2, pewPewPew));
 
 	}
 
 	@Test // test we can determine range along the same row
 	public void testDetermineRowDistance()
 	{
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+
+		LifeForm anna = new MockLifeForm("anna", 50);
+		LifeForm elsa = new MockLifeForm("elsa", 50);
+
+		Environment.theWorld.addLifeForm(0, 2, anna);
+		Environment.theWorld.addLifeForm(2, 2, elsa);
+		assertEquals(2.0, Environment.theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range along the same column
 	public void testDetermineColumnDistance()
 	{
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+
+		LifeForm anna = new MockLifeForm("anna", 50);
+		LifeForm elsa = new MockLifeForm("elsa", 50);
+
+		Environment.theWorld.addLifeForm(2, 4, anna);
+		Environment.theWorld.addLifeForm(2, 2, elsa);
+		assertEquals(2.0, Environment.theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range from diagonal reference position
 	public void testDetermineDiagonalDistance()
 	{
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+
+		LifeForm anna = new MockLifeForm("anna", 50);
+		LifeForm elsa = new MockLifeForm("elsa", 50);
+
+		Environment.theWorld.addLifeForm(2, 4, anna);
+		Environment.theWorld.addLifeForm(6, 8, elsa);
+		//
+
+		assertEquals(5.6f, Environment.theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	/****************************************************************************
@@ -70,7 +99,8 @@ public class TestEnvironment
 	/**
 	 * Test a basic positive case instantiating an Environment and populating a cell
 	 * with a LifeForm
-	 * @throws RException 
+	 * 
+	 * @throws RException
 	 */
 	@Test
 	public void makeBasicEnvt() throws RException
@@ -79,7 +109,7 @@ public class TestEnvironment
 		/*
 		 * Create an Environment instance that consists of 2 rows and 3 columns.
 		 */
-
+		Environment.resetWorld();
 		Environment.createWorld(2, 3);
 		Environment myEnvironment = Environment.getWorld();
 
@@ -104,7 +134,6 @@ public class TestEnvironment
 		 * test for adding item out of bounds location 5, 7 doesn't exist
 		 */
 		assertFalse(myEnvironment.addLifeForm(5, 7, jill));
-
 
 		/*
 		 * test that we can remove a LifeForm from a cell

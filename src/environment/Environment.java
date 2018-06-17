@@ -70,11 +70,12 @@ public class Environment
 
 		return theWorld;
 	}
-	
-	public static void resetWorld() {
+
+	public static void resetWorld()
+	{
 		theWorld = null;
-		//clear the arrays
-		
+		// clear the arrays
+
 	}
 
 	/**
@@ -103,10 +104,11 @@ public class Environment
 			cells[row][col] = containerCell;
 			int[] loc = new int[2];
 			loc[0] = row;
-			loc[0] = col;
+			loc[1] = col;
 			entityLocations.put(entity, loc);
 			return true;
-		} else
+		}
+		else
 		{
 			return false;
 		}
@@ -128,7 +130,8 @@ public class Environment
 		if (cells[row][col] != null)
 		{
 			return cells[row][col].getLifeForm();
-		} else
+		}
+		else
 		{
 			return null;
 		}
@@ -154,7 +157,8 @@ public class Environment
 			cells[row][col] = null;
 			entityLocations.remove(removeMe);
 			return removeMe;
-		} else
+		}
+		else
 		{
 			return null;
 		}
@@ -173,27 +177,27 @@ public class Environment
 	 * @return life form removed else null
 	 * @throws RException
 	 */
-//	public LifeForm removeLifeForm(LifeForm entity) throws RException
-//	{
-//		;
-//		if (entityLocations.get(entity) != null)
-//		{
-//			System.out.println(entityLocations.get(entity));
-//			entityLocations.get(entity).removeLifeForm();
-//			// LifeForm removeMe = cells[row][col].getLifeForm();
-//			// cells[row][col] = null;
-//			// entityLocations.remove(removeMe);
-//			return null;
-//		} else
-//		{
-//			throw new RException("there is no one by this name to remove");
-//		}
-//	}
+	// public LifeForm removeLifeForm(LifeForm entity) throws RException
+	// {
+	// ;
+	// if (entityLocations.get(entity) != null)
+	// {
+	// System.out.println(entityLocations.get(entity));
+	// entityLocations.get(entity).removeLifeForm();
+	// // LifeForm removeMe = cells[row][col].getLifeForm();
+	// // cells[row][col] = null;
+	// // entityLocations.remove(removeMe);
+	// return null;
+	// } else
+	// {
+	// throw new RException("there is no one by this name to remove");
+	// }
+	// }
 
 	/**
-	 * Adds a Weapon to the Cell theCells[row][col]. Will not add the Weapon if
-	 * the row and col are invalid or if a Weapon is already in that Cell. Returns
-	 * true if successfully added, false otherwise.n
+	 * Adds a Weapon to the Cell theCells[row][col]. Will not add the Weapon if the
+	 * row and col are invalid or if a Weapon is already in that Cell. Returns true
+	 * if successfully added, false otherwise.n
 	 * 
 	 * @param row
 	 *            - the row address of the 2D array
@@ -206,7 +210,7 @@ public class Environment
 	 * 
 	 * @return true or false depending on whether the life form was successfully
 	 *         added
-	 * @throws RException 
+	 * @throws RException
 	 */
 	public boolean addWeapon(int row, int col, Weapon weapon) throws RException
 	{
@@ -220,7 +224,8 @@ public class Environment
 			loc[0] = col;
 			weaponLocations.put(weapon, loc);
 			return true;
-		} else
+		}
+		else
 		{
 			return false;
 		}
@@ -236,14 +241,15 @@ public class Environment
 	 *            - column coordinate from 2D environment array
 	 * 
 	 * @return requested LifeForm (null if empty)
-	 * @throws RException 
+	 * @throws RException
 	 */
 	public Weapon getWeapon(int row, int col, Weapon weapon) throws RException
 	{
 		if (cells[row][col] != null)
 		{
 			return cells[row][col].getWeapon(weapon);
-		} else
+		}
+		else
 		{
 			return null;
 		}
@@ -260,7 +266,7 @@ public class Environment
 	 *            - column coordinate from 2D environment array
 	 * 
 	 * @return life form removed else null
-	 * @throws RException 
+	 * @throws RException
 	 */
 	public Weapon removeWeaponByCell(int row, int col, Weapon weapon) throws RException
 	{
@@ -270,10 +276,23 @@ public class Environment
 			cells[row][col] = null;
 			weaponLocations.remove(removeMe);
 			return removeMe;
-		} else
+		}
+		else
 		{
 			return null;
 		}
+	}
+
+	public double getRange(LifeForm entity1, LifeForm entity2)
+	{
+		int[] l1 = entityLocations.get(entity1);
+		int[] l2 = entityLocations.get(entity2);
+		int rDelta = l2[0] - l1[0];
+		int cDelta = l2[1] - l1[1];
+		rDelta = rDelta * rDelta;
+		cDelta = cDelta * cDelta;
+		double distance = Math.sqrt(rDelta + cDelta);
+		return distance;
 	}
 
 }
