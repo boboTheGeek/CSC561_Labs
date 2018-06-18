@@ -6,9 +6,7 @@
 package environment;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import environment.Cell;
 import exceptions.RException;
 import lifeform.LifeForm;
@@ -19,65 +17,6 @@ import weapon.Weapon;
 
 public class TestCell
 {
-
-	@SuppressWarnings("unused")
-	@Test
-	public void testAddWeapon() throws RException
-	{
-		Weapon pDog = new Pistol();
-		Weapon cDog = new ChainGun();
-		Weapon threeDog = new ChainGun();
-		Cell cell = new Cell();
-		assertNull(cell.weapon1);
-		cell.addWeapon(pDog);
-		cell.addWeapon(cDog);
-		assertEquals(pDog, cell.weapon1);
-		assertEquals(cDog, cell.weapon2);
-
-	}
-
-	@Test 
-	public void testRemoveWeapon() throws RException
-	{
-		Weapon pDog = new Pistol();
-		Weapon cDog = new ChainGun();
-		Cell cell = new Cell();
-		assertNull(cell.weapon1);
-		cell.addWeapon(pDog);
-		cell.addWeapon(cDog);
-		cell.removeWeapon(cDog);
-		assertNull(cell.weapon2);
-		cell.removeWeapon(pDog);
-		assertNull(cell.weapon1);
-		try  //to remove a third weapon even if it's not there
-		{
-			cell.removeWeapon(pDog);
-		}
-		catch (RException e)
-		{
-			assertTrue(e instanceof RException);
-		}
-		
-	}
-
-	@Test(expected = RException.class)
-	public void testAdd3Weapon() throws RException
-	{
-		Weapon pDog = new Pistol();
-		Weapon cDog = new ChainGun();
-		Weapon threeDog = new ChainGun();
-		Cell cell = new Cell();
-		assertNull(cell.weapon1);
-		cell.addWeapon(pDog);
-		cell.addWeapon(cDog);
-		cell.addWeapon(threeDog);
-
-	}
-
-	/***********************************************************************
-	 * 8 Beginning of old tests
-	 * *************************************************************************
-	 */
 	/**
 	 * At initialization, the Cell should be empty and not contain a LifeForm.
 	 */
@@ -87,6 +26,69 @@ public class TestCell
 		Cell cell = new Cell();
 		assertNull(cell.getLifeForm());
 	}
+
+	@SuppressWarnings("unused")
+	@Test
+	public void testAddWeapon() throws RException
+	{
+		Weapon pDog = new Pistol();
+		Weapon cDog = new ChainGun();
+		Weapon threeDog = new ChainGun();
+		Cell cell = new Cell();
+		cell.addWeapon(pDog);
+		cell.addWeapon(cDog);
+		assertEquals(pDog, cell.getWeapon(pDog));
+		assertEquals(cDog, cell.getWeapon(cDog));
+	}
+
+	@Test
+	public void testRemoveWeapon() throws RException
+	{
+		Weapon pDog = new Pistol();
+		Weapon cDog = new ChainGun();
+		Cell cell = new Cell();
+		assertNull(cell.getWeapon1());
+		cell.addWeapon(pDog);
+		cell.addWeapon(cDog);
+		cell.removeWeapon(cDog);
+		assertNull(cell.getWeapon2());
+		cell.removeWeapon(pDog);
+		assertNull(cell.getWeapon1());
+		try // to remove a third weapon even if it's not there
+		{
+			cell.removeWeapon(pDog);
+		}
+		catch (RException e)
+		{
+			assertTrue(e instanceof RException);
+		}
+
+	}
+
+	@Test // asserts that an RException is triggered when you try to add too many weapons
+	public void testAdd3rdWeapon() throws RException
+	{
+		Weapon pDog = new Pistol();
+		Weapon cDog = new ChainGun();
+		Weapon threeDog = new ChainGun();
+		Cell cell = new Cell();
+		cell.addWeapon(pDog);
+		cell.addWeapon(cDog);
+		try
+		{
+			cell.addWeapon(threeDog);
+		}
+		catch (RException e)
+		{
+			assertTrue(e instanceof RException);
+		}
+
+	}
+
+	/***********************************************************************
+	 * Beginning of old tests lab 4 and before
+	 * *************************************************************************
+	 */
 
 	/**
 	 * Checks to see if we change the LifeForm held by the Cell that getLifeForm
