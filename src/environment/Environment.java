@@ -8,6 +8,7 @@ package environment;
 
 import java.util.HashMap;
 
+import exceptions.EnvironmentException;
 import exceptions.RException;
 import lifeform.LifeForm;
 import weapon.Weapon;
@@ -51,12 +52,17 @@ public class Environment
 	 * @param cols
 	 *            - how many columns of cells the environment of the world will
 	 *            have.
+	 * @throws RException
 	 */
-	public static void createWorld(int rows, int cols)
+	public static void createWorld(int rows, int cols) throws RException
 	{
 		if (theWorld == null)
 		{
 			theWorld = new Environment(rows, cols);
+		}
+		else
+		{
+			throw new RException("your world is already created");
 		}
 	}
 
@@ -149,7 +155,7 @@ public class Environment
 	 * 
 	 * @return life form removed else null
 	 */
-	public LifeForm removeLifeFormByCell(int row, int col)
+	public LifeForm removeLifeForm(int row, int col)
 	{
 		if (cells[row][col] != null)
 		{
@@ -163,36 +169,6 @@ public class Environment
 			return null;
 		}
 	}
-
-	/**
-	 * Removes the LifeForm at theCells[row][col]. Returns the LifeForm removed
-	 * (null if no LifeForm in the Cell).
-	 * 
-	 * @param row
-	 *            - row coordinate from 2D environment array
-	 * 
-	 * @param col
-	 *            - column coordinate from 2D environment array
-	 * 
-	 * @return life form removed else null
-	 * @throws RException
-	 */
-	// public LifeForm removeLifeForm(LifeForm entity) throws RException
-	// {
-	// ;
-	// if (entityLocations.get(entity) != null)
-	// {
-	// System.out.println(entityLocations.get(entity));
-	// entityLocations.get(entity).removeLifeForm();
-	// // LifeForm removeMe = cells[row][col].getLifeForm();
-	// // cells[row][col] = null;
-	// // entityLocations.remove(removeMe);
-	// return null;
-	// } else
-	// {
-	// throw new RException("there is no one by this name to remove");
-	// }
-	// }
 
 	/**
 	 * Adds a Weapon to the Cell theCells[row][col]. Will not add the Weapon if the
@@ -221,7 +197,7 @@ public class Environment
 			cells[row][col] = containerCell;
 			int[] loc = new int[2];
 			loc[0] = row;
-			loc[0] = col;
+			loc[1] = col;
 			weaponLocations.put(weapon, loc);
 			return true;
 		}
@@ -283,16 +259,25 @@ public class Environment
 		}
 	}
 
-	public double getRange(LifeForm entity1, LifeForm entity2)
+	public double getRange(LifeForm entity1, LifeForm entity2) throws EnvironmentException
 	{
-		int[] l1 = entityLocations.get(entity1);
-		int[] l2 = entityLocations.get(entity2);
-		int rDelta = l2[0] - l1[0];
-		int cDelta = l2[1] - l1[1];
-		rDelta = rDelta * rDelta;
-		cDelta = cDelta * cDelta;
-		double distance = Math.sqrt(rDelta + cDelta);
-		return distance;
+		if ((entityLocations.get(entity1) == null) || (entityLocations.get(entity2) == null))
+		{
+			throw new EnvironmentException(
+					"you need 2 (emphasis on the number 2) entitys to figure out the distance between 2 entities");
+		}
+		else
+		{
+			int[] l1 = entityLocations.get(entity1);
+			int[] l2 = entityLocations.get(entity2);
+			int rDelta = l2[0] - l1[0];
+			int cDelta = l2[1] - l1[1];
+			rDelta = rDelta * rDelta;
+			cDelta = cDelta * cDelta;
+			double distance = Math.sqrt(rDelta + cDelta);
+			return distance * 10; // each cell is 10 feet by 10 feet
+		}
+
 	}
 
 }

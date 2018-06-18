@@ -10,26 +10,47 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import environment.Environment;
+import exceptions.EnvironmentException;
 import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.Pistol;
 import weapon.Weapon;
 
+
+
 public class TestEnvironment
 {
 
+
+	
 	@Test // test initialization works as singleton
-	public void testSigleton()
+	public void testSigleton() throws RException
 	{
+		Environment.resetWorld();
 		Environment.createWorld(4, 5);
 		Environment theWorld = Environment.getWorld();
 		assertTrue(theWorld instanceof Environment);
+		
+		//check that it's working as a singleton
+		//throws an exception if fails
+		try 
+		{
+			Environment.createWorld(2, 2);
+		}
+		catch (RException e)
+		{
+			assertTrue(e instanceof RException);
+		}
 	}
 
 	@Test // test can clear the singleton from previous settings
-	public void testClearWorld()
+	public void testClearWorld() throws RException
 	{
+		Environment.resetWorld();
+		Environment.createWorld(4, 5);
+		Environment.resetWorld();
+		assertNull(Environment.getWorld());
 	}
 
 	@Test // test we can Add/Remove a weapon from a specific location
@@ -47,7 +68,7 @@ public class TestEnvironment
 	}
 
 	@Test // test we can determine range along the same row
-	public void testDetermineRowDistance()
+	public void testDetermineRowDistance() throws RException, EnvironmentException
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
@@ -57,11 +78,11 @@ public class TestEnvironment
 
 		theWorld.addLifeForm(0, 2, anna);
 		theWorld.addLifeForm(2, 2, elsa);
-		assertEquals(2.0, theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(20.0, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range along the same column
-	public void testDetermineColumnDistance()
+	public void testDetermineColumnDistance() throws RException, EnvironmentException
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
@@ -72,11 +93,11 @@ public class TestEnvironment
 
 		theWorld.addLifeForm(2, 4, anna);
 		theWorld.addLifeForm(2, 2, elsa);
-		assertEquals(2.0, theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(20.0, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range from diagonal reference position
-	public void testDetermineDiagonalDistance()
+	public void testDetermineDiagonalDistance() throws RException, EnvironmentException
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
@@ -89,7 +110,28 @@ public class TestEnvironment
 		theWorld.addLifeForm(6, 8, elsa);
 		//
 
-		assertEquals(5.6f, theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(56.5f, theWorld.getRange(anna, elsa), 0.1);
+	}
+	
+	@Test //  test that it handles distance computation exception when one entity is missing
+	public void testDetermineColumnDistanceException() throws RException, EnvironmentException
+	{
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+		Environment theWorld = Environment.getWorld();
+
+		LifeForm anna = new MockLifeForm("anna", 50);
+		LifeForm elsa = new MockLifeForm("elsa", 50);
+		
+		theWorld.addLifeForm(2, 4, anna);
+		//elsa is missing from the world but is still a valid person!!!!!!!
+		
+		try {
+			theWorld.getRange(anna, elsa);
+		} catch (EnvironmentException e)
+		{
+			assertTrue(e instanceof EnvironmentException);
+		}
 	}
 
 	/****************************************************************************
@@ -140,13 +182,13 @@ public class TestEnvironment
 		/*
 		 * test that we can remove a LifeForm from a cell
 		 */
-		LifeForm removeMe = myEnvironment.removeLifeFormByCell(1, 2);
+		LifeForm removeMe = myEnvironment.removeLifeForm(1, 2);
 		assertEquals(jill, removeMe);
 
 		/*
 		 * test we can handle if we try to remove LifeForm from a blank cell
 		 */
-		assertEquals(null, myEnvironment.removeLifeFormByCell(1, 2));
+		assertEquals(null, myEnvironment.removeLifeForm(1, 2));
 
 		/*
 		 * test we can handle if we try to get from a blank cell
