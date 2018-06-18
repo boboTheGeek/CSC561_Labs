@@ -15,7 +15,7 @@ import weapon.Weapon;
 public class Environment
 {
 
-	public static Environment theWorld;
+	private static Environment theWorld;
 	private Cell[][] cells;
 	private int numrows;
 	private int numcols;

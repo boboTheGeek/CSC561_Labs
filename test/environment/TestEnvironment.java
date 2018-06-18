@@ -24,7 +24,7 @@ public class TestEnvironment
 	{
 		Environment.createWorld(4, 5);
 		Environment theWorld = Environment.getWorld();
-		assertTrue(Environment.theWorld instanceof Environment);
+		assertTrue(theWorld instanceof Environment);
 	}
 
 	@Test // test can clear the singleton from previous settings
@@ -37,12 +37,12 @@ public class TestEnvironment
 	{
 		Environment.resetWorld();
 		Weapon pewPewPew = new Pistol();
-
 		Environment.createWorld(10, 10);
-		Environment.theWorld.addWeapon(2, 2, pewPewPew);
-		assertEquals(pewPewPew, Environment.theWorld.getWeapon(2, 2, pewPewPew));
-		Environment.theWorld.removeWeaponByCell(2, 2, pewPewPew);
-		assertNull(Environment.theWorld.getWeapon(2, 2, pewPewPew));
+		Environment theWorld = Environment.getWorld();
+		theWorld.addWeapon(2, 2, pewPewPew);
+		assertEquals(pewPewPew, theWorld.getWeapon(2, 2, pewPewPew));
+		theWorld.removeWeaponByCell(2, 2, pewPewPew);
+		assertNull(theWorld.getWeapon(2, 2, pewPewPew));
 
 	}
 
@@ -51,13 +51,13 @@ public class TestEnvironment
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
-
+		Environment theWorld = Environment.getWorld();
 		LifeForm anna = new MockLifeForm("anna", 50);
 		LifeForm elsa = new MockLifeForm("elsa", 50);
 
-		Environment.theWorld.addLifeForm(0, 2, anna);
-		Environment.theWorld.addLifeForm(2, 2, elsa);
-		assertEquals(2.0, Environment.theWorld.getRange(anna, elsa), 0.1);
+		theWorld.addLifeForm(0, 2, anna);
+		theWorld.addLifeForm(2, 2, elsa);
+		assertEquals(2.0, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range along the same column
@@ -65,13 +65,14 @@ public class TestEnvironment
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
+		Environment theWorld = Environment.getWorld();
 
 		LifeForm anna = new MockLifeForm("anna", 50);
 		LifeForm elsa = new MockLifeForm("elsa", 50);
 
-		Environment.theWorld.addLifeForm(2, 4, anna);
-		Environment.theWorld.addLifeForm(2, 2, elsa);
-		assertEquals(2.0, Environment.theWorld.getRange(anna, elsa), 0.1);
+		theWorld.addLifeForm(2, 4, anna);
+		theWorld.addLifeForm(2, 2, elsa);
+		assertEquals(2.0, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range from diagonal reference position
@@ -79,15 +80,16 @@ public class TestEnvironment
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
-
+		Environment theWorld = Environment.getWorld();
+		
 		LifeForm anna = new MockLifeForm("anna", 50);
 		LifeForm elsa = new MockLifeForm("elsa", 50);
 
-		Environment.theWorld.addLifeForm(2, 4, anna);
-		Environment.theWorld.addLifeForm(6, 8, elsa);
+		theWorld.addLifeForm(2, 4, anna);
+		theWorld.addLifeForm(6, 8, elsa);
 		//
 
-		assertEquals(5.6f, Environment.theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(5.6f, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	/****************************************************************************
