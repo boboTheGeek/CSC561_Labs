@@ -7,7 +7,8 @@
 
 package lifeform;
 
-import environment.Range;
+import environment.Environment;
+import exceptions.EnvironmentException;
 import gameplay.TimeObserver;
 import weapon.Weapon;
 
@@ -90,14 +91,16 @@ public class LifeForm implements TimeObserver
 		return attackStrength;
 	}
 
-	public void mountAttack(LifeForm victim)
+	public void mountAttack(LifeForm victim) throws EnvironmentException
 	{
 		int calcAttackStrength = 0;
+		int distance = (int) Environment.getWorld().getRange(this, victim);
+		System.out.println(distance);
 		if ((myWeapon != null) && (myWeapon.getCurrentAmmo() > 0))
 		{
 			calcAttackStrength = myWeapon.damage();
 		}
-		else if (Range.distance < 10)
+		else if (distance < 10)
 		{
 			calcAttackStrength = attackStrength;
 		}

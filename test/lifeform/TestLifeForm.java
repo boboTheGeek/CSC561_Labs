@@ -8,7 +8,10 @@ package lifeform;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import environment.Environment;
 import environment.Range;
+import exceptions.EnvironmentException;
+import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.ChainGun;
@@ -61,7 +64,7 @@ public class TestLifeForm
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
 		Weapon squirrelHunter = new MockShooter();
-		Range.distance = 2;
+		
 		entity.pickUpWeapon(squirrelHunter);
 		assertEquals(squirrelHunter, entity.myWeapon);
 		entity.dropWeapon();
@@ -161,12 +164,19 @@ public class TestLifeForm
 	/**
 	 * test that when one LifeForm attacks another, it damages the LifeForm it's
 	 * attacking
+	 * @throws RException 
+	 * @throws EnvironmentException 
 	 */
 	@Test
-	public void testMountAnAttack()
+	public void testMountAnAttack() throws RException, EnvironmentException
 	{
+		
+		Environment.createWorld(10, 10);
+		Environment theWorld = Environment.getWorld();
 		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
 		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
+		theWorld.addLifeForm(2,	4, human);
+		theWorld.addLifeForm(3, 4, alien);
 		human.mountAttack(alien);
 		assertEquals(35, alien.getLifePoints());
 	}
@@ -256,7 +266,7 @@ class MockShooter extends GenericWeapon
 	MockShooter()
 	{
 		baseDamage = 10;
-		maxRange = 10;
+		maxRange = 20;
 		rateOfFire = 3;
 		maxAmmo = 10;
 		currentTime = 0;
