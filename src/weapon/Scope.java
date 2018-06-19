@@ -8,7 +8,6 @@
 
 package weapon;
 
-import environment.Range;
 
 public class Scope extends Attachment
 {
@@ -21,12 +20,12 @@ public class Scope extends Attachment
 	/**
 	 * Determine and return the damage to decorate the weapon damage with
 	 */
-	public int damage()
+	public int damage(int distance)
 	{
 
-		int x = weapon.getMaxRange() - Range.distance;
+		int x = weapon.getMaxRange() - distance;
 		float y = 1 + ((float)x / weapon.getMaxRange());
-		float z = (float)weapon.damage() * y;
+		float z = (float)weapon.damage(distance) * y;
 		return (int) z;
 	}
 

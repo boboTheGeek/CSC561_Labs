@@ -10,8 +10,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import environment.Range;
-
 public class TestScope
 {
 	/** 
@@ -21,11 +19,11 @@ public class TestScope
 	public void testDamage()
 	{
 
-		Range.distance = 0;
+		//Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		Scope inSight = new Scope(myGun);
 		// 99 * (1 + ((98 - 0)/98)) = 198
-		assertEquals(178, inSight.damage());
+		assertEquals(178, inSight.damage(0));
 	}
 	/** 
 	 * Test for weapon with two attachments (Scope + Scope)
@@ -33,17 +31,17 @@ public class TestScope
 	@Test
 	public void test2Attachments()
 	{
-		Range.distance = 0;
+		//Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		Scope inSight = new Scope(myGun);
 
 		// 89 * (1 + ((98 - 0)/98)) =  [aka 89 *2]
-		assertEquals(178, inSight.damage());
+		assertEquals(178, inSight.damage(0));
 		
 
 		Scope inSight2 = new Scope(inSight);
 		 //178 * (1 + ((98 - 0)/98)) = 356  [aka 178 * 2]
-		assertEquals(356, inSight2.damage());
+		assertEquals(356, inSight2.damage(0));
 	}
 	/**
 	 * Testing for weapon with a combination of two attachments (Scope + PowerBooster)
@@ -51,15 +49,15 @@ public class TestScope
 	@Test
 	public void testPowerBoosterScope()
 	{  
-		Range.distance = 0;
+		//Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		PowerBooster pb = new PowerBooster(myGun);
 
 		// 89 * (1 + ((98 - 0)/98)) =  [aka 89 *2]
-		assertEquals(176, pb.damage());
+		assertEquals(176, pb.damage(0));
 		Scope inSight2 = new Scope(pb);
 		 //178 * (1 + ((98 - 0)/98)) = 356  [aka 178 * 2]
-		assertEquals(350, inSight2.damage());
+		assertEquals(350, inSight2.damage(0));
 	}
 	/**
 	 * Testing for weapon with a combination of two attachments (Scope + Stabilizer)
@@ -67,12 +65,12 @@ public class TestScope
 	@Test
 	public void testStabilizerScope()
 	{
-		Range.distance = 0;
+		//Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		PowerBooster sb = new Stabilizer(myGun);
-		assertEquals(5, sb.damage());
+		assertEquals(5, sb.damage(0));
 		Scope inSight2 = new Scope(sb);
-		assertEquals(10, inSight2.damage());
+		assertEquals(10, inSight2.damage(0));
 	}
 	
 	/**
@@ -81,12 +79,12 @@ public class TestScope
 	@Test
 	public void test3attachments()
 	{
-		Range.distance = 0;
+		//Range.distance = 0;
 		Weapon myGun = new MockPistol();
 		PowerBooster sb = new Stabilizer(myGun);
-		assertEquals(5, sb.damage());
+		assertEquals(5, sb.damage(0));
 		Scope inSight2 = new Scope(sb);
-		assertEquals(10, inSight2.damage());
+		assertEquals(10, inSight2.damage(0));
 		Scope inSight3 = new Scope(inSight2);
 		assertNull(inSight3.weapon);
 	}

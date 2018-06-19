@@ -7,11 +7,22 @@ package lifeform;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import environment.Environment;
+import exceptions.RException;
 
 public class TestHuman
 {
 
+	
+	@Before //clear and setup the world before each test
+	public void testSetupWorld() throws RException {
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+	}
+	
 	/*
 	 * test default attack strength = 5
 	 */
@@ -31,6 +42,11 @@ public class TestHuman
 
 		Human entity2 = new Human(11, "Dilbert", 50);
 		Alien alien2 = new Alien("Commander Terrible", 100);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity2);
+		theWorld.addLifeForm(3, 4, alien2);
+		
 		// alien damage is 10, mount attack calls takeHit()
 		alien2.mountAttack(entity2);
 		assertEquals(50, entity2.getLifePoints());
@@ -45,6 +61,11 @@ public class TestHuman
 		Human entity = new Human(7, "Dilbert", 50);
 		Alien alien = new Alien("Commander Terrible", 100);
 		// alien damage is 10, mount attack calls takeHit()
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(3, 4, alien);
+		
 		alien.mountAttack(entity);
 		assertEquals(47, entity.getLifePoints());
 
@@ -58,6 +79,11 @@ public class TestHuman
 	{
 		Human entity = new Human(10, "Dilbert", 50);
 		Alien alien = new Alien("Commander Terrible", 100);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(3, 4, alien);
+		
 		// alien damage is 10, mount attack calls takeHit()
 		alien.mountAttack(entity);
 		assertEquals(50, entity.getLifePoints());
@@ -71,6 +97,11 @@ public class TestHuman
 	{
 		Human entity = new Human(7, "Dilbert", 10);
 		Alien alien = new Alien("Commander Terrible", 100);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(3, 4, alien);
+		
 		alien.mountAttack(entity);
 		alien.mountAttack(entity);
 		alien.mountAttack(entity);

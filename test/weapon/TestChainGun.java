@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import environment.Range;
 /**
  * Tests for the Pistol
  * @author Chandana.G, Rob M
@@ -30,10 +29,10 @@ public class TestChainGun
 	@Test
 	public void testDamage()
 	{
-		Range.distance = 35;
-		assertEquals(0, cg.damage());
-		Range.distance = 29; 
-		assertEquals(14, cg.damage());
+		//Range.distance = 35;
+		assertEquals(0, cg.damage(35));
+		//Range.distance = 29; 
+		assertEquals(14, cg.damage(29));
 
 	}
 	/**
@@ -47,7 +46,7 @@ public class TestChainGun
 		for (int x = 100; x >= 0; x--)
 			gw.fire();
 		assertEquals(0, gw.currentAmmo);
-		assertEquals(0, gw.damage());
+		assertEquals(0, gw.damage(2));
 	}
 	/**
 	 * It returns the updated current ammo for the weapon after the weapon's fired 

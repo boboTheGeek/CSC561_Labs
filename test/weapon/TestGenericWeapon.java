@@ -48,7 +48,7 @@ public class TestGenericWeapon
 		for (int x = 100; x >= 0; x--)
 			shooterMcGavin.fire();
 		assertEquals(0, shooterMcGavin.currentAmmo);
-		assertEquals(0, shooterMcGavin.damage());
+		assertEquals(0, shooterMcGavin.damage(2));
 	}
 
 	// does no damage (but does fire) if target beyond max range
@@ -59,25 +59,25 @@ public class TestGenericWeapon
 		SimpleTimer timeMe = new SimpleTimer(1000);
 		timeMe.addTimeObserver(restrictorshotgun1);
 		assertEquals(97, restrictorshotgun1.shotCounter);
-		assertEquals(89, restrictorshotgun1.damage());
+		assertEquals(89, restrictorshotgun1.damage(2));
 		for (int x = 100; x >= 0; x--)
 		{
-			restrictorshotgun1.damage(); // deplete remaining turns per rate
+			restrictorshotgun1.damage(2); // deplete remaining turns per rate
 		}
 		// reload and deplete further because we ran out of ammo (so won't use turn)
 		restrictorshotgun1.reload();
 		for (int x = 10; x >= 0; x--)
 		{
-			restrictorshotgun1.damage();
+			restrictorshotgun1.damage(2);
 		}
 		assertEquals(0, restrictorshotgun1.shotCounter);
-		assertEquals(0, restrictorshotgun1.damage());
+		assertEquals(0, restrictorshotgun1.damage(2));
 
 		// reset the shotCounter by incremting the timer
 		// damage returns Mock damage calculation of 89
 		timeMe.timeChanged();
 		assertEquals(97, restrictorshotgun1.shotCounter);
-		assertEquals(89, restrictorshotgun1.damage());
+		assertEquals(89, restrictorshotgun1.damage(2));
 
 	}
 
@@ -144,7 +144,7 @@ class MockPistol extends GenericWeapon
 	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
 	 */
 	@Override
-	public int damageCalculation()
+	public int damageCalculation(int distance)
 	{
 
 		return baseDamage - 10;
@@ -174,7 +174,7 @@ class MockChainGun extends GenericWeapon
 	 * Returns the amount of damage caused by the weapon
 	 */
 	@Override
-	public int damageCalculation()
+	public int damageCalculation(int distance)
 	{
 		return baseDamage;
 

@@ -10,8 +10,6 @@
 
 package weapon;
 
-import environment.Range;
-
 public class Pistol extends GenericWeapon
 {
 
@@ -36,9 +34,9 @@ public class Pistol extends GenericWeapon
 	 */
 
 	@Override
-	public int damageCalculation()
+	public int damageCalculation(int distance)
 	{
-		return (int) ((int) (float) baseDamage * (((float) (maxRange - Range.distance + 5) / maxRange)));
+		return (int) ((int) (float) baseDamage * (((float) (maxRange - distance + 5) / maxRange)));
 	}
 
 }
