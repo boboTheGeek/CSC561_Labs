@@ -95,12 +95,12 @@ public class LifeForm implements TimeObserver
 	{
 		int calcAttackStrength = 0;
 		int distance = (int) Environment.getWorld().getRange(this, victim);
-		System.out.println(distance);
+
 		if ((myWeapon != null) && (myWeapon.getCurrentAmmo() > 0))
 		{
-			calcAttackStrength = myWeapon.damage();
+			calcAttackStrength = myWeapon.damage(distance);
 		}
-		else if (distance < 10)
+		else if (distance <= 10)
 		{
 			calcAttackStrength = attackStrength;
 		}

@@ -11,8 +11,6 @@
  */
 package weapon;
 
-import environment.Range;
-
 public abstract class GenericWeapon implements Weapon
 {
 	protected int baseDamage;
@@ -38,20 +36,18 @@ public abstract class GenericWeapon implements Weapon
 	 * otherwise returns no damage
 	 */
 	@Override
-	public int damage()
+	public int damage(int distance)
 	{
 
-		if ((currentAmmo == 0) || (maxRange < Range.distance))
+		if ((currentAmmo == 0) || (maxRange < distance))
 		{
 			fire();
 			return 0;
-		}
-		else if (shotCounter > 0)
+		} else if (shotCounter > 0)
 		{
 			fire();
-			return damageCalculation();
-		}
-		else
+			return damageCalculation(distance);
+		} else
 		{
 			return 0;
 		}
@@ -89,7 +85,7 @@ public abstract class GenericWeapon implements Weapon
 	 * another round
 	 * 
 	 * @param time
-	 *            - just what it sounds like
+	 *            just what it sounds like
 	 */
 
 	public void updateTime(int time)
@@ -100,7 +96,7 @@ public abstract class GenericWeapon implements Weapon
 
 	/**
 	 * returns the maximum amount of ammo the weapon can hold set by the local
-	 * istance variable
+	 * instance variable
 	 */
 	public int getMaxAmmo()
 	{
@@ -126,7 +122,7 @@ public abstract class GenericWeapon implements Weapon
 	 * 
 	 * @return the requested damage
 	 */
-	public int damageCalculation()
+	public int damageCalculation(int distance)
 	{
 		// TODO Auto-generated method stub
 		return 0;

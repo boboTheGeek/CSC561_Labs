@@ -8,8 +8,6 @@
  */
 package weapon;
 
-import environment.Range;
-
 public class ChainGun extends GenericWeapon
 {
 
@@ -41,10 +39,10 @@ public class ChainGun extends GenericWeapon
 	 * otherwise returns no damage
 	 */
 	@Override
-	public int damageCalculation()
+	public int damageCalculation(int distance)
 	{
 
-		return (int) ((int) (float) baseDamage * (((float) (Range.distance) / maxRange)));
+		return (int) ((int) (float) baseDamage * (((float) (distance) / maxRange)));
 
 	}
 

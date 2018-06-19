@@ -19,13 +19,13 @@ public class PowerBooster extends Attachment
 	/**
 	 * Determine and return the damage to decorate the weapon damage with
 	 */
-	 public int damage()
+	 public int damage(int distance)
 	 
 	  {
 		 
 		float x = (float)weapon.getCurrentAmmo()/weapon.getMaxAmmo();
 		float y = 1 + x;
-	    int damage = (int) ((int) ((float)weapon.damage() * y));
+	    int damage = (int) ((int) ((float)weapon.damage(distance) * y));
 	    return damage;
 	  
 	  }

@@ -21,7 +21,7 @@ public class TestPowerBooster
 	{
 		Weapon chaingun = new MockChainGun();
 		PowerBooster pb = new PowerBooster(chaingun);
-		assertEquals(195, pb.damage());
+		assertEquals(195, pb.damage(2));
 	}
 
 	/**
@@ -32,9 +32,9 @@ public class TestPowerBooster
 	{
 		Weapon chaingun = new MockChainGun();
 		PowerBooster pb = new PowerBooster(chaingun);
-		assertEquals(195, pb.damage());
+		assertEquals(195, pb.damage(2));
 		PowerBooster pb2 = new PowerBooster(pb);
-		assertEquals(381, pb2.damage());
+		assertEquals(381, pb2.damage(2));
 	}
 	
 	@Test
@@ -45,19 +45,19 @@ public class TestPowerBooster
 		 */
 		Weapon chaingun = new MockChainGun();
 		PowerBooster pb = new PowerBooster(chaingun); 
-		assertEquals(195, pb.damage());
-		Range.distance = 0;
+		assertEquals(195, pb.damage(2));
+		//Range.distance = 0;
 		Scope s = new Scope(pb);		
-		assertEquals(388, s.damage());
+		assertEquals(388, s.damage(0));
 		
 		/**
 		 * PowerBooster + Stabilizer
 		 */
 		Weapon chainGun = new MockChainGun();
 		Stabilizer sz = new Stabilizer(chainGun);
-		assertEquals(5, sz.damage());
+		assertEquals(5, sz.damage(2));
 		PowerBooster sb = new PowerBooster(sz);
-		assertEquals(9, sb.damage());
+		assertEquals(9, sb.damage(2));
 	}
 }
 
