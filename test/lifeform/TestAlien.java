@@ -26,17 +26,34 @@ public class TestAlien
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
 	}
+	
 	/**
-	 * test that default attack str is 10
+	 * can initialize an alien
 	 * 
 	 * @throws RException
+	 * 
 	 */
 	@Test
-	public void testDefaultAP() throws RException
+	public void testInitialize() throws RException
 	{
-		Alien alien = new Alien("Commander Terrible", 40);
-		assertEquals(10, alien.getAttackStrength());
+		Alien entity = new Alien("Barnabus Rex", 200);
+		assertEquals("Barnabus Rex", entity.getName());
+		assertEquals(200, entity.getLifePoints());
+		assertEquals(10, entity.getAttackStrength());
+		assertEquals(2, entity.getSpeed());
+		
 	}
+
+	
+	
+	/**
+	 * beyond this point your starting to get old dusty labs like #5, that's old..  no thanks
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
 	
 	/**
 	 * set recovery rate in constructor
@@ -229,19 +246,6 @@ public class TestAlien
 	 * Start Section for Strategy Pattern Tests
 	 * ******************************************************************
 	 */
-	/**
-	 * can initialize an alien
-	 * 
-	 * @throws RException
-	 * 
-	 */
-	@Test
-	public void testInitialize() throws RException
-	{
-		Alien entity = new Alien("Barnabus Rex", 200);
-		assertEquals("Barnabus Rex", entity.getName());
-		assertEquals(200, entity.getLifePoints());
-	}
 
 	/*
 	 * recovery behavior interace can choose and utilize one of the recovery
