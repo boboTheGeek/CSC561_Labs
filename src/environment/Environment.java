@@ -259,6 +259,14 @@ public class Environment
 		}
 	}
 
+	/**
+	 * Calculate the distance from one entity to the other based on their cell locations.  Will be used when they are attacking each other. 
+	 * 
+	 * @param entity1
+	 * @param entity2
+	 * @return  the distance (in feet)
+	 * @throws EnvironmentException
+	 */
 	public double getRange(LifeForm entity1, LifeForm entity2) throws EnvironmentException
 	{
 		if ((entityLocations.get(entity1) == null) || (entityLocations.get(entity2) == null))
