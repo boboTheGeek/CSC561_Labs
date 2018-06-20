@@ -9,6 +9,7 @@ package lifeform;
 
 import environment.Environment;
 import exceptions.EnvironmentException;
+import exceptions.RException;
 import gameplay.TimeObserver;
 import weapon.Weapon;
 
@@ -20,6 +21,8 @@ public class LifeForm implements TimeObserver
 	protected int attackStrength;
 	protected int myTime = 0;
 	protected Weapon myWeapon;
+	protected String direction = "North";
+	protected int maxSpeed;
 
 	/**
 	 * Create an instance
@@ -79,8 +82,7 @@ public class LifeForm implements TimeObserver
 		if (proposedLifePoints <= 0)
 		{
 			currentLifePoints = 0;
-		}
-		else
+		} else
 		{
 			currentLifePoints = proposedLifePoints;
 		}
@@ -99,8 +101,7 @@ public class LifeForm implements TimeObserver
 		if ((myWeapon != null) && (myWeapon.getCurrentAmmo() > 0))
 		{
 			calcAttackStrength = myWeapon.damage(distance);
-		}
-		else if (distance <= 10)
+		} else if (distance <= 10)
 		{
 			calcAttackStrength = attackStrength;
 		}
@@ -115,8 +116,7 @@ public class LifeForm implements TimeObserver
 				{
 					victim.takeHit(hitVal);
 				}
-			}
-			else // victim is an alien
+			} else // victim is an alien
 			{
 				victim.takeHit(calcAttackStrength);
 			}
@@ -155,10 +155,52 @@ public class LifeForm implements TimeObserver
 
 	}
 
+	/**
+	 * reloads the weapon that the Lifeform is holding
+	 */
 	public void reloadWeapon()
 	{
 		myWeapon.reload();
 
 	}
+
+	/**
+	 * changes the direction of the LifeForm to the parameter that is passed to this
+	 * method. Should be "North" "East" "South" or "West"
+	 * 
+	 * @param heading
+	 * @throws RException 
+	 */
+	public void rotate(String heading) throws RException
+	{
+		if ((heading == "North") || (heading == "East") || (heading == "South") || (heading == "West"))
+		{
+			direction = heading;
+		} else {
+			throw new RException("that isn't a normal direction that a compass would choose");
+		}
+
+	}
+	
+	/**
+	 * returns the direction that this LifeForm is facing
+	 * @Return North, East, South or West
+	 */
+
+	public String getDirection()
+	{
+		return direction;
+	}
+
+	/**
+	 * gets the maximum speed which is the number of cells that the lifeform can travel at one turn
+	 * @return maxSpeed instance variable
+	 */
+	public int getSpeed()
+	{
+
+		return maxSpeed;
+	}
+
 
 }

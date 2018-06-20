@@ -27,12 +27,43 @@ import weapon.Weapon;
 public class TestLifeForm
 {
 
-	@Before //clear and setup the world before each test
-	public void testSetupWorld() throws RException {
+	@Before // clear and setup the world before each test
+	public void testSetupWorld() throws RException
+	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
 	}
+
 	
+	/**
+	 * Stores life points Keeps track of name
+	 */
+	@Test
+	public void testInitialization()
+	{
+		LifeForm entity;
+		entity = new MockLifeForm("Bob", 40);
+		assertEquals("Bob", entity.getName());
+		assertEquals(40, entity.getLifePoints());
+		assertEquals("North", entity.getDirection());
+		assertEquals(3, entity.maxSpeed);
+	}
+	
+	//check that we can change the direction of our guy
+	@Test
+	public void testDirectionChange() throws RException
+	{
+		LifeForm entity = new MockLifeForm("Fluffy McDuff", 40, 5);
+		assertEquals("North", entity.getDirection());
+		entity.rotate("West");
+		assertEquals("West", entity.getDirection());
+	}
+
+	/*
+	 * *********************************** beginning of singleton lab
+	 * **********************************
+	 */
+
 	@Test // testing pickup of weapon
 	public void testGetWeapon()
 	{
@@ -70,13 +101,13 @@ public class TestLifeForm
 	{
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
-		
+
 		Environment theWorld = Environment.getWorld();
-		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(2, 4, entity);
 		theWorld.addLifeForm(3, 4, entity2);
-		
+
 		Weapon squirrelHunter = new MockShooter();
-		
+
 		entity.pickUpWeapon(squirrelHunter);
 		assertEquals(squirrelHunter, entity.myWeapon);
 		entity.dropWeapon();
@@ -95,13 +126,12 @@ public class TestLifeForm
 	{
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
-		
-		
+
 		Environment theWorld = Environment.getWorld();
-		theWorld.addLifeForm(0,	0, entity);
+		theWorld.addLifeForm(0, 0, entity);
 		theWorld.addLifeForm(9, 9, entity2);
-		
-		//Range.distance = 13;
+
+		// Range.distance = 13;
 		// no damage should be done because it's greater than 10 feet to attack and
 		// no weapon is present
 		entity.mountAttack(entity2);
@@ -114,11 +144,11 @@ public class TestLifeForm
 
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
-		
+
 		Environment theWorld = Environment.getWorld();
-		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(2, 4, entity);
 		theWorld.addLifeForm(3, 4, entity2);
-		
+
 		Weapon gun = new Pistol();
 		entity.pickUpWeapon(gun);
 		for (int x = 0; x < 10; x++)
@@ -158,11 +188,11 @@ public class TestLifeForm
 
 		LifeForm entity = new MockLifeForm("Alien Fred", 30, 7);
 		LifeForm entity2 = new MockLifeForm("Sargent Snazzypants", 40, 5);
-		
+
 		Environment theWorld = Environment.getWorld();
-		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(2, 4, entity);
 		theWorld.addLifeForm(1, 4, entity2);
-		
+
 		Weapon x = new Pistol();
 		Weapon y = new ChainGun();
 		entity.pickUpWeapon(x);
@@ -192,27 +222,29 @@ public class TestLifeForm
 	/**
 	 * test that when one LifeForm attacks another, it damages the LifeForm it's
 	 * attacking
-	 * @throws RException 
-	 * @throws EnvironmentException 
+	 * 
+	 * @throws RException
+	 * @throws EnvironmentException
 	 */
 	@Test
 	public void testMountAnAttack() throws RException, EnvironmentException
 	{
 		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
 		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
-		
+
 		Environment theWorld = Environment.getWorld();
-		theWorld.addLifeForm(2,	4, human);
+		theWorld.addLifeForm(2, 4, human);
 		theWorld.addLifeForm(3, 4, alien);
-		
+
 		human.mountAttack(alien);
 		assertEquals(35, alien.getLifePoints());
 	}
 
 	/**
 	 * test that a dead LifeForm can't attack
-	 * @throws EnvironmentException 
-	 * @throws RException 
+	 * 
+	 * @throws EnvironmentException
+	 * @throws RException
 	 */
 	@Test
 	public void testMountAnAttackifDead() throws EnvironmentException, RException
@@ -221,9 +253,9 @@ public class TestLifeForm
 		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
 
 		Environment theWorld = Environment.getWorld();
-		theWorld.addLifeForm(2,	4, human);
+		theWorld.addLifeForm(2, 4, human);
 		theWorld.addLifeForm(3, 4, alien);
-		
+
 		alien.mountAttack(human);
 		alien.mountAttack(human); // killing human first
 		human.mountAttack(alien); // attemptint to illegally attack
@@ -236,20 +268,7 @@ public class TestLifeForm
 	 * ******************************************************************
 	 */
 
-	/**
-	 * Stores life points Keeps track of name
-	 * 
-	 * When a LifeForm is created, it should know its name and how many life points
-	 * it has.
-	 */
-	@Test
-	public void testInitialization()
-	{
-		LifeForm entity;
-		entity = new LifeForm("Bob", 40);
-		assertEquals("Bob", entity.getName());
-		assertEquals(40, entity.getLifePoints());
-	}
+
 
 	/**
 	 * takeHit on first attack

@@ -22,6 +22,7 @@ public class Environment
 	private int numcols;
 	private HashMap<LifeForm, int[]> entityLocations = new HashMap<>();
 	private HashMap<Weapon, int[]> weaponLocations = new HashMap<>();
+	public static LifeForm itsMyTurn;
 
 	/**
 	 * Initialize environment instance with specified 2D dimensions. Made to be
@@ -59,8 +60,7 @@ public class Environment
 		if (theWorld == null)
 		{
 			theWorld = new Environment(rows, cols);
-		}
-		else
+		} else
 		{
 			throw new RException("your world is already created");
 		}
@@ -113,8 +113,7 @@ public class Environment
 			loc[1] = col;
 			entityLocations.put(entity, loc);
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -136,8 +135,7 @@ public class Environment
 		if (cells[row][col] != null)
 		{
 			return cells[row][col].getLifeForm();
-		}
-		else
+		} else
 		{
 			return null;
 		}
@@ -163,8 +161,7 @@ public class Environment
 			cells[row][col] = null;
 			entityLocations.remove(removeMe);
 			return removeMe;
-		}
-		else
+		} else
 		{
 			return null;
 		}
@@ -200,8 +197,7 @@ public class Environment
 			loc[1] = col;
 			weaponLocations.put(weapon, loc);
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -224,8 +220,7 @@ public class Environment
 		if (cells[row][col] != null)
 		{
 			return cells[row][col].getWeapon(weapon);
-		}
-		else
+		} else
 		{
 			return null;
 		}
@@ -252,19 +247,19 @@ public class Environment
 			cells[row][col] = null;
 			weaponLocations.remove(removeMe);
 			return removeMe;
-		}
-		else
+		} else
 		{
 			return null;
 		}
 	}
 
 	/**
-	 * Calculate the distance from one entity to the other based on their cell locations.  Will be used when they are attacking each other. 
+	 * Calculate the distance from one entity to the other based on their cell
+	 * locations. Will be used when they are attacking each other.
 	 * 
 	 * @param entity1
 	 * @param entity2
-	 * @return  the distance (in feet)
+	 * @return the distance (in feet)
 	 * @throws EnvironmentException
 	 */
 	public double getRange(LifeForm entity1, LifeForm entity2) throws EnvironmentException
@@ -273,8 +268,7 @@ public class Environment
 		{
 			throw new EnvironmentException(
 					"you need 2 (emphasis on the number 2) entitys to figure out the distance between 2 entities");
-		}
-		else
+		} else
 		{
 			int[] l1 = entityLocations.get(entity1);
 			int[] l2 = entityLocations.get(entity2);
@@ -288,4 +282,96 @@ public class Environment
 
 	}
 
+	/**
+	 * sends back the location of which cell someone is in
+	 * 
+	 * @param lf
+	 *            who we want to locate
+	 * @return the array of where they're located row, column
+	 */
+
+	public int[] getLifeFormLocation(LifeForm lf)
+	{
+		return entityLocations.get(lf);
+	}
+
+	/**
+	 * changes the direction of the entity who's turn it is (itsMyTurn) to the
+	 * string passed
+	 * 
+	 * @throws RException
+	 * 
+	 */
+
+	public void playerDirection(String heading) throws RException
+	{
+		itsMyTurn.rotate(heading);
+	}
+
+	/**
+	 * sets the LifeForm who's turn it currently is. This is the active player who
+	 * will be making the moves
+	 * 
+	 * @param entity
+	 *            is whoever's turn it is
+	 */
+	public void setActivePlayer(LifeForm entity)
+	{
+		itsMyTurn = entity;
+	}
+
+	/**
+	 * moves the active player in the direction they are facing. moves them the
+	 * maximum amount they are allowed
+	 * 
+	 * @return
+	 */
+	public void movePlayer()
+	{
+		int speed = itsMyTurn.getSpeed();
+		int[] actualLocation = getLifeFormLocation(itsMyTurn);
+		int[] proposedLocation = actualLocation;
+		if (itsMyTurn.getDirection() == "North")
+		{
+			proposedLocation[0] = actualLocation[0] - speed;
+		}
+		if (itsMyTurn.getDirection() == "South")
+		{
+			proposedLocation[0] = actualLocation[0] + speed;
+
+		}
+		if (itsMyTurn.getDirection() == "West")
+		{
+			proposedLocation[1] = actualLocation[1] - speed;
+		}
+		if (itsMyTurn.getDirection() == "East")
+		{
+			proposedLocation[1] = actualLocation[1] + speed;
+
+		}
+		assessMovementBoundaries(proposedLocation);
+		entityLocations.put(itsMyTurn, proposedLocation);
+	}
+
+	private int[] assessMovementBoundaries(int[] propLoc)
+	{
+		int[] newProposal = propLoc;
+		if (propLoc[0] < 0 )
+		{
+			newProposal[0] = 0;
+		}
+		if (propLoc[1] < 0) {
+			newProposal[1] = 0;
+		}
+		if (propLoc[0] > numrows )
+		{
+			newProposal[0] = numrows;
+		}
+		if (propLoc[1] > numcols) {
+			newProposal[1] = numcols;
+		}
+		return newProposal;
+	}
+	
+	
 }
