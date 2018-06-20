@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import environment.Range;
 
 
 public class TestPlasmaCannon
@@ -37,10 +36,10 @@ public class TestPlasmaCannon
 	public void testDamage()
 	{
 
-		Range.distance = 15;
-		assertEquals(37, pc.damage());
-		Range.distance = 25;
-		assertEquals(0, pc.damage());
+		//Range.distance = 15;
+		assertEquals(37, pc.damage(15));
+		//Range.distance = 25;
+		assertEquals(0, pc.damage(25));
 
 	}
 	/**

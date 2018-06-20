@@ -13,7 +13,7 @@ import gameplay.TimeObserver;
 
 public interface Weapon extends TimeObserver
 {
-	public int damage();
+	public int damage(int distance);
 
 	public int getMaxAmmo();
 

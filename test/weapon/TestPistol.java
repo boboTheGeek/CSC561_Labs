@@ -6,10 +6,8 @@
 package weapon;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import environment.Range;
 
 public class TestPistol
 {
@@ -32,10 +30,10 @@ public class TestPistol
 	public void testDamage()
 	{
 		Pistol shooter1 = new Pistol();
-		Range.distance = 3;
-		assertEquals(10, shooter1.damage());
-		Range.distance = 26; // outside of range
-		assertEquals(0, shooter1.damage());
+		//Range.distance = 3;
+		assertEquals(10, shooter1.damage(3));
+		//Range.distance = 26; // outside of range
+		assertEquals(0, shooter1.damage(26));
 
 	}
 
@@ -50,7 +48,7 @@ public class TestPistol
 		for (int x = 100; x >= 0; x--)
 			shooterMcGavin.fire();
 		assertEquals(0, shooterMcGavin.currentAmmo);
-		assertEquals(0, shooterMcGavin.damage());
+		assertEquals(0, shooterMcGavin.damage(2));
 	}
 
 	/**

@@ -6,9 +6,13 @@
 package lifeform;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
-import environment.Range;
+import environment.Environment;
+import exceptions.EnvironmentException;
+import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.ChainGun;
@@ -23,6 +27,12 @@ import weapon.Weapon;
 public class TestLifeForm
 {
 
+	@Before //clear and setup the world before each test
+	public void testSetupWorld() throws RException {
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+	}
+	
 	@Test // testing pickup of weapon
 	public void testGetWeapon()
 	{
@@ -56,12 +66,17 @@ public class TestLifeForm
 	}
 
 	@Test // testing attack strength used when no weapon present
-	public void testNoWeapon()
+	public void testNoWeapon() throws EnvironmentException
 	{
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(3, 4, entity2);
+		
 		Weapon squirrelHunter = new MockShooter();
-		Range.distance = 2;
+		
 		entity.pickUpWeapon(squirrelHunter);
 		assertEquals(squirrelHunter, entity.myWeapon);
 		entity.dropWeapon();
@@ -76,28 +91,39 @@ public class TestLifeForm
 	}
 
 	@Test // testing attack strength NOT used when out of range (distance > 10 feet)
-	public void testAttackOutOfRange()
+	public void testAttackOutOfRange() throws EnvironmentException
 	{
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
-		Range.distance = 13;
-		// no damage should be done becasue it's greater than 10 feet to attack and
+		
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(0,	0, entity);
+		theWorld.addLifeForm(9, 9, entity2);
+		
+		//Range.distance = 13;
+		// no damage should be done because it's greater than 10 feet to attack and
 		// no weapon is present
 		entity.mountAttack(entity2);
 		assertEquals(30, entity2.getLifePoints());
 	}
 
 	@Test // testing attack strength used when no ammo left
-	public void testNoAmmo()
+	public void testNoAmmo() throws EnvironmentException
 	{
-		Range.distance = 2;
+
 		LifeForm entity = new MockLifeForm("Hillbilly Bob", 40, 5);
 		LifeForm entity2 = new MockLifeForm("Alien Fred", 30, 7);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(3, 4, entity2);
+		
 		Weapon gun = new Pistol();
 		entity.pickUpWeapon(gun);
 		for (int x = 0; x < 10; x++)
 		{
-			gun.damage();
+			gun.damage(2);
 			gun.updateTime(1);
 		}
 		// entity2 has 30 life points
@@ -115,9 +141,9 @@ public class TestLifeForm
 		Weapon squirrelHunter = new MockShooter();
 		entity.pickUpWeapon(squirrelHunter);
 
-		squirrelHunter.damage();
-		squirrelHunter.damage();
-		squirrelHunter.damage();// waste some shots
+		squirrelHunter.damage(1);
+		squirrelHunter.damage(1);
+		squirrelHunter.damage(1);// waste some shots
 
 		assertEquals(7, squirrelHunter.getCurrentAmmo()); // check they're gone
 
@@ -127,20 +153,25 @@ public class TestLifeForm
 	}
 
 	@Test
-	public void test2differentWeapons()
+	public void test2differentWeapons() throws EnvironmentException, RException
 	{
-		Range.distance = 2;
+
 		LifeForm entity = new MockLifeForm("Alien Fred", 30, 7);
 		LifeForm entity2 = new MockLifeForm("Sargent Snazzypants", 40, 5);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, entity);
+		theWorld.addLifeForm(1, 4, entity2);
+		
 		Weapon x = new Pistol();
 		Weapon y = new ChainGun();
 		entity.pickUpWeapon(x);
 		entity.mountAttack(entity2);
-		assertEquals(29, entity2.getLifePoints());
+		assertEquals(32, entity2.getLifePoints());
 		entity.dropWeapon();
 		entity.pickUpWeapon(y);
 		entity.mountAttack(entity2);
-		assertEquals(28, entity2.getLifePoints());
+		assertEquals(27, entity2.getLifePoints());
 
 	}
 
@@ -161,24 +192,38 @@ public class TestLifeForm
 	/**
 	 * test that when one LifeForm attacks another, it damages the LifeForm it's
 	 * attacking
+	 * @throws RException 
+	 * @throws EnvironmentException 
 	 */
 	@Test
-	public void testMountAnAttack()
+	public void testMountAnAttack() throws RException, EnvironmentException
 	{
 		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
 		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, human);
+		theWorld.addLifeForm(3, 4, alien);
+		
 		human.mountAttack(alien);
 		assertEquals(35, alien.getLifePoints());
 	}
 
 	/**
 	 * test that a dead LifeForm can't attack
+	 * @throws EnvironmentException 
+	 * @throws RException 
 	 */
 	@Test
-	public void testMountAnAttackifDead()
+	public void testMountAnAttackifDead() throws EnvironmentException, RException
 	{
 		LifeForm human = new MockLifeForm("Sargent Snazzypants", 20, 5);
 		LifeForm alien = new MockLifeForm("Commander Terrible", 40, 10);
+
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, human);
+		theWorld.addLifeForm(3, 4, alien);
+		
 		alien.mountAttack(human);
 		alien.mountAttack(human); // killing human first
 		human.mountAttack(alien); // attemptint to illegally attack
@@ -256,7 +301,7 @@ class MockShooter extends GenericWeapon
 	MockShooter()
 	{
 		baseDamage = 10;
-		maxRange = 10;
+		maxRange = 20;
 		rateOfFire = 3;
 		maxAmmo = 10;
 		currentTime = 0;
@@ -268,7 +313,7 @@ class MockShooter extends GenericWeapon
 	 * Returns the amount of damage caused by the weapon at hand (pun intended :)
 	 */
 	@Override
-	public int damageCalculation()
+	public int damageCalculation(int damage)
 	{
 
 		return baseDamage - 2;

@@ -7,17 +7,25 @@
 package lifeform;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
+import environment.Environment;
 import gameplay.SimpleTimer;
 import recovery.RecoveryFractional;
 import recovery.RecoveryLinear;
 import recovery.RecoveryNone;
+import exceptions.EnvironmentException;
 import exceptions.RException;
 
 public class TestAlien
 {
-
+	@Before //clear and setup the world before each test
+	public void testSetupWorld() throws RException {
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+	}
 	/**
 	 * test that default attack str is 10
 	 * 
@@ -188,6 +196,7 @@ public class TestAlien
 
 
 	//throws exception if rate is < 0
+	@SuppressWarnings("unused")
 	@Test(expected = RException.class) // throws exception for negatives
 	public void testRecoveryRateNegative() throws RException
 	{
@@ -199,12 +208,18 @@ public class TestAlien
 	 * test that when Human attacks, it damages the Alien it's attacking
 	 * 
 	 * @throws RException
+	 * @throws EnvironmentException 
 	 */
 	@Test
-	public void testMountAnAttack() throws RException
+	public void testMountAnAttack() throws RException, EnvironmentException
 	{
 		LifeForm human = new MockLifeForm("Sargent Snazzypants", 40, 5);
 		Alien alien = new Alien("Commander Terrible", 40);
+		
+		Environment theWorld = Environment.getWorld();
+		theWorld.addLifeForm(2,	4, human);
+		theWorld.addLifeForm(3, 4, alien);
+		
 		human.mountAttack(alien);
 		assertEquals(35, alien.getLifePoints());
 	}

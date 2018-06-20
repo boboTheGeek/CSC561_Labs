@@ -15,7 +15,7 @@ public class Stabilizer extends PowerBooster
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int damage ()
+	public int damage (int distance)
 	{
 		return 5;
 		
