@@ -334,44 +334,74 @@ public class Environment
 		if (itsMyTurn.getDirection() == "North")
 		{
 			proposedLocation[0] = actualLocation[0] - speed;
-		}
-		if (itsMyTurn.getDirection() == "South")
+			while (someoneInMySpot(proposedLocation) == true)
+			{
+				proposedLocation[0]++;
+			}
+		} else if (itsMyTurn.getDirection() == "South")
 		{
 			proposedLocation[0] = actualLocation[0] + speed;
-
-		}
-		if (itsMyTurn.getDirection() == "West")
+			while (someoneInMySpot(proposedLocation) == true)
+			{
+				proposedLocation[0]--;
+			}
+		} else if (itsMyTurn.getDirection() == "West")
 		{
 			proposedLocation[1] = actualLocation[1] - speed;
-		}
-		if (itsMyTurn.getDirection() == "East")
+			while (someoneInMySpot(proposedLocation) == true)
+			{
+				proposedLocation[1]++;
+			}
+		} else if (itsMyTurn.getDirection() == "East")
 		{
 			proposedLocation[1] = actualLocation[1] + speed;
-
+			while (someoneInMySpot(proposedLocation) == true)
+			{
+				proposedLocation[1]--;
+			}
 		}
-		assessMovementBoundaries(proposedLocation);
-		entityLocations.put(itsMyTurn, proposedLocation);
+		int[] intermediateLocation = assessMovementBoundaries(proposedLocation);
+		// int[] finalLocation = areYouInMySpot(intermediateLocation);
+		entityLocations.put(itsMyTurn, intermediateLocation);
 	}
 
 	private int[] assessMovementBoundaries(int[] propLoc)
 	{
 		int[] newProposal = propLoc;
-		if (propLoc[0] < 0 )
+		if (propLoc[0] < 0)
 		{
 			newProposal[0] = 0;
-		}
-		if (propLoc[1] < 0) {
+		} else if (propLoc[1] < 0)
+		{
 			newProposal[1] = 0;
-		}
-		if (propLoc[0] > numrows )
+		} else if (propLoc[0] > numrows)
 		{
 			newProposal[0] = numrows;
-		}
-		if (propLoc[1] > numcols) {
+		} else if (propLoc[1] > numcols)
+		{
 			newProposal[1] = numcols;
 		}
 		return newProposal;
 	}
-	
-	
+
+	private boolean someoneInMySpot(int[] interLoc)
+	{
+		int numConflicts = 0;
+		for (int[] value : entityLocations.values())
+		{
+			if ((value[0] == interLoc[0])&&(value[1]== interLoc[1]))
+			{
+				numConflicts++;
+			}
+
+		}
+		if (numConflicts > 1)
+		{
+			return true;
+		} else
+		{
+			return false;
+		}
+	}
+
 }

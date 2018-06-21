@@ -102,6 +102,42 @@ public class TestEnvironment
 		assertEquals(10, y[1]);
 	}
 	
+	@Test
+	public void testSomeoneIsInMySpot() throws RException
+	{
+		Environment theWorld = Environment.getWorld();
+		LifeForm entity = new MockLifeForm("Rudolph Flowerbottom", 20, 20);
+		LifeForm entity2 = new MockLifeForm("Lennard Kensington", 20, 20);
+		LifeForm entity3 = new MockLifeForm("Rodney Chesterfield", 20, 20);
+		theWorld.addLifeForm(1, 1, entity);
+		theWorld.addLifeForm(4, 1, entity2);
+		theWorld.addLifeForm(3, 1, entity3);
+		theWorld.setActivePlayer(entity);
+		theWorld.playerDirection("South");
+		theWorld.movePlayer();
+		int[] y = theWorld.getLifeFormLocation(entity);
+		assertEquals(2, y[0]);
+		theWorld.playerDirection("East");
+		theWorld.addLifeForm(2, 4, entity2);
+		theWorld.addLifeForm(2, 3, entity3);
+		y = theWorld.getLifeFormLocation(entity);
+		theWorld.movePlayer();
+		assertEquals(2, y[1]);
+		theWorld.addLifeForm(9, 9, entity);
+		theWorld.addLifeForm(9, 6, entity3);
+		theWorld.playerDirection("West");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(7, y[1]);
+
+		theWorld.addLifeForm(6, 7, entity3);
+		theWorld.addLifeForm(8, 7, entity2);
+		theWorld.playerDirection("North");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(7, y[0]);
+	}
+	
 	
 	/**
 	 * ***************************************************** start of singleton lab
