@@ -403,5 +403,17 @@ public class Environment
 			return false;
 		}
 	}
+	
+	/**
+	 * returns the dimensions of the Environment "theWorld" 
+	 * 
+	 * @return array of size int[0] = rows, int[1] = columns
+	 */
+	public int[] getEnvironmentDimensions(){
+		
+		int[] dim = {numrows, numcols};
+		return dim;
+		
+	}
 
 }
