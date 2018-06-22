@@ -25,6 +25,7 @@ import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
+import ui.command.Command;
 
 public class GameDisplay extends JFrame
 {
@@ -323,6 +324,8 @@ class MockInvoker implements ActionListener
 		buttonArray[0][1] = new JButton("South");
 		invokerPanel.add(buttonArray[0][1]);
 		buttonArray[0][2] = new JButton("North");
+		buttonArray[0][2].addActionListener(this);
+		buttonArray[0][2].setActionCommand("North");
 		invokerPanel.add(buttonArray[0][2]);
 		buttonArray[0][3] = new JButton("East");
 		invokerPanel.add(buttonArray[0][3]);
@@ -354,6 +357,12 @@ class MockInvoker implements ActionListener
 			{
 				e.printStackTrace();
 			}
+		}
+		
+		if(action == "North") {
+			System.out.println(action);
+			Command north = new TurnNorth();
+			north.execute();
 		}
 		
 	}
