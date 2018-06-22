@@ -34,6 +34,7 @@ public class TestGameDisplay
 		LifeForm entity = new Human(2, "mock entity", 0);
 		theWorld.addLifeForm(3, 2, entity);
 		entity.rotate("East");
+		theWorld.setActivePlayer(entity);
 
 		LifeForm human = new Human(0, "eddie cheddar", 20);
 		theWorld.addLifeForm(0, 0, human);
@@ -50,7 +51,7 @@ public class TestGameDisplay
 		Weapon cannon = new PlasmaCannon();
 		theWorld.addWeapon(7, 16, cannon);
 		GameDisplay gui = new GameDisplay();
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nHuman(0,0) and Alien(1,1)\nDoes it look right?"));
 

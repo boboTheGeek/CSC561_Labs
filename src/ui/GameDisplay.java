@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import environment.Environment;
+import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
@@ -251,7 +252,7 @@ public class GameDisplay extends JFrame
 			}
 
 		}
-		return new ImageIcon("C:\\Users\\a008423\\eclipse-workspace\\GitPractice\\gamePix\\background.png");
+		return new ImageIcon(getClass().getResource("assets\background.png"));
 
 	}
 
@@ -278,9 +279,9 @@ public class GameDisplay extends JFrame
 	private void generateImageAssets()
 	{
 		String path = "C:\\git\\CSC561_Labs\\assets\\";
-		HNorth = new ImageIcon(path + "North.png");
+		HNorth = new ImageIcon("North.png");
 		HEast = new ImageIcon(path + "East.png");
-		HWest = new ImageIcon(path + "West.png");
+		HWest = new ImageIcon("West.png");
 		HSouth = new ImageIcon(path + "South.png");
 		ANorth = new ImageIcon(path + "ANorth.png");
 		AEast = new ImageIcon(path + "AEast.png");
@@ -305,6 +306,8 @@ public class GameDisplay extends JFrame
 
 class MockInvoker implements ActionListener
 {
+	Environment theWorld = Environment.getWorld();
+	
 	public JPanel generateInvoker()
 	{
 		/**
@@ -315,6 +318,7 @@ class MockInvoker implements ActionListener
 
 		buttonArray[0][0] = new JButton("West");
 		buttonArray[0][0].addActionListener(this);
+		buttonArray[0][0].setActionCommand("West");
 		invokerPanel.add(buttonArray[0][0]);
 		buttonArray[0][1] = new JButton("South");
 		invokerPanel.add(buttonArray[0][1]);
@@ -327,6 +331,7 @@ class MockInvoker implements ActionListener
 		buttonArray[0][5] = new JButton("Drop");
 		invokerPanel.add(buttonArray[0][5]);
 		buttonArray[0][6] = new JButton("Move");
+		buttonArray[0][0].addActionListener(this);
 		invokerPanel.add(buttonArray[0][6]);
 		buttonArray[0][7] = new JButton("Attack");
 		invokerPanel.add(buttonArray[0][7]);
@@ -336,9 +341,20 @@ class MockInvoker implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0)
+	public void actionPerformed(ActionEvent button)
 	{
-		System.out.println(arg0);
+		String action = button.getActionCommand();
+		if(action == "West") {
+			System.out.println(action);
+			try
+			{
+				theWorld.playerDirection(action);
+			}
+			catch (RException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		
 	}
 }
