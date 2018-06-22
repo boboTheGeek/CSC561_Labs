@@ -26,7 +26,7 @@ import weapon.Weapon;
  */
 public class TestLifeForm
 {
-
+	
 	@Before // clear and setup the world before each test
 	public void testSetupWorld() throws RException
 	{

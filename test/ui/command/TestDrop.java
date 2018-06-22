@@ -8,25 +8,28 @@ import environment.Environment;
 import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.ChainGun;
+import weapon.Weapon;
 
-public class TestTurnNorth {
+public class TestDrop {
+
 	Environment theWorld;
-
-	
 	@Test
-	public void testTurnNorth() throws RException {
+	public void testDrop() throws RException {
 		theWorld.resetWorld();
 		theWorld.createWorld(12, 14);
 		theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bob", 20, 20);
-		TurnNorth tn = new TurnNorth();
 		theWorld.addLifeForm(5, 5, entity);
 		theWorld.setActivePlayer(entity);
-		tn.execute();		
-		assertEquals("North", entity.getDirection());
-		
-		
-		
+		Weapon cg = new ChainGun();
+		theWorld.addLifeForm(5, 5, entity);
+		entity.pickUpWeapon(cg);
+		assertEquals(cg, entity.getWeapon());
+		Drop d = new Drop();
+		d.execute();
+		assertNull(entity.getWeapon());
+
 	}
 
 }

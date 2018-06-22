@@ -9,24 +9,19 @@ import exceptions.RException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 
-public class TestTurnNorth {
+public class TestTurnEast {
 	Environment theWorld;
-
-	
 	@Test
-	public void testTurnNorth() throws RException {
+	public void testTurnEast() throws RException {
 		theWorld.resetWorld();
 		theWorld.createWorld(12, 14);
 		theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bob", 20, 20);
-		TurnNorth tn = new TurnNorth();
+		TurnEast te = new TurnEast();
 		theWorld.addLifeForm(5, 5, entity);
 		theWorld.setActivePlayer(entity);
-		tn.execute();		
-		assertEquals("North", entity.getDirection());
-		
-		
-		
+		te.execute();		
+		assertEquals("East", entity.getDirection());
 	}
 
 }

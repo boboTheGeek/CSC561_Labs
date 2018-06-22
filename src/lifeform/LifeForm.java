@@ -23,6 +23,7 @@ public class LifeForm implements TimeObserver
 	protected Weapon myWeapon;
 	protected String direction = "North";
 	protected int maxSpeed;
+	private Environment theWorld;
 
 	/**
 	 * Create an instance
@@ -142,11 +143,13 @@ public class LifeForm implements TimeObserver
 	 */
 	public void pickUpWeapon(Weapon w)
 	{
+		
 		if (myWeapon == null)
 		{
 			myWeapon = w;
 		}
 	}
+	
 
 	/**
 	 * Allows a life form to drop whatever weapon is being held (in the local

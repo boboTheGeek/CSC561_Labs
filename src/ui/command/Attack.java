@@ -2,17 +2,14 @@ package ui.command;
 
 import environment.Environment;
 import exceptions.RException;
-import lifeform.LifeForm;
 
-public class TurnNorth implements Command{
-
+public class Attack implements Command{
 	Environment theWorld;
-	LifeForm lifeform;
+	LifeForm life;
 	@Override
 	public void execute() throws RException {
-			theWorld.itsMyTurn.rotate("North");
-			
+		theWorld.itsMyTurn.mountAttack(victim);
 	}
-
 	
+
 }
