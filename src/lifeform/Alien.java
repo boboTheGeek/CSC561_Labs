@@ -37,7 +37,7 @@ public class Alien extends LifeForm
 
 	/**
 	 * create an Alien that will accept a name, lifePoints and set a recovery
-	 * behavior type from interface implentations
+	 * behavior type from interface implementation
 	 * 
 	 * @param name
 	 *            - the name of your alien
@@ -55,6 +55,7 @@ public class Alien extends LifeForm
 		super(name, points, 10); // default attack points for alien = 10
 		recoveryBehavior = rb;
 		maxLifePoints = points;
+		maxSpeed = 2;
 		if (recov < 0)
 		{
 			throw new RException("input can't be negative dude");

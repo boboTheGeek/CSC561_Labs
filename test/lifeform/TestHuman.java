@@ -22,16 +22,30 @@ public class TestHuman
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
 	}
-	
 	/*
-	 * test default attack strength = 5
+	 * test we can construct a Human with initial (armor, a name, and life points)
 	 */
 	@Test
-	public void testDefaultAttackStrength()
+	public void testInitalizationHuman()
 	{
-		Human entity = new Human(0, "Fred", 50);
+		Human entity;
+		entity = new Human(0, "Fred", 50);
+		assertEquals("Fred", entity.getName());
+		assertEquals(50, entity.getLifePoints());
+		assertEquals(0, entity.getArmorPoints());
 		assertEquals(5, entity.getAttackStrength());
+		assertEquals(3, entity.getSpeed());
 	}
+
+/**
+ * beyond this point you're getting into old labs like #5..  ew...
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 
 	/*
 	 * armor absorbs all damage using takeHit() when damage < armor
@@ -115,18 +129,6 @@ public class TestHuman
 	 * Start Section for Strategy Pattern Tests
 	 * ******************************************************************
 	 */
-	/*
-	 * test we can construct a Human with initial (armor, a name, and life points)
-	 */
-	@Test
-	public void testInitalizationHuman()
-	{
-		Human entity;
-		entity = new Human(0, "Fred", 50);
-		assertEquals("Fred", entity.getName());
-		assertEquals(50, entity.getLifePoints());
-		assertEquals(0, entity.getArmorPoints());
-	}
 
 	/*
 	 * getArmorPoints setArmorPoints values < 0 equal to 0

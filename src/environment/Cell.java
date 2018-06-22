@@ -18,6 +18,7 @@ public class Cell
 	private Weapon weapon1;
 	private Weapon weapon2;
 
+
 	/**
 	 * Returns the lifeForm stored in this cell
 	 * 
@@ -104,13 +105,13 @@ public class Cell
 	 */
 	public void removeWeapon(Weapon w) throws RException
 	{
-		if (weapon1 == w)
-		{
-			weapon1 = null;
-		}
-		else if (weapon2 == w)
+		if (weapon2 != null)
 		{
 			weapon2 = null;
+		}
+		else if (weapon1 != null)
+		{
+			weapon1 = null;
 		}
 		else
 		{
@@ -126,15 +127,15 @@ public class Cell
 	 * @return the requested weapon
 	 * @throws RException
 	 */
-	public Weapon getWeapon(Weapon w) throws RException
+	public Weapon getWeapon() throws RException
 	{
-		if (weapon1 == w)
-		{
-			return weapon1;
-		}
-		else if (weapon2 == w)
+		if (weapon2 instanceof Weapon)
 		{
 			return weapon2;
+		}
+		else if (weapon1 instanceof Weapon)
+		{
+			return weapon1;
 		}
 		else
 		{

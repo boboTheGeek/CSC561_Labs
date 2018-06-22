@@ -7,6 +7,7 @@ package environment;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import environment.Environment;
@@ -17,13 +18,132 @@ import lifeform.MockLifeForm;
 import weapon.Pistol;
 import weapon.Weapon;
 
-
-
 public class TestEnvironment
 {
 
+	@Before // clear and setup the world before each test
+	public void testSetupWorld() throws RException
+	{
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
+	}
 
+	@Test
+	public void testTurning() throws RException
+	{
+		Environment theWorld = Environment.getWorld();
+		LifeForm entity = new MockLifeForm("billy", 20, 20);
+		theWorld.addLifeForm(5, 5, entity);
+		theWorld.setActivePlayer(entity);
+		theWorld.playerDirection("West");
+		assertEquals("West", entity.getDirection());
+		theWorld.playerDirection("South");
+		assertEquals("South", entity.getDirection());
+		theWorld.playerDirection("East");
+		assertEquals("East", entity.getDirection());
+		theWorld.playerDirection("East");
+		assertEquals("East", entity.getDirection());
+		try
+		{
+			theWorld.playerDirection("Home");
+		} catch (RException e)
+		{
+			assertTrue(e instanceof RException);
+		}
+	}
 	
+	@Test
+	public void testMovement() throws RException
+	{
+		Environment theWorld = Environment.getWorld();
+		LifeForm entity = new MockLifeForm("bobbySue", 20, 20);
+		theWorld.addLifeForm(5, 5, entity);
+		theWorld.setActivePlayer(entity);
+		theWorld.movePlayer();
+		int[] y = theWorld.getLifeFormLocation(entity);
+		assertEquals(2, y[0]);
+		theWorld.playerDirection("South");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(5, y[0]);
+		theWorld.playerDirection("East");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(8, y[1]);
+		theWorld.playerDirection("West");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(5, y[1]);
+	}
+	
+	@Test  //checking that the player stays within the bounds defined by the size of the cell grid
+	public void testMovementBoundaries() throws RException
+	{
+		Environment theWorld = Environment.getWorld();
+		LifeForm entity = new MockLifeForm("bobbySue", 20, 20);
+		theWorld.addLifeForm(1, 1, entity);
+		theWorld.setActivePlayer(entity);
+		theWorld.movePlayer();
+		int[] y = theWorld.getLifeFormLocation(entity);
+		assertEquals(0, y[0]);
+		theWorld.playerDirection("West");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(0, y[1]);
+		theWorld.removeLifeForm(0, 0);
+		theWorld.addLifeForm(9, 9, entity);
+		theWorld.playerDirection("East");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(10, y[1]);
+		theWorld.playerDirection("South");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(10, y[1]);
+	}
+	
+	@Test
+	public void testSomeoneIsInMySpot() throws RException
+	{
+		Environment theWorld = Environment.getWorld();
+		LifeForm entity = new MockLifeForm("Rudolph Flowerbottom", 20, 20);
+		LifeForm entity2 = new MockLifeForm("Lennard Kensington", 20, 20);
+		LifeForm entity3 = new MockLifeForm("Rodney Chesterfield", 20, 20);
+		theWorld.addLifeForm(1, 1, entity);
+		theWorld.addLifeForm(4, 1, entity2);
+		theWorld.addLifeForm(3, 1, entity3);
+		theWorld.setActivePlayer(entity);
+		theWorld.playerDirection("South");
+		theWorld.movePlayer();
+		int[] y = theWorld.getLifeFormLocation(entity);
+		assertEquals(2, y[0]);
+		theWorld.playerDirection("East");
+		theWorld.addLifeForm(2, 4, entity2);
+		theWorld.addLifeForm(2, 3, entity3);
+		y = theWorld.getLifeFormLocation(entity);
+		theWorld.movePlayer();
+		assertEquals(2, y[1]);
+		theWorld.addLifeForm(9, 9, entity);
+		theWorld.addLifeForm(9, 6, entity3);
+		theWorld.playerDirection("West");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(7, y[1]);
+
+		theWorld.addLifeForm(6, 7, entity3);
+		theWorld.addLifeForm(8, 7, entity2);
+		theWorld.playerDirection("North");
+		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
+		assertEquals(7, y[0]);
+	}
+	
+	
+	/**
+	 * ***************************************************** start of singleton lab
+	 * #5 **************************************
+	 */
+
 	@Test // test initialization works as singleton
 	public void testSigleton() throws RException
 	{
@@ -31,14 +151,13 @@ public class TestEnvironment
 		Environment.createWorld(4, 5);
 		Environment theWorld = Environment.getWorld();
 		assertTrue(theWorld instanceof Environment);
-		
-		//check that it's working as a singleton
-		//throws an exception if fails
-		try 
+
+		// check that it's working as a singleton
+		// throws an exception if fails
+		try
 		{
 			Environment.createWorld(2, 2);
-		}
-		catch (RException e)
+		} catch (RException e)
 		{
 			assertTrue(e instanceof RException);
 		}
@@ -61,9 +180,9 @@ public class TestEnvironment
 		Environment.createWorld(10, 10);
 		Environment theWorld = Environment.getWorld();
 		theWorld.addWeapon(2, 2, pewPewPew);
-		assertEquals(pewPewPew, theWorld.getWeapon(2, 2, pewPewPew));
-		theWorld.removeWeaponByCell(2, 2, pewPewPew);
-		assertNull(theWorld.getWeapon(2, 2, pewPewPew));
+		assertEquals(pewPewPew, theWorld.getWeapon(2, 2));
+		theWorld.removeWeaponByCell(2, 2);
+		assertNull(theWorld.getWeapon(2, 2));
 
 	}
 
@@ -102,7 +221,7 @@ public class TestEnvironment
 		Environment.resetWorld();
 		Environment.createWorld(10, 10);
 		Environment theWorld = Environment.getWorld();
-		
+
 		LifeForm anna = new MockLifeForm("anna", 50);
 		LifeForm elsa = new MockLifeForm("elsa", 50);
 
@@ -112,8 +231,9 @@ public class TestEnvironment
 
 		assertEquals(56.5f, theWorld.getRange(anna, elsa), 0.1);
 	}
-	
-	@Test //  test that it handles distance computation exception when one entity is missing
+
+	@Test // test that it handles distance computation exception when one entity is
+			// missing
 	public void testDetermineColumnDistanceException() throws RException, EnvironmentException
 	{
 		Environment.resetWorld();
@@ -122,11 +242,12 @@ public class TestEnvironment
 
 		LifeForm anna = new MockLifeForm("anna", 50);
 		LifeForm elsa = new MockLifeForm("elsa", 50);
-		
+
 		theWorld.addLifeForm(2, 4, anna);
-		//elsa is missing from the world but is still a valid person!!!!!!!
-		
-		try {
+		// elsa is missing from the world but is still a valid person!!!!!!!
+
+		try
+		{
 			theWorld.getRange(anna, elsa);
 		} catch (EnvironmentException e)
 		{

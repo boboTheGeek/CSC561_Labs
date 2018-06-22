@@ -30,6 +30,7 @@ public class Human extends LifeForm
 		super(name, lifepoints, 5); // last param is default attack points
 
 		setArmorPoints(armor);
+		maxSpeed = 3;
 	}
 
 	/**

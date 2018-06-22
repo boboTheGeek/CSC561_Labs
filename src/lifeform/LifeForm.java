@@ -9,6 +9,7 @@ package lifeform;
 
 import environment.Environment;
 import exceptions.EnvironmentException;
+import exceptions.RException;
 import gameplay.TimeObserver;
 import weapon.Weapon;
 
@@ -20,6 +21,8 @@ public class LifeForm implements TimeObserver
 	protected int attackStrength;
 	protected int myTime = 0;
 	protected Weapon myWeapon;
+	protected String direction = "North";
+	protected int maxSpeed;
 
 	/**
 	 * Create an instance
@@ -155,10 +158,64 @@ public class LifeForm implements TimeObserver
 
 	}
 
+	/**
+	 * reloads the weapon that the Lifeform is holding
+	 */
 	public void reloadWeapon()
 	{
 		myWeapon.reload();
 
 	}
 
+	/**
+	 * changes the direction of the LifeForm to the parameter that is passed to this
+	 * method. Should be "North" "East" "South" or "West"
+	 * 
+	 * @param heading
+	 * @throws RException
+	 */
+	public void rotate(String heading) throws RException
+	{
+		if ((heading == "North") || (heading == "East") || (heading == "South") || (heading == "West"))
+		{
+			direction = heading;
+		}
+		else
+		{
+			throw new RException("that isn't a normal direction that a compass would choose");
+		}
+
+	}
+
+	/**
+	 * returns the direction that this LifeForm is facing
+	 * 
+	 * @Return North, East, South or West
+	 */
+
+	public String getDirection()
+	{
+		return direction;
+	}
+
+	/**
+	 * gets the maximum speed which is the number of cells that the lifeform can
+	 * travel at one turn
+	 * 
+	 * @return maxSpeed instance variable
+	 */
+	public int getSpeed()
+	{
+		return maxSpeed;
+	}
+
+	/**
+	 * gives the wepon that the LifeForm is holding
+	 * 
+	 * @return the weapon (or null)
+	 */
+	public Weapon getWeapon()
+	{
+		return myWeapon;
+	}
 }

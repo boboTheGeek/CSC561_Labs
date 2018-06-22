@@ -14,6 +14,7 @@ import lifeform.TestLifeForm;
 import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
+import ui.TestGameDisplay;
 import weapon.TestChainGun;
 import weapon.TestGenericWeapon;
 import weapon.TestPistol;
@@ -30,7 +31,7 @@ import weapon.TestScope;
 @Suite.SuiteClasses(
 { TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
 		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestChainGun.class,
-		TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class, TestScope.class })
+		TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class, TestScope.class, TestGameDisplay.class })
 
 public class AllGameTests
 {
