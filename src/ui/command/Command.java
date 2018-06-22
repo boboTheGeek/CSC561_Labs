@@ -1,6 +1,10 @@
 package ui.command;
 
-public class Command
-{
+import exceptions.EnvironmentException;
+import exceptions.RException;
+
+public interface Command {
+	
+	public void execute() throws RException, EnvironmentException;
 
 }
