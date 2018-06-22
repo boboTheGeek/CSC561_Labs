@@ -1,6 +1,9 @@
 package ui.command;
 
-public class Command
-{
+import exceptions.RException;
+
+public interface Command {
+	
+	public void execute() throws RException;
 
 }
