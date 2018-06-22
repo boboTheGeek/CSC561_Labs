@@ -82,7 +82,8 @@ public class LifeForm implements TimeObserver
 		if (proposedLifePoints <= 0)
 		{
 			currentLifePoints = 0;
-		} else
+		}
+		else
 		{
 			currentLifePoints = proposedLifePoints;
 		}
@@ -101,7 +102,8 @@ public class LifeForm implements TimeObserver
 		if ((myWeapon != null) && (myWeapon.getCurrentAmmo() > 0))
 		{
 			calcAttackStrength = myWeapon.damage(distance);
-		} else if (distance <= 10)
+		}
+		else if (distance <= 10)
 		{
 			calcAttackStrength = attackStrength;
 		}
@@ -116,7 +118,8 @@ public class LifeForm implements TimeObserver
 				{
 					victim.takeHit(hitVal);
 				}
-			} else // victim is an alien
+			}
+			else // victim is an alien
 			{
 				victim.takeHit(calcAttackStrength);
 			}
@@ -169,21 +172,24 @@ public class LifeForm implements TimeObserver
 	 * method. Should be "North" "East" "South" or "West"
 	 * 
 	 * @param heading
-	 * @throws RException 
+	 * @throws RException
 	 */
 	public void rotate(String heading) throws RException
 	{
 		if ((heading == "North") || (heading == "East") || (heading == "South") || (heading == "West"))
 		{
 			direction = heading;
-		} else {
+		}
+		else
+		{
 			throw new RException("that isn't a normal direction that a compass would choose");
 		}
 
 	}
-	
+
 	/**
 	 * returns the direction that this LifeForm is facing
+	 * 
 	 * @Return North, East, South or West
 	 */
 
@@ -193,14 +199,23 @@ public class LifeForm implements TimeObserver
 	}
 
 	/**
-	 * gets the maximum speed which is the number of cells that the lifeform can travel at one turn
+	 * gets the maximum speed which is the number of cells that the lifeform can
+	 * travel at one turn
+	 * 
 	 * @return maxSpeed instance variable
 	 */
 	public int getSpeed()
 	{
-
 		return maxSpeed;
 	}
 
-
+	/**
+	 * gives the wepon that the LifeForm is holding
+	 * 
+	 * @return the weapon (or null)
+	 */
+	public Weapon getWeapon()
+	{
+		return myWeapon;
+	}
 }

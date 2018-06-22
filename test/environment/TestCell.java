@@ -37,8 +37,9 @@ public class TestCell
 		Cell cell = new Cell();
 		cell.addWeapon(pDog);
 		cell.addWeapon(cDog);
-		assertEquals(pDog, cell.getWeapon(pDog));
-		assertEquals(cDog, cell.getWeapon(cDog));
+		//order matters here
+		assertEquals(cDog, cell.getWeapon2());
+		assertEquals(pDog, cell.getWeapon1());
 	}
 
 	@Test
