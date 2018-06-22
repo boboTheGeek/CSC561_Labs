@@ -26,6 +26,10 @@ import lifeform.LifeForm;
 public class GameDisplay extends JFrame
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -23524222967984828L;
 	JButton textButton1, textButton2, textButton3, textButton4, imageButton;
 	JLabel textLabel, imageLabel;
 	Environment theWorld;
@@ -114,19 +118,17 @@ public class GameDisplay extends JFrame
 		add("East", legendPanel);
 		pack();
 		setVisible(true);
-
-		// labelArray[1][1].setOpaque(true);
-		// labelArray[1][1].setBackground(Color.black);
-		// labelArray[1][1].setIcon(new
-		// ImageIcon("C:\\Users\\a008423\\eclipse-workspace\\GitPractice\\gamePix\\East.png"));
-		//
-
-		//
-		// Thread.sleep(2000);
-		// labelArray[1][1].setIcon(new
-		// ImageIcon("C:\\Users\\a008423\\eclipse-workspace\\GitPractice\\gamePix\\North.png"));
 	}
 
+	/**
+	 * pick the graphic that will be displayed based on the the type of LifeForm
+	 * that should be displayed. considers the direction, whetehr or wapon is in
+	 * hand or what type of life form
+	 * 
+	 * @param row
+	 * @param col
+	 * @return graphic
+	 */
 	private ImageIcon selectGraphic(int row, int col)
 	{
 		LifeForm entity;
@@ -249,6 +251,11 @@ public class GameDisplay extends JFrame
 
 	}
 
+	/**
+	 * generate some generic image icon that can be used
+	 * 
+	 * @return
+	 */
 	public ImageIcon createImage()
 	{
 		BufferedImage exampleImage = new BufferedImage(50, 50, BufferedImage.TYPE_3BYTE_BGR);
