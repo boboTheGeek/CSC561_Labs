@@ -114,6 +114,9 @@ public class GameDisplay extends JFrame
 		legendLabelArray[5][1].setIcon(HSouthArmed);
 		legendPanel.add(legendLabelArray[5][1]);
 
+
+		
+		add("South", MockInvoker.generateInvoker());
 		add("Center", centerPanel);
 		add("East", legendPanel);
 		pack();
@@ -296,5 +299,39 @@ public class GameDisplay extends JFrame
 		cannonChaingun = new ImageIcon(path + "cannonChaingun.png");
 		chaingunPistol = new ImageIcon(path + "chaingunPistol.png");
 		cannonPistol = new ImageIcon(path + "cannonPistol.png");
+	}
+}
+
+class MockInvoker
+{
+
+	
+	
+	public static JPanel generateInvoker(){
+	/**
+	 * Set up legend
+	 */
+		JPanel invokerPanel = new JPanel(new GridLayout(1, 8));
+		JButton[][] buttonArray = new JButton[1][8];
+
+		buttonArray [0][0] = new JButton("West");
+		invokerPanel.add(buttonArray [0][0]);
+		buttonArray [0][1] = new JButton("South");
+		invokerPanel.add(buttonArray [0][1]);
+		buttonArray [0][2] = new JButton("North");
+		invokerPanel.add(buttonArray [0][2]);
+		buttonArray [0][3] = new JButton("East");
+		invokerPanel.add(buttonArray [0][3]);
+		buttonArray [0][4] = new JButton("Pickup");
+		invokerPanel.add(buttonArray [0][4]);
+		buttonArray [0][5] = new JButton("Drop");
+		invokerPanel.add(buttonArray [0][5]);
+		buttonArray [0][6] = new JButton("Move");
+		invokerPanel.add(buttonArray [0][6]);
+		buttonArray [0][7] = new JButton("Attack");
+		invokerPanel.add(buttonArray [0][7]);
+	
+	return invokerPanel;
+	
 	}
 }
