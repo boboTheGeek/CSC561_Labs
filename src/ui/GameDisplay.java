@@ -8,12 +8,14 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +27,7 @@ import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
+import ui.command.Command;
 
 public class GameDisplay extends JFrame
 {
@@ -79,10 +82,12 @@ public class GameDisplay extends JFrame
 		 * Set up legend
 		 */
 		JPanel legendPanel = new JPanel(new GridLayout(6, 2));
+		legendPanel.setBackground(new Color(200, 200, 200));
 		JLabel[][] legendLabelArray = new JLabel[6][2];
 		// human
-		legendLabelArray[0][0] = new JLabel("human: ");
+		legendLabelArray[0][0] = new JLabel("human");
 		legendPanel.add(legendLabelArray[0][0]);
+		
 		legendLabelArray[0][1] = new JLabel();
 		legendLabelArray[0][1].setIcon(HEast);
 		legendPanel.add(legendLabelArray[0][1]);
@@ -139,7 +144,7 @@ public class GameDisplay extends JFrame
 		LifeForm entity;
 		if (theWorld.getLifeForm(row, col) == null)
 		{
-			return new ImageIcon("C:\\Users\\a008423\\eclipse-workspace\\GitPractice\\gamePix\\background.png");
+			return new ImageIcon("background.png");
 		}
 		else
 		{
@@ -275,32 +280,34 @@ public class GameDisplay extends JFrame
 	/**
 	 * create all of the images as instance variables that can be used by the
 	 * various UI methods
+	 * 
+	 * Important Note: all of the assets need to be stored in the root folder of your project to get called correctly
 	 */
 	private void generateImageAssets()
 	{
-		String path = "C:\\git\\CSC561_Labs\\assets\\";
+
 		HNorth = new ImageIcon("North.png");
-		HEast = new ImageIcon(path + "East.png");
+		HEast = new ImageIcon("East.png");
 		HWest = new ImageIcon("West.png");
-		HSouth = new ImageIcon(path + "South.png");
-		ANorth = new ImageIcon(path + "ANorth.png");
-		AEast = new ImageIcon(path + "AEast.png");
-		AWest = new ImageIcon(path + "AWest.png");
-		ASouth = new ImageIcon(path + "ASouth.png");
-		HNorthArmed = new ImageIcon(path + "NorthArmed.png");
-		HEastArmed = new ImageIcon(path + "EastArmed.png");
-		HWestArmed = new ImageIcon(path + "WestArmed.png");
-		HSouthArmed = new ImageIcon(path + "SouthArmed.png");
-		ANorthArmed = new ImageIcon(path + "ANorthArmed.png");
-		AEastArmed = new ImageIcon(path + "AEastArmed.png");
-		AWestArmed = new ImageIcon(path + "AWestArmed.png");
-		ASouthArmed = new ImageIcon(path + "ASouthArmed.png");
-		pistol = new ImageIcon(path + "Pistol.png");
-		chaingun = new ImageIcon(path + "chaingun.png");
-		plasmacannon = new ImageIcon(path + "cannon.png");
-		cannonChaingun = new ImageIcon(path + "cannonChaingun.png");
-		chaingunPistol = new ImageIcon(path + "chaingunPistol.png");
-		cannonPistol = new ImageIcon(path + "cannonPistol.png");
+		HSouth = new ImageIcon("South.png");
+		ANorth = new ImageIcon("ANorth.png");
+		AEast = new ImageIcon("AEast.png");
+		AWest = new ImageIcon("AWest.png");
+		ASouth = new ImageIcon("ASouth.png");
+		HNorthArmed = new ImageIcon("NorthArmed.png");
+		HEastArmed = new ImageIcon("EastArmed.png");
+		HWestArmed = new ImageIcon("WestArmed.png");
+		HSouthArmed = new ImageIcon("SouthArmed.png");
+		ANorthArmed = new ImageIcon("ANorthArmed.png");
+		AEastArmed = new ImageIcon("AEastArmed.png");
+		AWestArmed = new ImageIcon("AWestArmed.png");
+		ASouthArmed = new ImageIcon("ASouthArmed.png");
+		pistol = new ImageIcon("Pistol.png");
+		chaingun = new ImageIcon("chaingun.png");
+		plasmacannon = new ImageIcon("cannon.png");
+		cannonChaingun = new ImageIcon("cannonChaingun.png");
+		chaingunPistol = new ImageIcon("chaingunPistol.png");
+		cannonPistol = new ImageIcon("cannonPistol.png");
 	}
 }
 
@@ -319,10 +326,13 @@ class MockInvoker implements ActionListener
 		buttonArray[0][0] = new JButton("West");
 		buttonArray[0][0].addActionListener(this);
 		buttonArray[0][0].setActionCommand("West");
+		buttonArray[0][0].setBorder(BorderFactory.createLineBorder(Color.black));
 		invokerPanel.add(buttonArray[0][0]);
 		buttonArray[0][1] = new JButton("South");
 		invokerPanel.add(buttonArray[0][1]);
 		buttonArray[0][2] = new JButton("North");
+		buttonArray[0][2].addActionListener(this);
+		buttonArray[0][2].setActionCommand("North");
 		invokerPanel.add(buttonArray[0][2]);
 		buttonArray[0][3] = new JButton("East");
 		invokerPanel.add(buttonArray[0][3]);
@@ -354,6 +364,12 @@ class MockInvoker implements ActionListener
 			{
 				e.printStackTrace();
 			}
+		}
+		
+		if(action == "North") {
+			System.out.println(action);
+//			Command north = new TurnNorth();
+//			north.execute();
 		}
 		
 	}
