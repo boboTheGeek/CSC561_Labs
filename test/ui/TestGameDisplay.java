@@ -50,6 +50,7 @@ public class TestGameDisplay
 		Weapon cannon = new PlasmaCannon();
 		theWorld.addWeapon(7, 16, cannon);
 		GameDisplay gui = new GameDisplay();
+		Thread.sleep(5000);
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nHuman(0,0) and Alien(1,1)\nDoes it look right?"));
 
