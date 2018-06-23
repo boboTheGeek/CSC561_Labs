@@ -14,6 +14,6 @@ public class Acquire implements Command{
 		//theWorld.getWorld();
 		
 		lifeform = theWorld.itsMyTurn;
-		lifeform.getWeapon();
+		lifeform.getWeapon(); //Should be pickUpWeapon()?
 	}
 }
