@@ -49,7 +49,7 @@ public class TestGameDisplay
 		Weapon chain = new ChainGun();
 		theWorld.addWeapon(7, 15, chain);
 		Weapon cannon = new PlasmaCannon();
-		theWorld.addWeapon(7, 16, cannon);
+		theWorld.addWeapon(7, 15, cannon);
 		GameDisplay gui = new GameDisplay();
 		Thread.sleep(10000);
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,

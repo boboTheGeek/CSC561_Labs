@@ -112,6 +112,7 @@ public class GameDisplay extends JFrame
 	private ImageIcon selectGraphic(int row, int col) throws RException
 	{
 		Weapon weapon = null;
+		Weapon weapon2 = null;
 		LifeForm entity = null;
 		String entDir = null;
 
@@ -228,7 +229,9 @@ public class GameDisplay extends JFrame
 
 		if (theWorld.getWeapon(row, col) != null)
 		{
-			weapon = theWorld.getWeapon(row, col);
+			weapon = theWorld.getWeapon(row, col, 1);
+			weapon2 = theWorld.getWeapon(row, col, 2);
+			
 			if(weapon instanceof Pistol) {
 				return pistol;
 			}
