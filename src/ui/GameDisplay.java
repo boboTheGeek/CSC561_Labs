@@ -23,11 +23,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import environment.Environment;
+import exceptions.EnvironmentException;
 import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
+import ui.command.Acquire;
+import ui.command.Attack;
 import ui.command.Command;
+import ui.command.Drop;
+import ui.command.TurnEast;
+import ui.command.TurnNorth;
+import ui.command.TurnSouth;
+import ui.command.TurnWest;
 
 public class GameDisplay extends JFrame
 {
@@ -346,6 +354,7 @@ class MockInvoker implements ActionListener
 		buttonArray[0][7] = new JButton("Attack");
 		invokerPanel.add(buttonArray[0][7]);
 
+
 		return invokerPanel;
 
 	}
@@ -368,9 +377,78 @@ class MockInvoker implements ActionListener
 		
 		if(action == "North") {
 			System.out.println(action);
-//			Command north = new TurnNorth();
-//			north.execute();
+			//TurnNorth north = new TurnNorth();
+			/**try {
+				north.execute();
+			} catch (RException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(action == "South") {
+			System.out.println(action);
+			TurnSouth south = new TurnSouth();
+			try {
+				south.execute();
+			} catch (RException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(action == "East") {
+			System.out.println(action);
+			TurnEast east = new TurnEast();
+			try {
+				east.execute();
+			} catch (RException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
+		if(action == "West") {
+			System.out.println(action);
+			TurnWest west = new TurnWest();
+			try {
+				west.execute();
+			} catch (RException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+		}
+		
+		if(action == "Attack") {
+			System.out.println(action);
+			Attack attack = new Attack();
+			try {
+				attack.execute();
+			} catch (RException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (EnvironmentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		if(action == "Pickup") {
+			System.out.println(action);
+			Acquire acquire = new Acquire();
+			acquire.execute();
+		}
+
+		if(action == "Drop") {
+			System.out.println(action);
+			Drop drop = new Drop();
+			try {
+				drop.execute();
+			} catch (RException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
+
+		}
 	}
 }

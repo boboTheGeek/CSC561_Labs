@@ -15,7 +15,8 @@ public class Drop implements Command{
 	public void execute() throws RException {
 		LifeForm life = theWorld.itsMyTurn;
 		System.out.println(life);
-		System.out.println(life.getWeapon());
+		System.out.println("before" + "" +life.getWeapon());
 		life.dropWeapon();
+		System.out.println("after" + "" +life.getWeapon());
 	}
 }

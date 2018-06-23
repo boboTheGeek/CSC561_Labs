@@ -10,7 +10,7 @@ public class Attack implements Command{
 	LifeForm life, life2;
 	@Override
 	public void execute() throws RException, EnvironmentException { 
-		theWorld.addLifeForm(4, 6, life2);
+		
 		theWorld.itsMyTurn.mountAttack(life2);
 	}
 	
