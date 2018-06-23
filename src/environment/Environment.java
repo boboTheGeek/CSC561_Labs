@@ -224,7 +224,12 @@ public class Environment
 	{
 		if (cells[row][col] != null)
 		{
-			return cells[row][col].getWeapon();
+			try{
+				return cells[row][col].getWeapon();
+			}catch(RException e)
+			{
+				return null;
+			}
 		}
 		else
 		{

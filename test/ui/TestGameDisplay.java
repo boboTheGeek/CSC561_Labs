@@ -45,7 +45,7 @@ public class TestGameDisplay
 
 		Weapon pistol = new Pistol();
 		alien.pickUpWeapon(pistol);
-		theWorld.addWeapon(7, 14, pistol);
+		theWorld.addWeapon(1, 14, pistol);
 		Weapon chain = new ChainGun();
 		theWorld.addWeapon(7, 15, chain);
 		Weapon cannon = new PlasmaCannon();
