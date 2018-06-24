@@ -8,7 +8,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -56,36 +55,283 @@ public class GameDisplay extends JFrame
 	 * map dimensions and also determines the LifeForms to display
 	 * 
 	 * @throws InterruptedException
+	 * @throws RException
 	 */
-	public GameDisplay() throws InterruptedException
+	public GameDisplay() throws InterruptedException, RException
 	{
 		theWorld = Environment.getWorld();
 
 		setLayout(new BorderLayout());
 		generateImageAssets();
+
 		textLabel = new JLabel("Aliens Vs. Humans: --  a super awesome game by CSC561 designs");
 		add("North", textLabel);
-		imageLabel = new JLabel(createImage());
-		add("South", imageLabel);
-		textButton4 = new JButton("Legend Area");
-		add("East", textButton4);
 
+		MockInvoker invoker = new MockInvoker(this);
+		add("South", invoker.generateInvoker());
+		add("Center", drawMap());
+		add("East", generateLegend());
+		pack();
+		setVisible(true);
+	}
+
+	/**
+	 * creates a map layout using the dimensions of theWorld's cells[][] array of
+	 * cells it will call another function to process the image that is displayed in
+	 * that cell based on the required element for that cell.
+	 * 
+	 * @return JPanel of "cells" to make a map
+	 * @throws RException
+	 */
+	public JPanel drawMap() throws RException
+	{
 		int[] x = theWorld.getEnvironmentDimensions();
 		int rows = x[0];
 		int columns = x[1];
 		JPanel centerPanel = new JPanel(new GridLayout(rows, columns));
 		JLabel[][] labelArray = new JLabel[rows][columns];
+
 		for (int r = 0; r < rows; r++)
 		{
 			for (int c = 0; c < columns; c++)
 			{
-
 				labelArray[r][c] = new JLabel();
 				labelArray[r][c].setIcon(selectGraphic(r, c));
 				centerPanel.add(labelArray[r][c]);
 			}
 		}
 
+		return centerPanel;
+	}
+
+	/**
+	 * pick the graphic that will be displayed based on the the type of LifeForm
+	 * that should be displayed. considers the direction, whetehr or wapon is in
+	 * hand or what type of life form
+	 * 
+	 * @param row
+	 * @param col
+	 * @return graphic
+	 * @throws RException
+	 */
+	private ImageIcon selectGraphic(int row, int col) throws RException
+	{
+		Weapon weapon = null;
+		Weapon weapon2 = null;
+		LifeForm entity = null;
+		String entDir = null;
+
+		if (theWorld.getLifeForm(row, col) != null)
+		{
+			entity = theWorld.getLifeForm(row, col);
+			entDir = entity.getDirection();
+			if (entDir == "North")
+			{
+
+				if ((entity instanceof Human))
+				{
+					if (entity.getWeapon() != null)
+					{
+						return HNorthArmed;
+					}
+					else
+					{
+						return HNorth;
+					}
+				}
+				else if (entity instanceof Alien)
+				{
+					if (entity.getWeapon() != null)
+					{
+						return ANorthArmed;
+					}
+					else
+					{
+						return ANorth;
+					}
+				}
+			}
+
+			if (entDir == "East")
+			{
+				if ((entity instanceof Human))
+				{
+					if (entity.getWeapon() != null)
+					{
+						return HEastArmed;
+					}
+					else
+					{
+						return HEast;
+					}
+				}
+				else if (entity instanceof Alien)
+				{
+					if (entity.getWeapon() != null)
+					{
+						return AEastArmed;
+					}
+					else
+					{
+						return AEast;
+					}
+				}
+
+			}
+			if (entDir == "South")
+			{
+				if ((entity instanceof Human))
+				{
+					if (entity.getWeapon() != null)
+					{
+						return HSouthArmed;
+					}
+					else
+					{
+						return HSouth;
+					}
+				}
+				else if (entity instanceof Alien)
+				{
+					if (entity.getWeapon() != null)
+					{
+						return ASouthArmed;
+					}
+					else
+					{
+						return ASouth;
+					}
+				}
+
+			}
+			if (entDir == "West")
+			{
+				if ((entity instanceof Human))
+				{
+					if (entity.getWeapon() != null)
+					{
+						return HWestArmed;
+					}
+					else
+					{
+						return HWest;
+					}
+				}
+				else if (entity instanceof Alien)
+				{
+					if (entity.getWeapon() != null)
+					{
+						return AWestArmed;
+					}
+					else
+					{
+						return AWest;
+					}
+				}
+
+			}
+		}
+
+		if (theWorld.getWeapon(row, col) != null)
+		{
+			weapon = theWorld.getWeapon(row, col, 1);
+			weapon2 = theWorld.getWeapon(row, col, 2);
+
+			if (((weapon instanceof Pistol) && (weapon2 instanceof ChainGun))
+					|| ((weapon2 instanceof Pistol) && (weapon instanceof ChainGun)))
+			{
+				return chaingunPistol;
+			}
+			else if (((weapon instanceof PlasmaCannon) && (weapon2 instanceof ChainGun))
+					|| ((weapon2 instanceof PlasmaCannon) && (weapon instanceof ChainGun)))
+			{
+				return cannonChaingun;
+			}
+			else if (((weapon instanceof PlasmaCannon) && (weapon2 instanceof Pistol))
+					|| ((weapon2 instanceof PlasmaCannon) && (weapon instanceof Pistol)))
+			{
+				return cannonPistol;
+			}
+			else if (weapon instanceof Pistol)
+			{
+				return pistol;
+			}
+			else if (weapon instanceof ChainGun)
+			{
+				return chaingun;
+			}
+			else if (weapon instanceof PlasmaCannon)
+			{
+				return plasmacannon;
+			}
+
+		}
+		if ((weapon == null) && (entity == null))
+		{
+			return new ImageIcon("background.png");
+		}
+		return createImage();
+
+	}
+
+	/**
+	 * generate some generic image icon that can be used
+	 * 
+	 * @return
+	 */
+	public ImageIcon createImage()
+	{
+		BufferedImage exampleImage = new BufferedImage(50, 50, BufferedImage.TYPE_3BYTE_BGR);
+		Graphics drawer = exampleImage.getGraphics();
+		drawer.setColor(new Color(200, 200, 200));
+		drawer.fillRect(0, 0, 50, 50);
+		drawer.setColor(new Color(0, 75, 0));
+		drawer.fillOval(20, 20, 10, 10);
+		return new ImageIcon(exampleImage);
+	}
+
+	/**
+	 * create all of the images as instance variables that can be used by the
+	 * various UI methods
+	 * 
+	 * Important Note: all of the assets need to be stored in the root folder of
+	 * your project to get called correctly
+	 */
+	private void generateImageAssets()
+	{
+
+		HNorth = new ImageIcon("North.png");
+		HEast = new ImageIcon("East.png");
+		HWest = new ImageIcon("West.png");
+		HSouth = new ImageIcon("South.png");
+		ANorth = new ImageIcon("ANorth.png");
+		AEast = new ImageIcon("AEast.png");
+		AWest = new ImageIcon("AWest.png");
+		ASouth = new ImageIcon("ASouth.png");
+		HNorthArmed = new ImageIcon("NorthArmed.png");
+		HEastArmed = new ImageIcon("EastArmed.png");
+		HWestArmed = new ImageIcon("WestArmed.png");
+		HSouthArmed = new ImageIcon("SouthArmed.png");
+		ANorthArmed = new ImageIcon("ANorthArmed.png");
+		AEastArmed = new ImageIcon("AEastArmed.png");
+		AWestArmed = new ImageIcon("AWestArmed.png");
+		ASouthArmed = new ImageIcon("ASouthArmed.png");
+		pistol = new ImageIcon("Pistol.png");
+		chaingun = new ImageIcon("chaingun.png");
+		plasmacannon = new ImageIcon("cannon.png");
+		cannonChaingun = new ImageIcon("cannonChaingun.png");
+		chaingunPistol = new ImageIcon("chaingunPistol.png");
+		cannonPistol = new ImageIcon("cannonPistol.png");
+	}
+
+	/**
+	 * Creates the visuals for the Legend intended that provides visual queues for
+	 * the user about what the various graphics mean in the UI
+	 * 
+	 * @return JPanel with a legend in it
+	 */
+	private JPanel generateLegend()
+	{
 		/**
 		 * Set up legend
 		 */
@@ -95,7 +341,7 @@ public class GameDisplay extends JFrame
 		// human
 		legendLabelArray[0][0] = new JLabel("human");
 		legendPanel.add(legendLabelArray[0][0]);
-		
+
 		legendLabelArray[0][1] = new JLabel();
 		legendLabelArray[0][1].setIcon(HEast);
 		legendPanel.add(legendLabelArray[0][1]);
@@ -129,200 +375,23 @@ public class GameDisplay extends JFrame
 		legendLabelArray[5][1] = new JLabel();
 		legendLabelArray[5][1].setIcon(HSouthArmed);
 		legendPanel.add(legendLabelArray[5][1]);
-		
-		MockInvoker invoker = new MockInvoker();
-		add("South", invoker.generateInvoker());
-		add("Center", centerPanel);
-		add("East", legendPanel);
-		pack();
-		setVisible(true);
+
+		return legendPanel;
 	}
 
-	/**
-	 * pick the graphic that will be displayed based on the the type of LifeForm
-	 * that should be displayed. considers the direction, whetehr or wapon is in
-	 * hand or what type of life form
-	 * 
-	 * @param row
-	 * @param col
-	 * @return graphic
-	 */
-	private ImageIcon selectGraphic(int row, int col)
-	{
-		LifeForm entity;
-		if (theWorld.getLifeForm(row, col) == null)
-		{
-			return new ImageIcon("background.png");
-		}
-		else
-		{
-			entity = theWorld.getLifeForm(row, col);
-		}
-		String entDir = entity.getDirection();
-
-		if (entDir == "North")
-		{
-
-			if ((entity instanceof Human))
-			{
-				if (entity.getWeapon() != null)
-				{
-					return HNorthArmed;
-				}
-				else
-				{
-					return HNorth;
-				}
-			}
-			else if (entity instanceof Alien)
-			{
-				if (entity.getWeapon() != null)
-				{
-					return ANorthArmed;
-				}
-				else
-				{
-					return ANorth;
-				}
-			}
-		}
-
-		if (entDir == "East")
-		{
-			if ((entity instanceof Human))
-			{
-				if (entity.getWeapon() != null)
-				{
-					return HEastArmed;
-				}
-				else
-				{
-					return HEast;
-				}
-			}
-			else if (entity instanceof Alien)
-			{
-				if (entity.getWeapon() != null)
-				{
-					return AEastArmed;
-				}
-				else
-				{
-					return AEast;
-				}
-			}
-
-		}
-		if (entDir == "South")
-		{
-			if ((entity instanceof Human))
-			{
-				if (entity.getWeapon() != null)
-				{
-					return HSouthArmed;
-				}
-				else
-				{
-					return HSouth;
-				}
-			}
-			else if (entity instanceof Alien)
-			{
-				if (entity.getWeapon() != null)
-				{
-					return ASouthArmed;
-				}
-				else
-				{
-					return ASouth;
-				}
-			}
-
-		}
-		if (entDir == "West")
-		{
-			if ((entity instanceof Human))
-			{
-				if (entity.getWeapon() != null)
-				{
-					return HWestArmed;
-				}
-				else
-				{
-					return HWest;
-				}
-			}
-			else if (entity instanceof Alien)
-			{
-				if (entity.getWeapon() != null)
-				{
-					return AWestArmed;
-				}
-				else
-				{
-					return AWest;
-				}
-			}
-
-		}
-		return new ImageIcon(getClass().getResource("assets\background.png"));
-
-	}
-
-	/**
-	 * generate some generic image icon that can be used
-	 * 
-	 * @return
-	 */
-	public ImageIcon createImage()
-	{
-		BufferedImage exampleImage = new BufferedImage(50, 50, BufferedImage.TYPE_3BYTE_BGR);
-		Graphics drawer = exampleImage.getGraphics();
-		drawer.setColor(new Color(200, 200, 200));
-		drawer.fillRect(0, 0, 50, 50);
-		drawer.setColor(new Color(0, 75, 0));
-		drawer.fillOval(20, 20, 10, 10);
-		return new ImageIcon(exampleImage);
-	}
-
-	/**
-	 * create all of the images as instance variables that can be used by the
-	 * various UI methods
-	 * 
-	 * Important Note: all of the assets need to be stored in the root folder of your project to get called correctly
-	 */
-	private void generateImageAssets()
-	{
-
-		HNorth = new ImageIcon("North.png");
-		HEast = new ImageIcon("East.png");
-		HWest = new ImageIcon("West.png");
-		HSouth = new ImageIcon("South.png");
-		ANorth = new ImageIcon("ANorth.png");
-		AEast = new ImageIcon("AEast.png");
-		AWest = new ImageIcon("AWest.png");
-		ASouth = new ImageIcon("ASouth.png");
-		HNorthArmed = new ImageIcon("NorthArmed.png");
-		HEastArmed = new ImageIcon("EastArmed.png");
-		HWestArmed = new ImageIcon("WestArmed.png");
-		HSouthArmed = new ImageIcon("SouthArmed.png");
-		ANorthArmed = new ImageIcon("ANorthArmed.png");
-		AEastArmed = new ImageIcon("AEastArmed.png");
-		AWestArmed = new ImageIcon("AWestArmed.png");
-		ASouthArmed = new ImageIcon("ASouthArmed.png");
-		pistol = new ImageIcon("Pistol.png");
-		chaingun = new ImageIcon("chaingun.png");
-		plasmacannon = new ImageIcon("cannon.png");
-		cannonChaingun = new ImageIcon("cannonChaingun.png");
-		chaingunPistol = new ImageIcon("chaingunPistol.png");
-		cannonPistol = new ImageIcon("cannonPistol.png");
-	}
 }
 
 class MockInvoker implements ActionListener
 {
 	Environment theWorld = Environment.getWorld();
-	
+
+	GameDisplay UI;
+
+	MockInvoker(GameDisplay UI)
+	{
+		this.UI = UI;
+	}
+
 	public JPanel generateInvoker()
 	{
 		/**
@@ -332,24 +401,29 @@ class MockInvoker implements ActionListener
 		JButton[][] buttonArray = new JButton[1][8];
 
 		buttonArray[0][0] = new JButton("West");
-		buttonArray[0][0].addActionListener(this);
-		buttonArray[0][0].setActionCommand("West");
+		// buttonArray[0][0].addActionListener(this);
+		// buttonArray[0][0].setActionCommand("West");
 		buttonArray[0][0].setBorder(BorderFactory.createLineBorder(Color.black));
 		invokerPanel.add(buttonArray[0][0]);
 		buttonArray[0][1] = new JButton("South");
 		invokerPanel.add(buttonArray[0][1]);
 		buttonArray[0][2] = new JButton("North");
-		buttonArray[0][2].addActionListener(this);
-		buttonArray[0][2].setActionCommand("North");
+		// buttonArray[0][2].addActionListener(this);
+		// buttonArray[0][2].setActionCommand("North");
 		invokerPanel.add(buttonArray[0][2]);
 		buttonArray[0][3] = new JButton("East");
+		// buttonArray[0][3].addActionListener(this);
+		// buttonArray[0][3].setActionCommand("East");
 		invokerPanel.add(buttonArray[0][3]);
 		buttonArray[0][4] = new JButton("Pickup");
 		invokerPanel.add(buttonArray[0][4]);
 		buttonArray[0][5] = new JButton("Drop");
 		invokerPanel.add(buttonArray[0][5]);
+
 		buttonArray[0][6] = new JButton("Move");
-		buttonArray[0][0].addActionListener(this);
+		buttonArray[0][6].addActionListener(this);
+		buttonArray[0][6].setActionCommand("Move");
+
 		invokerPanel.add(buttonArray[0][6]);
 		buttonArray[0][7] = new JButton("Attack");
 		invokerPanel.add(buttonArray[0][7]);
@@ -363,92 +437,77 @@ class MockInvoker implements ActionListener
 	public void actionPerformed(ActionEvent button)
 	{
 		String action = button.getActionCommand();
-		if(action == "West") {
-			System.out.println(action);
-			try
-			{
-				theWorld.playerDirection(action);
-			}
-			catch (RException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		
-		if(action == "North") {
-			System.out.println(action);
-			//TurnNorth north = new TurnNorth();
-			/**try {
-				north.execute();
-			} catch (RException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if(action == "South") {
-			System.out.println(action);
-			TurnSouth south = new TurnSouth();
-			try {
-				south.execute();
-			} catch (RException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if(action == "East") {
-			System.out.println(action);
-			TurnEast east = new TurnEast();
-			try {
-				east.execute();
-			} catch (RException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		if(action == "West") {
-			System.out.println(action);
-			TurnWest west = new TurnWest();
-			try {
-				west.execute();
-			} catch (RException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
-		}
-		
-		if(action == "Attack") {
-			System.out.println(action);
-			Attack attack = new Attack();
-			try {
-				attack.execute();
-			} catch (RException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (EnvironmentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 
-		if(action == "Pickup") {
-			System.out.println(action);
-			Acquire acquire = new Acquire();
-			acquire.execute();
-		}
+		// if (action == "West")
+		// {
+		// System.out.println(action);
+		// try
+		// {
+		// theWorld.playerDirection(action);
+		// }
+		// catch (RException e)
+		// {
+		// e.printStackTrace();
+		// }
+		// }
 
-		if(action == "Drop") {
+		// if (action == "North")
+		// {
+		//
+		// Command north = new TurnNorth();
+		// try
+		// {
+		// north.execute();
+		// }
+		// catch (RException | EnvironmentException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+		// if (action == "East")
+		// {
+		// System.out.println(Environment.itsMyTurn.getDirection());
+		// try
+		// {
+		// Environment.itsMyTurn.rotate("East");
+		// }
+		// catch (RException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// }
+		if (action == "Move")
+		{
 			System.out.println(action);
-			Drop drop = new Drop();
-			try {
-				drop.execute();
-			} catch (RException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}*/
+			theWorld.movePlayer();
+			// Command c = new Move();
+			// try
+			// {
+			// c.execute();
+			// }
+			// catch (RException e)
+			// {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			// catch (EnvironmentException e)
+			// {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 
 		}
+		try
+		{
+			UI.drawMap();
+		}
+		catch (RException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 }

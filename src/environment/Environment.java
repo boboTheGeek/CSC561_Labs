@@ -193,14 +193,22 @@ public class Environment
 	{
 		if (row <= numrows && col <= numcols)
 		{
-			Cell containerCell = new Cell();
-			containerCell.addWeapon(weapon);
-			cells[row][col] = containerCell;
+			if (cells[row][col] == null)
+			{
+				Cell containerCell = new Cell();
+				containerCell.addWeapon(weapon);
+				cells[row][col] = containerCell;
+			}
+			else
+			{
+				cells[row][col].addWeapon(weapon);
+			}
 			int[] loc = new int[2];
 			loc[0] = row;
 			loc[1] = col;
 			weaponLocations.put(weapon, loc);
 			return true;
+
 		}
 		else
 		{
@@ -224,12 +232,53 @@ public class Environment
 	{
 		if (cells[row][col] != null)
 		{
-			return cells[row][col].getWeapon();
+			try
+			{
+				return cells[row][col].getWeapon();
+			}
+			catch (RException e)
+			{
+				return null;
+			}
 		}
 		else
 		{
 			return null;
 		}
+	}
+
+	/**
+	 * return the Weapon 1 or 2 from a particular x,y location in 2D environment
+	 * array
+	 * 
+	 * @param row
+	 *            - row coordinate from 2D environment array
+	 * 
+	 * @param col
+	 *            - column coordinate from 2D environment array
+	 * 
+	 * @param 1
+	 *            or 2 gives the weapon in slot 1 or slot 2
+	 * 
+	 * @return requested LifeForm (null if empty)
+	 */
+	public Weapon getWeapon(int row, int col, int w)
+	{
+
+		if (cells[row][col] != null)
+		{
+			if (w == 1)
+			{
+				return cells[row][col].getWeapon1();
+			}
+			if (w == 2)
+			{
+				return cells[row][col].getWeapon2();
+			}
+		}
+
+		return null;
+
 	}
 
 	/**
