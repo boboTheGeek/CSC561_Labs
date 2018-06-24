@@ -231,23 +231,41 @@ public class GameDisplay extends JFrame
 		{
 			weapon = theWorld.getWeapon(row, col, 1);
 			weapon2 = theWorld.getWeapon(row, col, 2);
-			
-			if(weapon instanceof Pistol) {
+
+			if (((weapon instanceof Pistol) && (weapon2 instanceof ChainGun))
+					|| ((weapon2 instanceof Pistol) && (weapon instanceof ChainGun)))
+			{
+				return chaingunPistol;
+			}
+			else if (((weapon instanceof PlasmaCannon) && (weapon2 instanceof ChainGun))
+					|| ((weapon2 instanceof PlasmaCannon) && (weapon instanceof ChainGun)))
+			{
+				return cannonChaingun;
+			}
+			else if (((weapon instanceof PlasmaCannon) && (weapon2 instanceof Pistol))
+					|| ((weapon2 instanceof PlasmaCannon) && (weapon instanceof Pistol)))
+			{
+				return cannonPistol;
+			}
+			else if (weapon instanceof Pistol)
+			{
 				return pistol;
 			}
-			if(weapon instanceof ChainGun) {
+			else if (weapon instanceof ChainGun)
+			{
 				return chaingun;
 			}
-			if(weapon instanceof PlasmaCannon) {
+			else if (weapon instanceof PlasmaCannon)
+			{
 				return plasmacannon;
 			}
-			
+
 		}
 		if ((weapon == null) && (entity == null))
 		{
 			return new ImageIcon("background.png");
 		}
-		return null;
+		return createImage();
 
 	}
 

@@ -177,10 +177,13 @@ public class TestEnvironment
 	{
 		Environment.resetWorld();
 		Weapon pewPewPew = new Pistol();
+		Weapon pewPewPew2 = new Pistol();
 		Environment.createWorld(10, 10);
 		Environment theWorld = Environment.getWorld();
 		theWorld.addWeapon(2, 2, pewPewPew);
-		assertEquals(pewPewPew, theWorld.getWeapon(2, 2));
+		theWorld.addWeapon(2, 2, pewPewPew2);
+		assertEquals(pewPewPew, theWorld.getWeapon(2, 2, 1));
+		assertEquals(pewPewPew2, theWorld.getWeapon(2, 2, 2));
 		theWorld.removeWeaponByCell(2, 2);
 		assertNull(theWorld.getWeapon(2, 2));
 
