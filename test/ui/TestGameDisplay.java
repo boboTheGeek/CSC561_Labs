@@ -48,27 +48,26 @@ public class TestGameDisplay
 				"Create Cell Image Icon Correct For\nHuman facing West(0,0)\nand Alien facing North(1,1)\nand MockEntity facing East(3,2)\nDoes it look right?"));
 	}
 	@Test
-	public void testCreateArmedAlien() throws InterruptedException, RException
+	public void testCreateArmedEntity() throws InterruptedException, RException
 	{
 		Environment theWorld = Environment.getWorld();
 
 		LifeForm alien = new Alien("zaphod beeblebrox", 20);
 		theWorld.addLifeForm(1, 1, alien);
+		LifeForm human = new Human(0, "eddie cheddar", 20);
+		theWorld.addLifeForm(0, 0, human);
+		human.rotate("South");
 
 		Weapon pistol = new Pistol();
 		alien.pickUpWeapon(pistol);
+	
+		human.pickUpWeapon(pistol);
 
 		GameDisplay gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
-				"Create Cell Image Icon Correct For\nArmed Alien facing North(1,1) \nDoes it look right?"));
+				"Create Cell Image Icon Correct For\nArmed Human facing South(0,0)\nArmed Alien facing North(1,1) \nDoes it look right?"));
 	}
-	@Test
-	public void testCreateLegend() throws InterruptedException, RException
-	{
-		GameDisplay gui = new GameDisplay();
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
-				"Do you see a legend on the right\nIt should display Aliens, Humans, Weapons (3), Armed LifeForm.\nDoes it look right?"));
-	}
+	
 
 
 
@@ -101,6 +100,36 @@ public class TestGameDisplay
 				"Do you see all the possible combinations of weapons in various cells\nDoes it look right?"));
 	}
 
+	@Test
+	public void testGUIUpdatesfromEnvt() throws InterruptedException, RException 
+	{
+		Environment theWorld = Environment.getWorld();
+
+		LifeForm entity = new Human(2, "entity", 0);
+		theWorld.addLifeForm(0, 0, entity);
+		entity.rotate("East");
+		theWorld.setActivePlayer(entity);
+		GameDisplay gui = new GameDisplay();
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
+				"Do you see a human in 3,2 facing East?"));
+		theWorld.playerDirection("South");
+		Thread.sleep(3000);
+		System.out.println(theWorld.itsMyTurn.getDirection());
+		
+
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
+				"Do you see a human in 0,0 facing South?"));
+		
+	}
+	
+	@Test
+	public void testCreateLegend() throws InterruptedException, RException
+	{
+		GameDisplay gui = new GameDisplay();
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
+				"Do you see a legend on the right\nIt should display Aliens, Humans, Weapons (3), Armed LifeForm.\nDoes it look right?"));
+	}
+	
 	@Test
 	public void testCreateAll() throws InterruptedException, RException
 	{
