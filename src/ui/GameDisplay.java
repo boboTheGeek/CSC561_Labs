@@ -32,7 +32,7 @@ import weapon.Pistol;
 import weapon.PlasmaCannon;
 import weapon.Weapon;
 
-import ui.command.UIinvoker;
+
 
 public class GameDisplay extends JFrame
 {
@@ -47,7 +47,8 @@ public class GameDisplay extends JFrame
 	ImageIcon HNorth, HEast, HWest, HSouth, ANorth, AEast, AWest, ASouth;
 	ImageIcon pistol, chaingun, plasmacannon, cannonPistol, chaingunPistol, cannonChaingun;
 	ImageIcon HNorthArmed, HEastArmed, HWestArmed, HSouthArmed, ANorthArmed, AEastArmed, AWestArmed, ASouthArmed;
-
+	JPanel centerP;
+	JLabel[][] labelArray;
 	/**
 	 * constructor to generate game layout. Accesses the Environment varibles like
 	 * map dimensions and also determines the LifeForms to display
@@ -66,9 +67,9 @@ public class GameDisplay extends JFrame
 		add("North", textLabel);
 
 		MockInvoker i = new MockInvoker(this);
-
+		centerP = drawMap();
 		add("South", i.generateInvoker());
-		add("Center", drawMap());
+		add("Center", centerP);
 		add("East", generateLegend());
 		pack();
 		setVisible(true);
@@ -88,7 +89,7 @@ public class GameDisplay extends JFrame
 		int rows = x[0];
 		int columns = x[1];
 		JPanel centerPanel = new JPanel(new GridLayout(rows, columns));
-		JLabel[][] labelArray = new JLabel[rows][columns];
+		labelArray = new JLabel[rows][columns];
 
 		for (int r = 0; r < rows; r++)
 		{
@@ -379,3 +380,5 @@ public class GameDisplay extends JFrame
 	}
 
 }
+
+

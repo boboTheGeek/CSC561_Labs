@@ -2,6 +2,7 @@ package ui;
 
 import static org.junit.Assert.*;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -117,11 +119,16 @@ public class TestGameDisplay
 		theWorld.setActivePlayer(entity);
 		GameDisplay gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION,
-				JOptionPane.showConfirmDialog(null, "Do you see a human in 3,2 facing East?"));
+				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing East?"));
 		theWorld.playerDirection("South");
 		Thread.sleep(3000);
 		System.out.println(theWorld.itsMyTurn.getDirection());
-
+		JPanel g = gui.drawMap();
+		//gui.add("Center", null);
+		gui.add("Center", g);
+		
+		gui.repaint();
+		gui.validate();
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing South?"));
 
@@ -184,9 +191,23 @@ public class TestGameDisplay
 		// assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, "Map
 		// legend Displays Correctly\nAlien(Green Triangle)\nDoes it look right?"));
 	}
+	@Test
+	public void teststuff() 
+	{
 
+	MockGui x = new MockGui();
+	//x.add(gui.drawMap());
+	
+	}
 }
-
+class MockGui extends JFrame
+{
+	MockGui(){
+		setLayout(new BorderLayout());
+	}
+	
+	
+}
 class MockInvoker implements ActionListener
 {
 	Environment theWorld = Environment.getWorld();
@@ -300,3 +321,8 @@ class MockInvoker implements ActionListener
 
 	}
 }
+
+
+	
+	
+
