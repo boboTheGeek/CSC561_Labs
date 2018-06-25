@@ -300,28 +300,28 @@ public class GameDisplay extends JFrame
 	private void generateImageAssets()
 	{
 
-		HNorth = new ImageIcon("North.png");
-		HEast = new ImageIcon("East.png");
-		HWest = new ImageIcon("West.png");
-		HSouth = new ImageIcon("South.png");
-		ANorth = new ImageIcon("ANorth.png");
-		AEast = new ImageIcon("AEast.png");
-		AWest = new ImageIcon("AWest.png");
-		ASouth = new ImageIcon("ASouth.png");
-		HNorthArmed = new ImageIcon("NorthArmed.png");
-		HEastArmed = new ImageIcon("EastArmed.png");
-		HWestArmed = new ImageIcon("WestArmed.png");
-		HSouthArmed = new ImageIcon("SouthArmed.png");
-		ANorthArmed = new ImageIcon("ANorthArmed.png");
-		AEastArmed = new ImageIcon("AEastArmed.png");
-		AWestArmed = new ImageIcon("AWestArmed.png");
-		ASouthArmed = new ImageIcon("ASouthArmed.png");
-		pistol = new ImageIcon("Pistol.png");
-		chaingun = new ImageIcon("chaingun.png");
-		plasmacannon = new ImageIcon("cannon.png");
-		cannonChaingun = new ImageIcon("cannonChaingun.png");
-		chaingunPistol = new ImageIcon("chaingunPistol.png");
-		cannonPistol = new ImageIcon("cannonPistol.png");
+		HNorth = new ImageIcon("assets/North.png");
+		HEast = new ImageIcon("assets/East.png");
+		HWest = new ImageIcon("assets/West.png");
+		HSouth = new ImageIcon("assets/South.png");
+		ANorth = new ImageIcon("assets/ANorth.png");
+		AEast = new ImageIcon("assets/AEast.png");
+		AWest = new ImageIcon("assets/AWest.png");
+		ASouth = new ImageIcon("assets/ASouth.png");
+		HNorthArmed = new ImageIcon("assets/NorthArmed.png");
+		HEastArmed = new ImageIcon("assets/EastArmed.png");
+		HWestArmed = new ImageIcon("assets/WestArmed.png");
+		HSouthArmed = new ImageIcon("assets/SouthArmed.png");
+		ANorthArmed = new ImageIcon("assets/ANorthArmed.png");
+		AEastArmed = new ImageIcon("assets/AEastArmed.png");
+		AWestArmed = new ImageIcon("assets/AWestArmed.png");
+		ASouthArmed = new ImageIcon("assets/ASouthArmed.png");
+		pistol = new ImageIcon("assets/Pistol.png");
+		chaingun = new ImageIcon("assets/chaingun.png");
+		plasmacannon = new ImageIcon("assets/cannon.png");
+		cannonChaingun = new ImageIcon("assets/cannonChaingun.png");
+		chaingunPistol = new ImageIcon("assets/chaingunPistol.png");
+		cannonPistol = new ImageIcon("assets/cannonPistol.png");
 	}
 
 	/**

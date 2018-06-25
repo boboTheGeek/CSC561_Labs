@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,11 +30,19 @@ import weapon.Weapon;
 
 public class TestGameDisplay
 {
+	GameDisplay gui;
+	
 	@Before // clear and setup the world before each test
 	public void testSetupWorld() throws RException
 	{
 		Environment.resetWorld();
 		Environment.createWorld(10, 20);
+	}
+	
+	@After
+	public void cleanupGUI()
+	{
+		gui.dispose();
 	}
 
 	@Test
@@ -53,7 +62,7 @@ public class TestGameDisplay
 		LifeForm alien = new Alien("zaphod beeblebrox", 20);
 		theWorld.addLifeForm(1, 1, alien);
 
-		GameDisplay gui = new GameDisplay();
+		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nHuman facing West(0,0)\nand Alien facing North(1,1)\nand MockEntity facing East(3,2)\nDoes it look right?"));
 	}
@@ -74,7 +83,7 @@ public class TestGameDisplay
 
 		human.pickUpWeapon(pistol);
 
-		GameDisplay gui = new GameDisplay();
+		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nArmed Human facing South(0,0)\nArmed Alien facing North(1,1) \nDoes it look right?"));
 	}
@@ -103,7 +112,7 @@ public class TestGameDisplay
 		Weapon cannon3 = new PlasmaCannon();
 		theWorld.addWeapon(1, 15, cannon3);
 
-		GameDisplay gui = new GameDisplay();
+		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Do you see all the possible combinations of weapons in various cells\nDoes it look right?"));
 	}
@@ -117,7 +126,7 @@ public class TestGameDisplay
 		theWorld.addLifeForm(0, 0, entity);
 		entity.rotate("East");
 		theWorld.setActivePlayer(entity);
-		GameDisplay gui = new GameDisplay();
+		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing East?"));
 		theWorld.playerDirection("South");
@@ -137,7 +146,7 @@ public class TestGameDisplay
 	@Test
 	public void testCreateLegend() throws InterruptedException, RException
 	{
-		GameDisplay gui = new GameDisplay();
+		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Do you see a legend on the right\nIt should display Aliens, Humans, Weapons (3), Armed LifeForm.\nDoes it look right?"));
 	}
@@ -182,7 +191,7 @@ public class TestGameDisplay
 		Weapon cannon3 = new PlasmaCannon();
 		theWorld.addWeapon(1, 15, cannon3);
 
-		GameDisplay gui = new GameDisplay();
+		gui = new GameDisplay();
 		// Thread.sleep(10000);
 		// assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 		// "Create Cell Image Icon Correct For\nHuman, East(0,0) and Alien, North,
