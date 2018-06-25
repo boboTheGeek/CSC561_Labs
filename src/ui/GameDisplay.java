@@ -20,21 +20,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.xml.ws.spi.Invoker;
 
 import environment.Environment;
-import exceptions.EnvironmentException;
 import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
-import ui.command.Acquire;
-import ui.command.Attack;
-import ui.command.Command;
-import ui.command.Drop;
-import ui.command.TurnEast;
-import ui.command.TurnNorth;
-import ui.command.TurnSouth;
-import ui.command.TurnWest;
+import weapon.ChainGun;
+import weapon.Pistol;
+import weapon.PlasmaCannon;
+import weapon.Weapon;
+
+import ui.command.UIinvoker;
 
 public class GameDisplay extends JFrame
 {
@@ -67,8 +65,9 @@ public class GameDisplay extends JFrame
 		textLabel = new JLabel("Aliens Vs. Humans: --  a super awesome game by CSC561 designs");
 		add("North", textLabel);
 
-		MockInvoker invoker = new MockInvoker(this);
-		add("South", invoker.generateInvoker());
+		MockInvoker i = new MockInvoker(this);
+
+		add("South", i.generateInvoker());
 		add("Center", drawMap());
 		add("East", generateLegend());
 		pack();
@@ -106,7 +105,7 @@ public class GameDisplay extends JFrame
 
 	/**
 	 * pick the graphic that will be displayed based on the the type of LifeForm
-	 * that should be displayed. considers the direction, whetehr or wapon is in
+	 * that should be displayed. considers the direction, whether or weapon is in
 	 * hand or what type of life form
 	 * 
 	 * @param row
@@ -369,7 +368,7 @@ public class GameDisplay extends JFrame
 		legendLabelArray[4][1] = new JLabel();
 		legendLabelArray[4][1].setIcon(plasmacannon);
 		legendPanel.add(legendLabelArray[4][1]);
-		// plasmacannon
+		// armed guy
 		legendLabelArray[5][0] = new JLabel("armed lifeform: ");
 		legendPanel.add(legendLabelArray[5][0]);
 		legendLabelArray[5][1] = new JLabel();
@@ -379,135 +378,4 @@ public class GameDisplay extends JFrame
 		return legendPanel;
 	}
 
-}
-
-class MockInvoker implements ActionListener
-{
-	Environment theWorld = Environment.getWorld();
-
-	GameDisplay UI;
-
-	MockInvoker(GameDisplay UI)
-	{
-		this.UI = UI;
-	}
-
-	public JPanel generateInvoker()
-	{
-		/**
-		 * Set up invoker layout
-		 */
-		JPanel invokerPanel = new JPanel(new GridLayout(1, 8));
-		JButton[][] buttonArray = new JButton[1][8];
-
-		buttonArray[0][0] = new JButton("West");
-		// buttonArray[0][0].addActionListener(this);
-		// buttonArray[0][0].setActionCommand("West");
-		buttonArray[0][0].setBorder(BorderFactory.createLineBorder(Color.black));
-		invokerPanel.add(buttonArray[0][0]);
-		buttonArray[0][1] = new JButton("South");
-		invokerPanel.add(buttonArray[0][1]);
-		buttonArray[0][2] = new JButton("North");
-		// buttonArray[0][2].addActionListener(this);
-		// buttonArray[0][2].setActionCommand("North");
-		invokerPanel.add(buttonArray[0][2]);
-		buttonArray[0][3] = new JButton("East");
-		// buttonArray[0][3].addActionListener(this);
-		// buttonArray[0][3].setActionCommand("East");
-		invokerPanel.add(buttonArray[0][3]);
-		buttonArray[0][4] = new JButton("Pickup");
-		invokerPanel.add(buttonArray[0][4]);
-		buttonArray[0][5] = new JButton("Drop");
-		invokerPanel.add(buttonArray[0][5]);
-
-		buttonArray[0][6] = new JButton("Move");
-		buttonArray[0][6].addActionListener(this);
-		buttonArray[0][6].setActionCommand("Move");
-
-		invokerPanel.add(buttonArray[0][6]);
-		buttonArray[0][7] = new JButton("Attack");
-		invokerPanel.add(buttonArray[0][7]);
-
-
-		return invokerPanel;
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent button)
-	{
-		String action = button.getActionCommand();
-
-		// if (action == "West")
-		// {
-		// System.out.println(action);
-		// try
-		// {
-		// theWorld.playerDirection(action);
-		// }
-		// catch (RException e)
-		// {
-		// e.printStackTrace();
-		// }
-		// }
-
-		// if (action == "North")
-		// {
-		//
-		// Command north = new TurnNorth();
-		// try
-		// {
-		// north.execute();
-		// }
-		// catch (RException | EnvironmentException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		// if (action == "East")
-		// {
-		// System.out.println(Environment.itsMyTurn.getDirection());
-		// try
-		// {
-		// Environment.itsMyTurn.rotate("East");
-		// }
-		// catch (RException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// }
-		if (action == "Move")
-		{
-			System.out.println(action);
-			theWorld.movePlayer();
-			// Command c = new Move();
-			// try
-			// {
-			// c.execute();
-			// }
-			// catch (RException e)
-			// {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-			// catch (EnvironmentException e)
-			// {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-
-		}
-		try
-		{
-			UI.drawMap();
-		}
-		catch (RException e)
-		{
-			e.printStackTrace();
-		}
-
-	}
 }

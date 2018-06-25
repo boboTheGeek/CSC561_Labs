@@ -2,7 +2,15 @@ package ui;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +55,7 @@ public class TestGameDisplay
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nHuman facing West(0,0)\nand Alien facing North(1,1)\nand MockEntity facing East(3,2)\nDoes it look right?"));
 	}
+
 	@Test
 	public void testCreateArmedEntity() throws InterruptedException, RException
 	{
@@ -60,16 +69,13 @@ public class TestGameDisplay
 
 		Weapon pistol = new Pistol();
 		alien.pickUpWeapon(pistol);
-	
+
 		human.pickUpWeapon(pistol);
 
 		GameDisplay gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nArmed Human facing South(0,0)\nArmed Alien facing North(1,1) \nDoes it look right?"));
 	}
-	
-
-
 
 	@Test
 	public void testCreateWeapons() throws InterruptedException, RException
@@ -101,7 +107,7 @@ public class TestGameDisplay
 	}
 
 	@Test
-	public void testGUIUpdatesfromEnvt() throws InterruptedException, RException 
+	public void testGUIUpdatesfromEnvt() throws InterruptedException, RException
 	{
 		Environment theWorld = Environment.getWorld();
 
@@ -110,18 +116,17 @@ public class TestGameDisplay
 		entity.rotate("East");
 		theWorld.setActivePlayer(entity);
 		GameDisplay gui = new GameDisplay();
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
-				"Do you see a human in 3,2 facing East?"));
+		assertEquals(JOptionPane.YES_OPTION,
+				JOptionPane.showConfirmDialog(null, "Do you see a human in 3,2 facing East?"));
 		theWorld.playerDirection("South");
 		Thread.sleep(3000);
 		System.out.println(theWorld.itsMyTurn.getDirection());
-		
 
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
-				"Do you see a human in 0,0 facing South?"));
-		
+		assertEquals(JOptionPane.YES_OPTION,
+				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing South?"));
+
 	}
-	
+
 	@Test
 	public void testCreateLegend() throws InterruptedException, RException
 	{
@@ -129,7 +134,7 @@ public class TestGameDisplay
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Do you see a legend on the right\nIt should display Aliens, Humans, Weapons (3), Armed LifeForm.\nDoes it look right?"));
 	}
-	
+
 	@Test
 	public void testCreateAll() throws InterruptedException, RException
 	{
@@ -180,4 +185,118 @@ public class TestGameDisplay
 		// legend Displays Correctly\nAlien(Green Triangle)\nDoes it look right?"));
 	}
 
+}
+
+class MockInvoker implements ActionListener
+{
+	Environment theWorld = Environment.getWorld();
+
+	GameDisplay UI;
+
+	MockInvoker(GameDisplay UI)
+	{
+		this.UI = UI;
+	}
+
+	public JPanel generateInvoker()
+	{
+		/**
+		 * Set up invoker layout
+		 */
+		JPanel invokerPanel = new JPanel(new GridLayout(1, 8));
+		JButton[][] buttonArray = new JButton[1][8];
+
+		buttonArray[0][0] = new JButton("West");
+		// buttonArray[0][0].addActionListener(this);
+		// buttonArray[0][0].setActionCommand("West");
+		buttonArray[0][0].setBorder(BorderFactory.createLineBorder(Color.black));
+		invokerPanel.add(buttonArray[0][0]);
+		buttonArray[0][1] = new JButton("South");
+		invokerPanel.add(buttonArray[0][1]);
+		buttonArray[0][2] = new JButton("North");
+		// buttonArray[0][2].addActionListener(this);
+		// buttonArray[0][2].setActionCommand("North");
+		invokerPanel.add(buttonArray[0][2]);
+		buttonArray[0][3] = new JButton("East");
+		// buttonArray[0][3].addActionListener(this);
+		// buttonArray[0][3].setActionCommand("East");
+		invokerPanel.add(buttonArray[0][3]);
+		buttonArray[0][4] = new JButton("Pickup");
+		invokerPanel.add(buttonArray[0][4]);
+		buttonArray[0][5] = new JButton("Drop");
+		invokerPanel.add(buttonArray[0][5]);
+
+		buttonArray[0][6] = new JButton("Move");
+		buttonArray[0][6].addActionListener(this);
+		buttonArray[0][6].setActionCommand("Move");
+
+		invokerPanel.add(buttonArray[0][6]);
+		buttonArray[0][7] = new JButton("Attack");
+		invokerPanel.add(buttonArray[0][7]);
+
+		return invokerPanel;
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent button)
+	{
+		String action = button.getActionCommand();
+
+		// if (action == "West")
+		// {
+		// System.out.println(action);
+		// try
+		// {
+		// theWorld.playerDirection(action);
+		// }
+		// catch (RException e)
+		// {
+		// e.printStackTrace();
+		// }
+		// }
+
+		// if (action == "North")
+		// {
+		//
+		// Command north = new TurnNorth();
+		// try
+		// {
+		// north.execute();
+		// }
+		// catch (RException | EnvironmentException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+		// if (action == "East")
+		// {
+		// System.out.println(Environment.itsMyTurn.getDirection());
+		// try
+		// {
+		// Environment.itsMyTurn.rotate("East");
+		// }
+		// catch (RException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// }
+		if (action == "Move")
+		{
+			System.out.println(action);
+			theWorld.movePlayer();
+
+		}
+		try
+		{
+			UI.drawMap();
+		} catch (RException e)
+		{
+			e.printStackTrace();
+		}
+
+	}
 }
