@@ -41,7 +41,7 @@ public class TestGameDisplay
 	
 	@After
 	public void cleanupGUI()
-	{
+	{ 
 		gui.dispose();
 	}
 
@@ -135,7 +135,7 @@ public class TestGameDisplay
 		//System.out.println(theWorld.itsMyTurn.getDirection());
 		//JPanel g = gui.drawMap();
 		// gui.add("Center", null);
-		gui.updateMap();
+		gui.updateMap(); 
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing South?"));
 

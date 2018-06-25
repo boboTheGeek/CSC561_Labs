@@ -15,6 +15,17 @@ import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
 import ui.TestGameDisplay;
+import ui.command.TestAcquire;
+import ui.command.TestAttack;
+import ui.command.TestDrop;
+import ui.command.TestInvoker;
+import ui.command.TestInvokerBuilder;
+import ui.command.TestMove;
+import ui.command.TestReload;
+import ui.command.TestTurnEast;
+import ui.command.TestTurnNorth;
+import ui.command.TestTurnSouth;
+import ui.command.TestTurnWest;
 import weapon.TestChainGun;
 import weapon.TestGenericWeapon;
 import weapon.TestPistol;
@@ -31,7 +42,9 @@ import weapon.TestScope;
 @Suite.SuiteClasses(
 { TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
 		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestChainGun.class,
-		TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class, TestScope.class, TestGameDisplay.class })
+		TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class, TestScope.class, TestGameDisplay.class, TestAcquire.class, 
+		TestAttack.class, TestDrop.class, TestInvoker.class, TestInvokerBuilder.class, TestMove.class, TestReload.class, TestTurnEast.class, TestTurnNorth.class,
+		TestTurnSouth.class, TestTurnWest.class})
 
 public class AllGameTests
 {
