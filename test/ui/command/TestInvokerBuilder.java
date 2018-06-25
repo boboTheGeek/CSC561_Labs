@@ -14,11 +14,10 @@ public class TestInvokerBuilder
 	@Test
 	public void testforReload()
 	{
-		  Command cmd = new Reload();
-		  Invoker invoker = new Invoker(); 
+
 		  InvokerBuilder invokerbuild = new InvokerBuilder(); 
 		  invokerbuild.constructInvokerReload();  
-		  assertTrue(invoker.cmd1 instanceof Reload);	     
+		  assertTrue(invokerbuild.inv.cmd1 instanceof Reload);	     
 	}
 
 	@Test

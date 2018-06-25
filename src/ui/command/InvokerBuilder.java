@@ -8,12 +8,12 @@ import javax.swing.JFrame;
 
 public class InvokerBuilder
 {
-	 Invoker inv;
-	 public JFrame constructInvokerReload() 
+	 Invoker inv= new Invoker();
+	 public void constructInvokerReload() 
 	  { 
-	    inv = new Invoker(); 
-	    inv.setCmd1(new Reload()); 
-	    return inv; 
+		Command x = new Reload();
+	    inv.setCmd1(x); 
+
 	  }
 	 public JFrame constructInvokerDrop() 
 	  { 
