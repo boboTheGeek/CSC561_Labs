@@ -377,8 +377,8 @@ class MockInvoker implements ActionListener
 		
 		if(action == "North") {
 			System.out.println(action);
-			//TurnNorth north = new TurnNorth();
-			/**try {
+			/**TurnNorth north = new TurnNorth();
+			try {
 				north.execute();
 			} catch (RException e) {
 				// TODO Auto-generated catch block

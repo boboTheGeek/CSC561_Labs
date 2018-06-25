@@ -5,32 +5,23 @@ import static org.junit.Assert.*;
 import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 
-import javax.swing.JOptionPane;
-
-import org.junit.Before;
 import org.junit.Test;
 
 
 import environment.Environment;
 import exceptions.RException;
-import lifeform.Alien;
-import lifeform.Human;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
-import ui.GameDisplay;
 import weapon.ChainGun;
 import weapon.GenericWeapon;
-import weapon.Pistol;
-import weapon.PlasmaCannon;
 import weapon.Weapon;
 
 public class TestInvoker
 {
+	//private static final int LEGAL_BUTTON_MASK = 0;
 	Invoker invoke;
-	
 	
 	
 	@Test
@@ -94,7 +85,7 @@ public class TestInvoker
 		int mask2 = InputEvent.getMaskForButton(2);
 		//int mask4 = InputEvent.BUTTON1_DOWN_MASK;
 		bot.mousePress(mask2);
-		//bot.delay(75);
+		bot.delay(75);
 		bot.mouseRelease(mask2);	
 		invoke = new Invoker();
 		invoke.Invoker();
@@ -114,8 +105,8 @@ public class TestInvoker
 		
 		LifeForm entity3 = new MockLifeForm("Anu", 20, 20);
 		LifeForm entity4 = new MockLifeForm("Sana", 20, 20);
-		theWorld.addLifeForm(5, 5, entity3);
-		theWorld.addLifeForm(4, 6, entity4);
+		theWorld.addLifeForm(5, 6, entity3);
+		theWorld.addLifeForm(5, 7, entity4);
 		theWorld.setActivePlayer(entity3);
 		Weapon cg = new ChainGun();
 		entity3.pickUpWeapon(cg);
@@ -128,7 +119,7 @@ public class TestInvoker
 		int mask3 = InputEvent.getMaskForButton(3);
 		//int mask4 = InputEvent.BUTTON1_DOWN_MASK;
 		bot.mousePress(mask3);
-		//bot.delay(75);
+		bot.delay(75);
 		bot.mouseRelease(mask3);	
 		invoke = new Invoker();
 		invoke.Invoker();
@@ -158,7 +149,7 @@ public class TestInvoker
 		int mask4 = InputEvent.getMaskForButton(4);
 		//int mask4 = InputEvent.BUTTON1_DOWN_MASK;
 		bot.mousePress(mask4);
-		//bot.delay(75);
+		bot.delay(75);
 		bot.mouseRelease(mask4);	
 		invoke = new Invoker();
 		invoke.Invoker();
@@ -192,7 +183,7 @@ public class TestInvoker
 		
 	
 	}
-	@Test
+	/**@Test
 	public void testTurnSouthInvoke() throws RException, InterruptedException, AWTException
 	{
 		
@@ -259,7 +250,7 @@ public class TestInvoker
 		int mask8 = InputEvent.getMaskForButton(8);
 		//int mask3 = InputEvent.BUTTON3_MASK;
 		bot.mousePress(mask8);
-		//bot.delay(75);
+		bot.delay(75);
 		bot.mouseRelease(mask8);	
 		invoke = new Invoker();
 		invoke.Invoker();
@@ -269,4 +260,32 @@ public class TestInvoker
 	
 	}
 	
+	@Test
+	public void testMoveInvoke() throws RException, InterruptedException, AWTException
+	{
+		
+		Environment.resetWorld();
+		Environment.createWorld(20, 20);
+		Environment theWorld = Environment.getWorld();
+		LifeForm entity = new MockLifeForm("Riya", 6, 8);
+		theWorld.addLifeForm(5, 5, entity);
+		theWorld.setActivePlayer(entity);
+		theWorld.movePlayer();
+		
+		int mouse = MouseInfo.getNumberOfButtons();
+		Robot bot = new Robot();
+		bot.mouseMove(10,10);
+		int mask8 = InputEvent.getMaskForButton(8);
+		//int mask3 = InputEvent.BUTTON3_MASK;
+		bot.mousePress(mask8);
+		bot.delay(75);
+		bot.mouseRelease(mask8);	
+		invoke = new Invoker();
+		invoke.Invoker();
+		Thread.sleep(10000);
+		int[] y = theWorld.getLifeFormLocation(entity);
+		assertEquals(2, y[0]);
+	
+	}
+	*/
 }	

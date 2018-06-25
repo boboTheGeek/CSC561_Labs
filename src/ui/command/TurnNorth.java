@@ -10,6 +10,7 @@ public class TurnNorth implements Command{
 	LifeForm lifeform;
 	@Override
 	public void execute() throws RException {
+			System.out.println("direction:" + "" + "North");
 			theWorld.itsMyTurn.rotate("North");
 			
 	}

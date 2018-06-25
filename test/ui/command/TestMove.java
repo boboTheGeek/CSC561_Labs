@@ -20,7 +20,6 @@ public class TestMove {
 		LifeForm entity = new MockLifeForm("bob", 6, 8);
 		env.addLifeForm(5, 5, entity);
 		env.setActivePlayer(entity);
-		env.playerDirection("North");
 		env.movePlayer();
 		/**Here the current Location of the player is set to 5, 
 		 * since the direction is set to North, the player moves up in the grid

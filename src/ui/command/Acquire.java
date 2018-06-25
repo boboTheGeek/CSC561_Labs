@@ -11,7 +11,6 @@ public class Acquire implements Command{
 
 	@Override
 	public void execute() {
-		//theWorld.getWorld();
 		
 		lifeform = theWorld.itsMyTurn;
 		lifeform.getWeapon(); //Should be pickUpWeapon()?

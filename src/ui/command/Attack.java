@@ -12,6 +12,30 @@ public class Attack implements Command{
 	@Override
 	public void execute() throws RException, EnvironmentException { 
 		
-		theWorld.itsMyTurn.mountAttack(life2);
+		//theWorld.itsMyTurn.mountAttack(life2);
+		theWorld = Environment.getWorld();
+		LifeForm activeLifeForm = theWorld.itsMyTurn;
+		int[] dimensions = theWorld.getEnvironmentDimensions();
+		int[] activeLifeFormLocation = theWorld.getLifeFormLocation(activeLifeForm);
+		int row = dimensions[0];
+		int col = dimensions[1];
+		System.out.println(row);
+		System.out.println(col);
+		System.out.println(activeLifeFormLocation[0]);
+		System.out.println(activeLifeFormLocation[1]);
+		int i = activeLifeFormLocation[0];
+			for(int j = activeLifeFormLocation[1]+1; j < col; j++)
+			{
+				if(theWorld.getLifeForm(i, j) != null) {
+					life2 = theWorld.getLifeForm(i, j);
+					break;
+				}
+			}
+		
+		System.out.println(life2);
+		if(life2 != null) {
+			theWorld.itsMyTurn.mountAttack(life2);
+		}
+			
 	}
 }

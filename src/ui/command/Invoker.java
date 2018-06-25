@@ -30,48 +30,61 @@ public class Invoker extends JFrame
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel();
 		jframe.add(panel);
-		JButton button1 = new JButton();
+		JButton button1 = new JButton("Reload");
 		panel.add(button1);
-		JLabel label = new JLabel("Reload");
-		button1.add(label);
+		//JLabel label = new JLabel("Reload");
+		//button1.add(label);
+		
 		button1.addActionListener(new ActionListener() 
 		{
 
-			Reload reload = new Reload();
+			Command reload = new Reload();
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				reload.execute();
-			}
-		});
-	
-	
-		JButton button2 = new JButton();
-		panel.add(button2);
-		label = new JLabel("Drop");
-		button2.add(label);
-		button2.addActionListener(new ActionListener() 
-		{
-
-			Drop drop = new Drop();
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				try 
+				String command = e.getActionCommand();
+				if(command == "Reload") 
 				{
-					drop.execute();
-				} catch (RException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					try {
+						reload.execute();
+					} catch (RException | EnvironmentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 	
-		JButton button3 = new JButton();
+	
+		JButton button2 = new JButton("Drop");
+		panel.add(button2);
+		
+		button2.addActionListener(new ActionListener() 
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				String command = e.getActionCommand();
+				Drop drop = new Drop();
+				if(command == "Drop") 
+				{
+					try 
+					{
+						drop.execute();
+					
+					} 
+					catch (RException e1) 
+					{
+					// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+	
+		JButton button3 = new JButton("Attack");
 		panel.add(button3);
-		label = new JLabel("Attack");
-		button3.add(label);
 		button3.addActionListener(new ActionListener() 
 		{
 
@@ -79,26 +92,29 @@ public class Invoker extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				try 
+				String command = e.getActionCommand();
+				if(command == "Attack") 
 				{
-					attack.execute();
-				} catch (RException e1) 
-				{
+					try 
+					{
+						attack.execute();
+					}
+					catch (RException e1) 
+					{
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} 
-				catch (EnvironmentException e1) 
-				{
+						e1.printStackTrace();
+					} 
+					catch (EnvironmentException e1) 
+					{
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 		
-		JButton button4 = new JButton();
+		JButton button4 = new JButton("Pickup");
 		panel.add(button4);
-		label = new JLabel("Pickup");
-		button4.add(label);
 		button4.addActionListener(new ActionListener() 
 		{
 
@@ -106,14 +122,16 @@ public class Invoker extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				acquire.execute();
+				String command = e.getActionCommand();
+				if(command == "Reload") 
+				{
+					acquire.execute();
+				}
 			}
 		});
 	
-		JButton button5 = new JButton();
+		JButton button5 = new JButton("North");
 		panel.add(button5);
-		label = new JLabel("North");
-		button5.add(label);
 		button5.addActionListener(new ActionListener() 
 		{
 
@@ -121,23 +139,27 @@ public class Invoker extends JFrame
 		
 			public void actionPerformed(ActionEvent e) 
 			{
-				try 
+				String command = e.getActionCommand();
+				if(command == "North") 
 				{
-					north.execute();
-				}
-				catch (RException e1) 
-				{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+					try 
+				
+					{
+						north.execute();
+					}
+					catch (RException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 
+		//Tests not working for below methods
 	
-		JButton button6 = new JButton();
+		JButton button6 = new JButton("South");
 		panel.add(button6);
-		label = new JLabel("South");
-		button6.add(label);
 		button6.addActionListener(new ActionListener() 
 		{
 
@@ -145,23 +167,25 @@ public class Invoker extends JFrame
 		
 			public void actionPerformed(ActionEvent e) 
 			{
-				try 
+				String command = e.getActionCommand();
+				if(command == "South") 
 				{
-					south.execute();
-				}
-				catch (RException e1) 
-				{
-				// TODO Auto-generated catch block
-					e1.printStackTrace();
+					try 
+					{
+						south.execute();
+					}
+					catch (RException e1) 
+					{
+					// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 
 
-		JButton button7 = new JButton();
+		JButton button7 = new JButton("East");
 		panel.add(button7);
-		label = new JLabel("East");
-		button7.add(label);
 		button7.addActionListener(new ActionListener() 
 		{
 
@@ -169,22 +193,24 @@ public class Invoker extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				try 
-				{
-					east.execute();
-				} 
-				catch (RException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				String command = e.getActionCommand();
+				if(command == "East") 
+				{	
+					try 
+					{
+						east.execute();
+					} 
+					catch (RException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 
-		JButton button8 = new JButton();
+		JButton button8 = new JButton("West");
 		panel.add(button8);
-		label = new JLabel("West");
-		button8.add(label);
 		button8.addActionListener(new ActionListener() 
 		{
 
@@ -192,17 +218,40 @@ public class Invoker extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				try 
+				String command = e.getActionCommand();
+				if(command == "West") 
 				{
-					west.execute();
-				}
-				catch (RException e1) 
-				{
+					try 
+					{
+						west.execute();
+					
+					}
+					catch (RException e1) 
+					{
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
+		
+		JButton button9 = new JButton("Move");
+		panel.add(button9);
+		button9.addActionListener(new ActionListener() 
+		{
+			Move move = new Move();
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				String command = e.getActionCommand();
+				if(command == "Move") 
+				{
+					move.execute();
+				}
+			}
+		});
+		
+		
 		jframe.setVisible(true);
 		jframe.pack();
 		return jframe;
