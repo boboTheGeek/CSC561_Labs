@@ -20,7 +20,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.xml.ws.spi.Invoker;
 
 import environment.Environment;
 import exceptions.RException;
@@ -31,8 +30,6 @@ import weapon.ChainGun;
 import weapon.Pistol;
 import weapon.PlasmaCannon;
 import weapon.Weapon;
-
-
 
 public class GameDisplay extends JFrame
 {
@@ -47,8 +44,7 @@ public class GameDisplay extends JFrame
 	ImageIcon HNorth, HEast, HWest, HSouth, ANorth, AEast, AWest, ASouth;
 	ImageIcon pistol, chaingun, plasmacannon, cannonPistol, chaingunPistol, cannonChaingun;
 	ImageIcon HNorthArmed, HEastArmed, HWestArmed, HSouthArmed, ANorthArmed, AEastArmed, AWestArmed, ASouthArmed;
-	JPanel centerP;
-	JLabel[][] labelArray;
+
 	/**
 	 * constructor to generate game layout. Accesses the Environment varibles like
 	 * map dimensions and also determines the LifeForms to display
@@ -66,10 +62,9 @@ public class GameDisplay extends JFrame
 		textLabel = new JLabel("Aliens Vs. Humans: --  a super awesome game by CSC561 designs");
 		add("North", textLabel);
 
-		MockInvoker i = new MockInvoker(this);
-		centerP = drawMap();
-		add("South", i.generateInvoker());
-		add("Center", centerP);
+		MockInvoker invoker = new MockInvoker(this);
+		add("South", invoker.generateInvoker());
+		add("Center", drawMap());
 		add("East", generateLegend());
 		pack();
 		setVisible(true);
@@ -89,7 +84,7 @@ public class GameDisplay extends JFrame
 		int rows = x[0];
 		int columns = x[1];
 		JPanel centerPanel = new JPanel(new GridLayout(rows, columns));
-		labelArray = new JLabel[rows][columns];
+		JLabel[][] labelArray = new JLabel[rows][columns];
 
 		for (int r = 0; r < rows; r++)
 		{
@@ -103,10 +98,18 @@ public class GameDisplay extends JFrame
 
 		return centerPanel;
 	}
+	
+	public void updateMap() throws RException 
+	{
+		add("Center", drawMap());
+
+		repaint();
+		validate();
+	}
 
 	/**
 	 * pick the graphic that will be displayed based on the the type of LifeForm
-	 * that should be displayed. considers the direction, whether or weapon is in
+	 * that should be displayed. considers the direction, whetehr or wapon is in
 	 * hand or what type of life form
 	 * 
 	 * @param row
@@ -369,7 +372,7 @@ public class GameDisplay extends JFrame
 		legendLabelArray[4][1] = new JLabel();
 		legendLabelArray[4][1].setIcon(plasmacannon);
 		legendPanel.add(legendLabelArray[4][1]);
-		// armed guy
+		// plasmacannon
 		legendLabelArray[5][0] = new JLabel("armed lifeform: ");
 		legendPanel.add(legendLabelArray[5][0]);
 		legendLabelArray[5][1] = new JLabel();

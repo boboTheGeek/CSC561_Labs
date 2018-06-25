@@ -65,6 +65,7 @@ public class TestGameDisplay
 		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
 				"Create Cell Image Icon Correct For\nHuman facing West(0,0)\nand Alien facing North(1,1)\nand MockEntity facing East(3,2)\nDoes it look right?"));
+
 	}
 
 	@Test
@@ -130,14 +131,11 @@ public class TestGameDisplay
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing East?"));
 		theWorld.playerDirection("South");
-		Thread.sleep(3000);
-		System.out.println(theWorld.itsMyTurn.getDirection());
-		JPanel g = gui.drawMap();
-		//gui.add("Center", null);
-		gui.add("Center", g);
-		
-		gui.repaint();
-		gui.validate();
+		//Thread.sleep(3000);
+		//System.out.println(theWorld.itsMyTurn.getDirection());
+		//JPanel g = gui.drawMap();
+		// gui.add("Center", null);
+		gui.updateMap();
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing South?"));
 
@@ -200,23 +198,18 @@ public class TestGameDisplay
 		// assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, "Map
 		// legend Displays Correctly\nAlien(Green Triangle)\nDoes it look right?"));
 	}
-	@Test
-	public void teststuff() 
-	{
 
-	MockGui x = new MockGui();
-	//x.add(gui.drawMap());
-	
-	}
 }
+
 class MockGui extends JFrame
 {
-	MockGui(){
+	MockGui()
+	{
 		setLayout(new BorderLayout());
 	}
-	
-	
+
 }
+
 class MockInvoker implements ActionListener
 {
 	Environment theWorld = Environment.getWorld();
@@ -323,15 +316,11 @@ class MockInvoker implements ActionListener
 		try
 		{
 			UI.drawMap();
-		} catch (RException e)
+		}
+		catch (RException e)
 		{
 			e.printStackTrace();
 		}
 
 	}
 }
-
-
-	
-	
-
