@@ -234,7 +234,7 @@ public class GameDisplay extends JFrame
 
 		if (theWorld.getWeapon(row, col) != null)
 		{
-			weapon = theWorld.getWeapon(row, col, 1);
+			weapon = theWorld.getWeapon(row, col, 1); 
 			weapon2 = theWorld.getWeapon(row, col, 2);
 
 			if (((weapon instanceof Pistol) && (weapon2 instanceof ChainGun))

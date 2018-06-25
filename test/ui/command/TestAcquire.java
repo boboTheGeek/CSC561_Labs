@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * Tests for lifeform picking up a weapon from the cell
  */
 
 package ui.command;
@@ -28,8 +29,8 @@ public class TestAcquire {
 		theWorld.addLifeForm(5, 5, entity);
 		theWorld.setActivePlayer(entity);
 		Weapon cg = new ChainGun();
-		theWorld.addLifeForm(5, 5, entity);
-		entity.pickUpWeapon(cg);
+		theWorld.addWeapon(5, 5, cg);
+		//entity.pickUpWeapon(cg);
 		Acquire a = new Acquire();
 		a.execute();
 		assertEquals(cg, entity.getWeapon());

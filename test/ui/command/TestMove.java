@@ -1,5 +1,8 @@
 /**
  * @Author Chandana G
+ * 
+ * Tests for the lifeform to move in the direction it is facing at it's maximum speed
+ * (It can pass through other lifeforms)
  */
 
 package ui.command;

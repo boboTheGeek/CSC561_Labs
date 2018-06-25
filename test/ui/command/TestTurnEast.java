@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * Tests to see whether the active life forms turns in the direction the player wants it to.
  */
 
 package ui.command;

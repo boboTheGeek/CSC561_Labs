@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * Interface for all the commands (Reload, Acquire, Attack, Drop, Move)
  */
 
 package ui.command;

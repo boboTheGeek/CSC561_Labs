@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * Test to see whether the lifeform drops the weapon it's currently holding
  */
 
 package ui.command;

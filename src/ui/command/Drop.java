@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * LifeForm drops its current weapon that it's holding. 
  */
 
 package ui.command;

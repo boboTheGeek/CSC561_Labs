@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * Tests for whether the current weapon the lifeform's holding is reloaded
  */
 
 package ui.command;

@@ -1,5 +1,6 @@
 /**
  * @Author Chandana G
+ * Reloads the weapon the active lifeform is holding
  */
 
 package ui.command;

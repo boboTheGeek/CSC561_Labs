@@ -1,5 +1,9 @@
 /**
  * @Author Chandana G
+ * Selected LifeForm attacks in the direction it is facing. To
+ * keep things simple a LifeForm will only attack targets in a direct line in front of
+ * the LifeForm. The LifeForm should only fire its weapon if there is a target.
+ * The LifeForm will always attack the closest enemy target.
  */
 
 package ui.command;
@@ -11,8 +15,8 @@ import lifeform.LifeForm;
 
 public class Attack implements Command{
 	Environment theWorld;
-	LifeForm  life2;   //  interesting problem about how we are supposed to get life2 (aka victim)
-					   //  I say that for now we just leave it hard coded as you have in line 17.  then just have to make it dynamically generated later
+	LifeForm  life2;  
+	
 	@Override
 	public void execute() throws RException, EnvironmentException { 
 		
@@ -27,6 +31,10 @@ public class Attack implements Command{
 		System.out.println(col);
 		System.out.println(activeLifeFormLocation[0]);
 		System.out.println(activeLifeFormLocation[1]);
+		/**
+		 * Checks the entire all the columns of the same row starting from the column next to the active lifeform's 
+		 * position to see if there is any lifeform present in it's line of sight
+		 */
 		int i = activeLifeFormLocation[0];
 			for(int j = activeLifeFormLocation[1]+1; j < col; j++)
 			{
