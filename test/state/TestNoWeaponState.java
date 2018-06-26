@@ -6,11 +6,21 @@ import org.junit.Test;
 
 public class TestNoWeaponState
 {
-
+//
+//	
+//	+ evaluate()
+//
+//	+ search()
+//	+ acquireWeapon()
+//
+//	+ dead()
 	@Test
-	public void test()
+	
+	
+	public void testInitialize()
 	{
-		fail("Not yet implemented");
+		ActionState noWeapon = new NoWeaponState();
+		
 	}
 
 }

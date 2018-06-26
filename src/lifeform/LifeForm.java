@@ -16,6 +16,7 @@ import weapon.Weapon;
 public class LifeForm implements TimeObserver
 {
 
+	private int maxLifePoints;
 	protected String myName;
 	protected int currentLifePoints;
 	protected int attackStrength;
@@ -41,6 +42,7 @@ public class LifeForm implements TimeObserver
 		myName = name;
 		currentLifePoints = points;
 		attackStrength = atStr;
+		maxLifePoints = points;
 	}
 
 	public LifeForm(String name, int points)
@@ -48,6 +50,7 @@ public class LifeForm implements TimeObserver
 		myName = name;
 		currentLifePoints = points;
 		attackStrength = 0;
+		maxLifePoints = points;
 	}
 
 	/**
@@ -143,13 +146,12 @@ public class LifeForm implements TimeObserver
 	 */
 	public void pickUpWeapon(Weapon w)
 	{
-		
+
 		if (myWeapon == null)
 		{
 			myWeapon = w;
 		}
 	}
-	
 
 	/**
 	 * Allows a life form to drop whatever weapon is being held (in the local
@@ -220,5 +222,15 @@ public class LifeForm implements TimeObserver
 	public Weapon getWeapon()
 	{
 		return myWeapon;
+	}
+
+	/**
+	 * used when respawning to reset the lifepoints back to the original life point
+	 * value
+	 */
+
+	public void resetLifePointsToMax()
+	{
+		currentLifePoints = maxLifePoints;
 	}
 }
