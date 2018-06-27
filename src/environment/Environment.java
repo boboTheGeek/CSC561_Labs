@@ -21,7 +21,7 @@ public class Environment
 	private int numrows;
 	private int numcols;
 	private HashMap<LifeForm, int[]> entityLocations = new HashMap<>();
-	private HashMap<Weapon, int[]> weaponLocations = new HashMap<>();
+	public HashMap<Weapon, int[]> weaponLocations = new HashMap<>();
 	public static LifeForm itsMyTurn;
 
 	/**
@@ -161,7 +161,7 @@ public class Environment
 		if (cells[row][col] != null)
 		{
 			LifeForm removeMe = cells[row][col].getLifeForm();
-			cells[row][col] = null;
+			cells[row][col].removeLifeForm();
 			entityLocations.remove(removeMe);
 			return removeMe;
 		}
@@ -299,7 +299,7 @@ public class Environment
 		if (cells[row][col] != null)
 		{
 			Weapon removeMe = cells[row][col].getWeapon();
-			cells[row][col] = null;
+			cells[row][col].removeWeapon(removeMe);
 			weaponLocations.remove(removeMe);
 			return removeMe;
 		}

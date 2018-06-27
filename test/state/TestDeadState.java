@@ -70,8 +70,10 @@ public class TestDeadState
 		//TODO we want a better test than this
 		assertTrue((2 != theWorld.getLifeFormLocation(bill)[0]) && (theWorld.getLifeFormLocation(bill)[1] != 2));
 		// test that weapon is dropped
-		// int[] i = {2,2};
-		// assertEquals(i, theWorld.getWeapon(2, 2));
+
+		assertEquals(w, theWorld.getWeapon(2,2));
+
+		//test that new state is set
 	}
 
 }

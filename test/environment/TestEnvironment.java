@@ -185,6 +185,7 @@ public class TestEnvironment
 		assertEquals(pewPewPew, theWorld.getWeapon(2, 2, 1));
 		assertEquals(pewPewPew2, theWorld.getWeapon(2, 2, 2));
 		theWorld.removeWeaponByCell(2, 2);
+		theWorld.removeWeaponByCell(2, 2);
 		assertNull(theWorld.getWeapon(2, 2));
 
 	}
