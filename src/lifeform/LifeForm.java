@@ -81,7 +81,7 @@ public class LifeForm implements TimeObserver
 	 */
 	public void takeHit(int damage)
 	{
-		int proposedLifePoints = currentLifePoints - (damage);
+		int proposedLifePoints = currentLifePoints - damage;
 
 		if (proposedLifePoints <= 0)
 		{
@@ -109,7 +109,7 @@ public class LifeForm implements TimeObserver
 		}
 		else if (distance <= 10)
 		{
-			calcAttackStrength = attackStrength;
+			calcAttackStrength = this.attackStrength;
 		}
 
 		if (currentLifePoints != 0)

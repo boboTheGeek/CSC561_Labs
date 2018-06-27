@@ -334,7 +334,7 @@ public class Environment
 			rDelta = rDelta * rDelta;
 			cDelta = cDelta * cDelta;
 			double distance = Math.sqrt(rDelta + cDelta);
-			return distance * 10; // each cell is 10 feet by 10 feet
+			return distance; // each cell is 10 feet by 10 feet
 		}
 
 	}

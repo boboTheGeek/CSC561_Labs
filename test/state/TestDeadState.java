@@ -26,17 +26,18 @@ public class TestDeadState
 	@Test
 	public void testEvaluate()
 	{
-		
+
 		LifeForm bill = new Human(22, "bill", 22);
 		ActionState as = new DeadState(bill);
-		//call respawn
+		// call respawn
 		as.evaluate();
-		//check you respawned
-		
-		//check you're put to the no weapon state
-		AI ai = new AI(as);
-		assertEquals(NoWeaponState(), ai.getState());
-		
+		// check you respawned
+
+		// check you're put to the no weapon state
+		// AI ai = new AI(as);
+		// System.out.println(ai.getState());
+		// assertTrue(ai.getState() == NoWeaponState);
+
 	}
 
 	@Test
@@ -50,26 +51,38 @@ public class TestDeadState
 		LifeForm sandra = new Human(0, "sandra", 22);
 		theWorld.addLifeForm(2, 2, bill);
 		theWorld.addLifeForm(3, 3, sandra);
-		theWorld.addWeapon(2, 2, w);
-		bill.getWeapon();
-		
+		// theWorld.addWeapon(2, 2, w);
+		// TODO i think this needs to be done so that the weapon is removed from the
+		// cell
+		bill.pickUpWeapon(w);
+
 		ActionState as = new DeadState(bill);
 
 		sandra.mountAttack(bill);
-		//assertTrue(as.myLF.getLifePoints() != 22);
 
-		//System.out.println(as.myLF.getLifePoints());
+		assertEquals(17, as.myLF.getLifePoints());
 
 		as.respawn();
 
 		// test that the life is regenerated
-
 		assertEquals(22, as.myLF.getLifePoints());
 		// test that LF shows up in a new location
-
+		//TODO we want a better test than this
+		assertTrue((2 != theWorld.getLifeFormLocation(bill)[0]) && (theWorld.getLifeFormLocation(bill)[1] != 2));
 		// test that weapon is dropped
-		int[] i = {2,2};
-		assertEquals(i, theWorld.getWeapon(2, 2));
+		// int[] i = {2,2};
+		// assertEquals(i, theWorld.getWeapon(2, 2));
+	}
+
+}
+
+class MockAI extends AI
+{
+
+	MockAI(ActionState changeStateTo, LifeForm myLF)
+	{
+		super(changeStateTo, myLF);
+		// TODO Auto-generated constructor stub
 	}
 
 }
