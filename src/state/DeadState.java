@@ -8,7 +8,6 @@ package state;
 
 import exceptions.RException;
 import lifeform.LifeForm;
-import weapon.Weapon;
 
 public class DeadState extends ActionState
 {

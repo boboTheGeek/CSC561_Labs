@@ -63,7 +63,7 @@ public class AI
 	/**
 	 * sets the current state for this LifeForm to noAmmoState
 	 */
-	public ActionState getNoAmmoState()
+	public ActionState getOutOfAmmoState()
 	{
 		return noAmmoState;
 	}
