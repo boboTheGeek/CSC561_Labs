@@ -3,6 +3,7 @@ package state;
 import java.util.ArrayList;
 
 import environment.Environment;
+import exceptions.RException;
 import lifeform.LifeForm;
 
 public abstract class ActionState
@@ -21,11 +22,11 @@ public abstract class ActionState
 	}
 
 	// only for AIState
-	public void evaluate()
+	public void evaluate() throws RException //throws RException
 	{
 	}
 
-	public void search()
+	public void search() throws RException
 	{
 	}
 
@@ -55,6 +56,12 @@ public abstract class ActionState
 	public void respawn()
 	{
 		//nothing
+	}
+
+	public String getRandomDirectionToSearch() {
+		return ai.noWeaponState.getRandomDirectionToSearch();
+		// TODO Auto-generated method stub
+		
 	}
 
 }

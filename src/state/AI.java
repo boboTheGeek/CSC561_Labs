@@ -1,5 +1,6 @@
 package state;
 
+import exceptions.RException;
 import lifeform.LifeForm;
 
 public class AI
@@ -10,7 +11,7 @@ public class AI
 	protected ActionState noAmmoState;
 	protected ActionState noWeaponState;
 
-	AI(LifeForm myLF)
+	AI(LifeForm myLF) throws RException
 	{
 		hasWeaponState = new HasWeaponState(myLF, this);
 		deadState = new DeadState(myLF, this);
