@@ -12,6 +12,9 @@ import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
+import weapon.ChainGun;
+import weapon.GenericWeapon;
+import weapon.Weapon;
 
 public class TestOutOfAmmoState
 {
@@ -22,7 +25,7 @@ public class TestOutOfAmmoState
 		Environment.resetWorld();
 		Environment.createWorld(5, 5);
 	}
-	
+
 	@Test
 	public void testInitialization() throws RException
 	{
@@ -46,17 +49,35 @@ public class TestOutOfAmmoState
 
 		LifeForm bill = new Human(0, "bill", 22);
 		theWorld.addLifeForm(2, 2, bill);
+		MockGun w = new MockGun();
+		bill.pickUpWeapon(w);
+		w.setAmmo(0);
+		assertEquals(0, w.getCurrentAmmo());
 		AI myAi = new AI(bill);
 		ActionState oos = myAi.getOutOfAmmoState();
+		
+		oos.reload();
+		assertEquals(10, w.getCurrentAmmo());
+		
+		ActionState hws = myAi.getHasWeaponState();
+		assertEquals(hws, myAi.getState());
 	}
 
 	@Test
-	public void testMovesToCorrectState()
+	public void testMovesToCorrectState() throws EnvironmentException
 	{
 		Environment theWorld = Environment.getWorld();
 
 		LifeForm bill = new Human(0, "bill", 22);
 		theWorld.addLifeForm(2, 2, bill);
+		LifeForm filbert = new Human(0, "fill", 30);
+		theWorld.addLifeForm(2, 3, filbert);
+		
+		bill.pickUpWeapon(w);
+		bill.mountAttack(filbert);
+
+		
+
 		AI myAi = new AI(bill);
 		ActionState oos = myAi.getOutOfAmmoState();
 	}
@@ -65,7 +86,7 @@ public class TestOutOfAmmoState
 	public void testTestIfDead() throws RException, EnvironmentException
 	{
 		Environment theWorld = Environment.getWorld();
-	
+
 		LifeForm bill = new Human(0, "bill", 10);
 		LifeForm sandra = new Alien("rasputin", 40);
 		AI myAi = new AI(bill);
@@ -81,7 +102,19 @@ public class TestOutOfAmmoState
 		assertEquals(0, bill.getLifePoints());
 		oos.evaluate();
 		assertTrue(oos.ai.getState() instanceof DeadState);
+
+	}
+}
+
+class MockGun extends GenericWeapon
+{
+	MockGun()
+	{
+		maxAmmo = 10;
 		
-		
+	}
+	public void setAmmo(int x)
+	{
+		currentAmmo = 0;
 	}
 }
