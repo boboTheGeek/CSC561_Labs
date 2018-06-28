@@ -8,7 +8,7 @@ import lifeform.LifeForm;
 public abstract class ActionState
 {
 
-	protected LifeForm myLF;
+	public final LifeForm myLF;
 	protected Environment theWorld;
 	protected AI ai;
 

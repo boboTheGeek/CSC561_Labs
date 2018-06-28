@@ -35,7 +35,7 @@ public class TestOutOfAmmoState
 		LifeForm bill = new Human(0, "bill", 22);
 		theWorld.addLifeForm(2, 2, bill);
 		AI myAi = new AI(bill);
-		ActionState oos = myAi.getOutOfAmmoState();
+		ActionState oos = myAi.outOfAmmoState;
 
 		assertEquals(bill, oos.myLF);
 		assertEquals(myAi, oos.ai);
@@ -54,12 +54,12 @@ public class TestOutOfAmmoState
 		w.setAmmo(0);
 		assertEquals(0, w.getCurrentAmmo());
 		AI myAi = new AI(bill);
-		ActionState oos = myAi.getOutOfAmmoState();
+		ActionState oos = myAi.outOfAmmoState;
 		
 		oos.reload();
 		assertEquals(10, w.getCurrentAmmo());
 		
-		ActionState hws = myAi.getHasWeaponState();
+		ActionState hws = myAi.hasWeaponState;
 		assertEquals(hws, myAi.getState());
 	}
 
@@ -79,7 +79,7 @@ public class TestOutOfAmmoState
 		
 
 		AI myAi = new AI(bill);
-		ActionState oos = myAi.getOutOfAmmoState();
+		ActionState oos = myAi.outOfAmmoState;
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class TestOutOfAmmoState
 		LifeForm bill = new Human(0, "bill", 10);
 		LifeForm sandra = new Alien("rasputin", 40);
 		AI myAi = new AI(bill);
-		ActionState oos = myAi.getOutOfAmmoState();
+		ActionState oos = myAi.outOfAmmoState;
 		theWorld.addLifeForm(3, 3, bill);
 		theWorld.addLifeForm(3, 4, sandra);
 		sandra.mountAttack(bill);
@@ -115,6 +115,6 @@ class MockGun extends GenericWeapon
 	}
 	public void setAmmo(int x)
 	{
-		currentAmmo = 0;
+		currentAmmo = x;
 	}
 }
