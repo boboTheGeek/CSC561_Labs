@@ -390,7 +390,7 @@ public class Environment
 		int[] proposedLocation = actualLocation;
 		if (itsMyTurn.getDirection() == "North")
 		{
-			System.out.println("actual loc" + actualLocation[0]);
+			//System.out.println("actual loc" + actualLocation[0]);
 			proposedLocation[0] = actualLocation[0] - speed;
 			while (someoneInMySpot(proposedLocation) == true)
 			{

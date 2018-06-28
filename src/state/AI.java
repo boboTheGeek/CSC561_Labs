@@ -5,16 +5,17 @@ import lifeform.LifeForm;
 public class AI
 {
 	protected ActionState currentState;
-	protected ActionState[] myStates;
+	protected ActionState hasWeaponState;
+	protected ActionState deadState;
+	protected ActionState noAmmoState;
+	protected ActionState noWeaponState;
 
-	AI(ActionState changeStateTo, LifeForm myLF)
+	AI(LifeForm myLF)
 	{
-
-		currentState = changeStateTo;
-		myStates[0] = new HasWeaponState(myLF);
-		myStates[1] = new DeadState(myLF);
-		myStates[2] = new OutOfAmmoState(myLF);
-		myStates[3] = new NoWeaponState(myLF);
+		hasWeaponState = new HasWeaponState(myLF, this);
+		deadState = new DeadState(myLF, this);
+		noAmmoState = new OutOfAmmoState(myLF, this);
+		noWeaponState = new NoWeaponState(myLF, this);
 	}
 
 	/**
@@ -24,18 +25,67 @@ public class AI
 	 */
 	public ActionState getState()
 	{
-
 		return currentState;
 	}
 
 	/**
-	 * returns the state that is the current active state for a particular LifeForm
-	 * 
-	 * @param changeStateTo
+	 * sets the current state for this LifeForm to noAmmoState
 	 */
-	public void changeCurrentState(ActionState changeStateTo)
+	public void changeToNoAmmoState()
 	{
-		currentState = changeStateTo;
+		currentState = noAmmoState;
+	}
+	/**
+	 * sets the current state for this LifeForm to deadState
+	 */
+	public void changeToDeadState()
+	{
+		currentState = deadState;
+	}
+	/**
+	 * sets the current state for this LifeForm to hasWeaponState
+	 */
+	public void changeToHasWeaponState()
+	{
+		currentState = hasWeaponState;
+	}
+	/**
+	 * sets the current state for this LifeForm to noWeaponState
+	 */
+	public void changeToNoWeaponState()
+	{
+		currentState = noWeaponState;
 	}
 
+
+	
+	
+	/**
+	 * sets the current state for this LifeForm to noAmmoState
+	 */
+	public ActionState getNoAmmoState()
+	{
+		return noAmmoState;
+	}
+	/**
+	 * sets the current state for this LifeForm to deadState
+	 */
+	public ActionState getDeadState()
+	{
+		return deadState;
+	}
+	/**
+	 * sets the current state for this LifeForm to hasWeaponState
+	 */
+	public ActionState getHasWeaponState()
+	{
+		return hasWeaponState;
+	}
+	/**
+	 * sets the current state for this LifeForm to noWeaponState
+	 */
+	public ActionState getNoWeaponState()
+	{
+		return noWeaponState;
+	}
 }

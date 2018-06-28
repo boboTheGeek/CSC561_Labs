@@ -13,13 +13,13 @@ import weapon.Weapon;
 public class DeadState extends ActionState
 {
 
-	DeadState(LifeForm lifeForm)
+	DeadState(LifeForm lifeForm, AI ai)
 	{
-		super(lifeForm);
+		super(lifeForm, ai);
 
 	}
 
-	public void evalutat()
+	public void evaluate()
 	{
 		respawn();
 	}
@@ -50,7 +50,7 @@ public class DeadState extends ActionState
 		theWorld.removeLifeForm(myLFLoc[0], myLFLoc[1]);
 		theWorld.addLifeForm(row, col, myLF);
 		// change the active state that the AI has to no weapon state
-		// ai.changeCurrentState(myStates[3]);
+		ai.changeToNoWeaponState();
 	}
 
 }

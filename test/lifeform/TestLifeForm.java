@@ -197,11 +197,11 @@ public class TestLifeForm
 		Weapon y = new ChainGun();
 		entity.pickUpWeapon(x);
 		entity.mountAttack(entity2);
-		assertEquals(32, entity2.getLifePoints());
+		assertEquals(29, entity2.getLifePoints());
 		entity.dropWeapon();
 		entity.pickUpWeapon(y);
 		entity.mountAttack(entity2);
-		assertEquals(27, entity2.getLifePoints());
+		assertEquals(29, entity2.getLifePoints());
 
 	}
 

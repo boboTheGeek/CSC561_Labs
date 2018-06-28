@@ -201,7 +201,7 @@ public class TestEnvironment
 
 		theWorld.addLifeForm(0, 2, anna);
 		theWorld.addLifeForm(2, 2, elsa);
-		assertEquals(20.0, theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(2.0, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range along the same column
@@ -216,7 +216,7 @@ public class TestEnvironment
 
 		theWorld.addLifeForm(2, 4, anna);
 		theWorld.addLifeForm(2, 2, elsa);
-		assertEquals(20.0, theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(2.0, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test we can determine range from diagonal reference position
@@ -233,7 +233,7 @@ public class TestEnvironment
 		theWorld.addLifeForm(6, 8, elsa);
 		//
 
-		assertEquals(56.5f, theWorld.getRange(anna, elsa), 0.1);
+		assertEquals(5.65f, theWorld.getRange(anna, elsa), 0.1);
 	}
 
 	@Test // test that it handles distance computation exception when one entity is

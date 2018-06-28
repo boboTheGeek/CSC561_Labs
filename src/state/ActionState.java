@@ -13,11 +13,11 @@ public abstract class ActionState
 	protected AI ai;
 
 
-	ActionState(LifeForm lifeForm)
+	ActionState(LifeForm lifeForm, AI myAI)
 	{
 		myLF = lifeForm;
 		theWorld = Environment.getWorld();
-
+		ai = myAI;
 	}
 
 	// only for AIState
