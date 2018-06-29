@@ -15,6 +15,6 @@ public interface TimeObserver
 	 * 
 	 * @param time - is the time sent from SimpleTimer subject to all observers in it's list
 	 */
-	public void updateTime(int time);	
+	public void update(int time);	
 
 }

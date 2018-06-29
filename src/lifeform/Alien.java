@@ -113,7 +113,7 @@ public class Alien extends LifeForm
 	}
 	
 	@Override
-	public void updateTime(int time)
+	public void update(int time)
 	{
 		myTime = time;
 		recover();

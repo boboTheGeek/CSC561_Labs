@@ -154,7 +154,7 @@ public class TestLifeForm
 		for (int x = 0; x < 10; x++)
 		{
 			gun.damage(2);
-			gun.updateTime(1);
+			gun.update(1);
 		}
 		// entity2 has 30 life points
 		// entity has attack strength of 5

@@ -21,7 +21,7 @@ public class Environment
 	private int numrows;
 	private int numcols;
 	private HashMap<LifeForm, int[]> entityLocations = new HashMap<>();
-	public HashMap<Weapon, int[]> weaponLocations = new HashMap<>();
+	private HashMap<Weapon, int[]> weaponLocations = new HashMap<>();
 	public static LifeForm itsMyTurn;
 
 	/**
@@ -112,7 +112,7 @@ public class Environment
 			int[] loc = new int[2];
 			loc[0] = row;
 			loc[1] = col;
-			entityLocations.put(entity, loc);
+			getEntityLocations().put(entity, loc);
 			return true;
 		}
 		else
@@ -162,7 +162,7 @@ public class Environment
 		{
 			LifeForm removeMe = cells[row][col].getLifeForm();
 			cells[row][col].removeLifeForm();
-			entityLocations.remove(removeMe);
+			getEntityLocations().remove(removeMe);
 			return removeMe;
 		}
 		else
@@ -206,7 +206,7 @@ public class Environment
 			int[] loc = new int[2];
 			loc[0] = row;
 			loc[1] = col;
-			weaponLocations.put(weapon, loc);
+			getWeaponLocations().put(weapon, loc);
 			return true;
 
 		}
@@ -300,7 +300,7 @@ public class Environment
 		{
 			Weapon removeMe = cells[row][col].getWeapon();
 			cells[row][col].removeWeapon(removeMe);
-			weaponLocations.remove(removeMe);
+			getWeaponLocations().remove(removeMe);
 			return removeMe;
 		}
 		else
@@ -320,15 +320,15 @@ public class Environment
 	 */
 	public double getRange(LifeForm entity1, LifeForm entity2) throws EnvironmentException
 	{
-		if ((entityLocations.get(entity1) == null) || (entityLocations.get(entity2) == null))
+		if ((getEntityLocations().get(entity1) == null) || (getEntityLocations().get(entity2) == null))
 		{
 			throw new EnvironmentException(
 					"you need 2 (emphasis on the number 2) entitys to figure out the distance between 2 entities");
 		}
 		else
 		{
-			int[] l1 = entityLocations.get(entity1);
-			int[] l2 = entityLocations.get(entity2);
+			int[] l1 = getEntityLocations().get(entity1);
+			int[] l2 = getEntityLocations().get(entity2);
 			int rDelta = l2[0] - l1[0];
 			int cDelta = l2[1] - l1[1];
 			rDelta = rDelta * rDelta;
@@ -349,7 +349,7 @@ public class Environment
 
 	public int[] getLifeFormLocation(LifeForm lf)
 	{
-		return entityLocations.get(lf);
+		return getEntityLocations().get(lf);
 	}
 
 	/**
@@ -423,7 +423,7 @@ public class Environment
 		}
 		int[] intermediateLocation = assessMovementBoundaries(proposedLocation);
 		// int[] finalLocation = areYouInMySpot(intermediateLocation);
-		entityLocations.put(itsMyTurn, intermediateLocation);
+		getEntityLocations().put(itsMyTurn, intermediateLocation);
 	}
 
 	private int[] assessMovementBoundaries(int[] propLoc)
@@ -451,7 +451,7 @@ public class Environment
 	private boolean someoneInMySpot(int[] interLoc)
 	{
 		int numConflicts = 0;
-		for (int[] value : entityLocations.values())
+		for (int[] value : getEntityLocations().values())
 		{
 			if ((value[0] == interLoc[0]) && (value[1] == interLoc[1]))
 			{
@@ -482,5 +482,18 @@ public class Environment
 		return dim;
 
 	}
+
+	public HashMap<LifeForm, int[]> getEntityLocations()
+	{
+		return entityLocations;
+	}
+
+	public HashMap<Weapon, int[]> getWeaponLocations()
+	{
+		return weaponLocations;
+	}
+
+
+
 
 }

@@ -30,6 +30,7 @@ public class DeadState extends ActionState
 		myLF.resetLifePointsToMax();
 
 		// drop your weapon
+		//TODO need to handle if it's not free space
 		int[] myLFLoc = theWorld.getLifeFormLocation(myLF);
 
 		try
@@ -42,7 +43,7 @@ public class DeadState extends ActionState
 			e.printStackTrace();
 		}
 		myLF.dropWeapon();
-
+		//TODO - move this to environment...  need to check that your location is free
 		int row = (int) (Math.random()*theWorld.getEnvironmentDimensions()[0]);
 		int col = (int) (Math.random()*theWorld.getEnvironmentDimensions()[1]);
 		

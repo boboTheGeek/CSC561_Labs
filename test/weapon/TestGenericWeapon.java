@@ -92,7 +92,7 @@ public class TestGenericWeapon
 	public void testUpdateTime()
 	{
 		GenericWeapon shootieMcTootie = new MockPistol();
-		shootieMcTootie.updateTime(22);
+		shootieMcTootie.update(22);
 		assertEquals(22, shootieMcTootie.currentTime);
 
 	}

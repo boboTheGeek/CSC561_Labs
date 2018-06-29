@@ -131,7 +131,7 @@ public class LifeForm implements TimeObserver
 	}
 
 	@Override
-	public void updateTime(int time)
+	public void update(int time)
 	{
 		myTime = time;
 	}

@@ -6,17 +6,18 @@ import lifeform.LifeForm;
 public class AI
 {
 	protected ActionState currentState;
-	protected ActionState hasWeaponState;
-	protected ActionState deadState;
-	protected ActionState noAmmoState;
-	protected ActionState noWeaponState;
+	public final ActionState hasWeaponState;
+	public final ActionState deadState;
+	public final ActionState outOfAmmoState;
+	public final ActionState noWeaponState;
 
-	AI(LifeForm myLF) throws RException
+	public AI(LifeForm myLF)
 	{
 		hasWeaponState = new HasWeaponState(myLF, this);
 		deadState = new DeadState(myLF, this);
-		noAmmoState = new OutOfAmmoState(myLF, this);
+		outOfAmmoState = new OutOfAmmoState(myLF, this);
 		noWeaponState = new NoWeaponState(myLF, this);
+		currentState = noWeaponState;
 	}
 
 	/**
@@ -34,7 +35,7 @@ public class AI
 	 */
 	public void changeToNoAmmoState()
 	{
-		currentState = noAmmoState;
+		currentState = outOfAmmoState;
 	}
 	/**
 	 * sets the current state for this LifeForm to deadState
@@ -58,35 +59,9 @@ public class AI
 		currentState = noWeaponState;
 	}
 
+	public void evaluate()
+	{
+		currentState.evaluate();
+	}
 
-	
-	
-	/**
-	 * sets the current state for this LifeForm to noAmmoState
-	 */
-	public ActionState getOutOfAmmoState()
-	{
-		return noAmmoState;
-	}
-	/**
-	 * sets the current state for this LifeForm to deadState
-	 */
-	public ActionState getDeadState()
-	{
-		return deadState;
-	}
-	/**
-	 * sets the current state for this LifeForm to hasWeaponState
-	 */
-	public ActionState getHasWeaponState()
-	{
-		return hasWeaponState;
-	}
-	/**
-	 * sets the current state for this LifeForm to noWeaponState
-	 */
-	public ActionState getNoWeaponState()
-	{
-		return noWeaponState;
-	}
 }

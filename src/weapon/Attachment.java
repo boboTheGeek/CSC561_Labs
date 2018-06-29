@@ -71,7 +71,7 @@ public abstract class Attachment implements Weapon
 	 * override for timer update, mainly for weapon classes to keep track of rates
 	 */
 	@Override
-	public void updateTime(int time)
+	public void update(int time)
 	{
 
 	}

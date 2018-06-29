@@ -53,6 +53,7 @@ public class OutOfAmmoState extends ActionState
 	public void reload()
 	{
 		myLF.reloadWeapon();
+		ai.changeToHasWeaponState();
 	}
 
 }
