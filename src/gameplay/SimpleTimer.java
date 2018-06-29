@@ -38,12 +38,13 @@ public class SimpleTimer extends Thread implements Timer
 	 */
 	public void run()
 	{
-		for (int x = 0; x < 5; x++)
+		for (int x = 0; x < 100; x++)
 		{
 			try
 			{
 				currentTime = x;
 				Thread.sleep(sleepVal);
+				timeChanged();
 			}
 			catch (InterruptedException e)
 			{

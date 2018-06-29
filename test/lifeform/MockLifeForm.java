@@ -13,5 +13,10 @@ public class MockLifeForm extends LifeForm
 		super(name, points, attstr);
 		maxSpeed = 3;
 	}
+	
+	public int getMaxLife()
+	{
+		return maxLifePoints;
+	}
 }
 //

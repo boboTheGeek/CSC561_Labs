@@ -47,6 +47,7 @@ public class TestLifeForm
 		assertEquals(40, entity.getLifePoints());
 		assertEquals("North", entity.getDirection());
 		assertEquals(3, entity.maxSpeed);
+		assertEquals(40, entity.maxLifePoints);
 	}
 	
 	//check that we can change the direction of our guy

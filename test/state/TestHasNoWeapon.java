@@ -132,11 +132,11 @@ public class TestHasNoWeapon
 		    theWorld = Environment.getWorld();     
 		    life3 = new Human(20, "D", 20); 
 		    theWorld.addLifeForm(6, 7, life3);
-		    Weapon cg = new ChainGun();
+		    //Weapon cg = new ChainGun();
 		    AI myAi = new AI(life3);
 			ActionState oos = myAi.noWeaponState;
 			oos.evaluate();
-			System.out.println("getState" + "" +oos.ai.getState());
+			//System.out.println("getState" + "" +oos.ai.getState());
 			assertTrue(oos.ai.getState() instanceof NoWeaponState);
 	  }
 }

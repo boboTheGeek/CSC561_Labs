@@ -11,13 +11,13 @@ public class AI
 	public final ActionState outOfAmmoState;
 	public final ActionState noWeaponState;
 
-	public AI(LifeForm myLF)
+	public AI(LifeForm myLF) throws RException
 	{
 		hasWeaponState = new HasWeaponState(myLF, this);
 		deadState = new DeadState(myLF, this);
 		outOfAmmoState = new OutOfAmmoState(myLF, this);
 		noWeaponState = new NoWeaponState(myLF, this);
-		currentState = noWeaponState;
+		currentState = deadState;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class AI
 		currentState = noWeaponState;
 	}
 
-	public void evaluate()
+	public void evaluate() throws RException
 	{
 		currentState.evaluate();
 	}

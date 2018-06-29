@@ -19,7 +19,7 @@ public class TestSimulator
 	public void testSetupWorld() throws RException
 	{
 		Environment.resetWorld();
-		Environment.createWorld(5, 10);
+		Environment.createWorld(12, 20);
 
 	}
 
@@ -35,6 +35,7 @@ public class TestSimulator
 
 		assertTrue(theWorld.getWeaponLocations() != null);
 
+		@SuppressWarnings("unused")
 		GameDisplay gui = new GameDisplay();
 
 		assertEquals(JOptionPane.YES_OPTION,
@@ -50,29 +51,79 @@ public class TestSimulator
 	@Test // time trigger updates AI
 	public void testTimeUpdates() throws InterruptedException, RException
 	{
-		
+
 		Environment theWorld = Environment.getWorld();
-		
+
 		Simulator simulator = new Simulator();
 		Timer timer = new SimpleTimer();
 		timer.addTimeObserver(simulator);
-		
+
 		GameDisplay gui = new GameDisplay();
 
-		assertEquals(JOptionPane.YES_OPTION,
-				JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns randomly strewn?"));
-		timer.timeChanged();  //manual trigger that can be automatically done by calling timer.run()
-		
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "thoughts?"));
+
+		timer.timeChanged(); // manual trigger that can be automatically done by calling timer.run()
+
 		gui.updateMap();
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns randomly strewn?"));
-		
-		timer.timeChanged();
-		
-		gui.updateMap();
-		assertEquals(JOptionPane.YES_OPTION,
-				JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns randomly strewn?"));
-		
+
+		// timer.timeChanged();
+		//
+		// //gui.updateMap();
+		// assertEquals(JOptionPane.YES_OPTION,
+		// JOptionPane.showConfirmDialog(null, "Dome lifeforms change location?"));
+		//
+		//
+		// //timer.timeChanged();
+		//
+		// gui.updateMap();
+		// assertEquals(JOptionPane.YES_OPTION,
+		// JOptionPane.showConfirmDialog(null, "Did some lifeforms change location
+		// again?"));
+		//
 	}
 
+	@Test // time trigger updates AI
+	public void testTrueTimeUpdates() throws InterruptedException, RException
+	{
+
+		Environment theWorld = Environment.getWorld();
+
+		Simulator simulator = new Simulator();
+		SimpleTimer timer = new SimpleTimer();
+		timer.addTimeObserver(simulator);
+
+		GameDisplay gui = new GameDisplay();
+		MockTrigger x = new MockTrigger(gui);
+		timer.addTimeObserver(x);
+		timer.run();
+		
+		assertEquals(JOptionPane.YES_OPTION,
+				JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns randomly strewn?"));
+	}
+}
+class MockTrigger implements TimeObserver
+{
+
+	GameDisplay gui;
+	MockTrigger(GameDisplay mygui)
+	{
+		gui = mygui;
+	}
+	@Override
+	public void update(int time)
+	{
+		try
+		{
+			gui.updateMap();
+			System.out.println(time);
+		}
+		catch (RException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

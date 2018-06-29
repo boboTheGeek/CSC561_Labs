@@ -14,7 +14,6 @@ import recovery.RecoveryNone;
 public class Alien extends LifeForm
 {
 	protected RecoveryBehavior recoveryBehavior;
-	private int maxLifePoints;
 	protected int recoveryRate;
 
 	/**
@@ -54,7 +53,6 @@ public class Alien extends LifeForm
 	{
 		super(name, points, 10); // default attack points for alien = 10
 		recoveryBehavior = rb;
-		maxLifePoints = points;
 		maxSpeed = 2;
 		if (recov < 0)
 		{

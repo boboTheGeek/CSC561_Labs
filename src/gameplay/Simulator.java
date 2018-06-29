@@ -26,7 +26,7 @@ import weapon.Weapon;
 public class Simulator implements TimeObserver
 {
 	ArrayList<AI> lifeformAI = new ArrayList<AI>();
-	Timer timer = new SimpleTimer();
+	
 	
 	Simulator() throws RException
 	{
@@ -112,7 +112,7 @@ public class Simulator implements TimeObserver
 		
 	}
 
-	public void evaluate()
+	public void evaluate() throws RException
 	{
 		for (AI ai : lifeformAI)
 		{
@@ -125,7 +125,14 @@ public class Simulator implements TimeObserver
 	@Override
 	public void update(int time)
 	{
-		evaluate();
+		try
+		{
+			evaluate();
+		}
+		catch (RException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 

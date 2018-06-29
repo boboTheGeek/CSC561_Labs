@@ -62,7 +62,7 @@ public class TestOutOfAmmoState
 	}
 
 	@Test
-	public void testMovesToCorrectState() throws EnvironmentException
+	public void testMovesToCorrectState() throws EnvironmentException, RException
 	{
 		Environment theWorld = Environment.getWorld();
 

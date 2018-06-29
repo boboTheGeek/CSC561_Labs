@@ -16,7 +16,7 @@ import weapon.Weapon;
 public class LifeForm implements TimeObserver
 {
 
-	private int maxLifePoints;
+	protected int maxLifePoints;
 	protected String myName;
 	protected int currentLifePoints;
 	protected int attackStrength;
