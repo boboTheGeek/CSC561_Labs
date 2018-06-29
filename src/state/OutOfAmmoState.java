@@ -12,7 +12,14 @@ import lifeform.LifeForm;
 
 public class OutOfAmmoState extends ActionState
 {
-
+	/**
+	 * Constructor -- this class will keep track of the lifeForm which it applies to
+	 * and the AI for that lifeform (which holds all of the 4 possible states so it
+	 * can decide which is the active state)
+	 * 
+	 * @param lifeForm
+	 * @param ai
+	 */
 	OutOfAmmoState(LifeForm lifeForm, AI ai)
 	{
 		super(lifeForm, ai);

@@ -185,8 +185,7 @@ public class Environment
 	 * @param cell
 	 *            - the cell object that you want to put in that "table" location
 	 * 
-	 * @return true or false depending on whether the life form was successfully
-	 *         added
+	 * @return true or false depending on whether the weapon was successfully added
 	 * @throws RException
 	 */
 	public boolean addWeapon(int row, int col, Weapon weapon) throws RException
@@ -390,7 +389,7 @@ public class Environment
 		int[] proposedLocation = actualLocation;
 		if (itsMyTurn.getDirection() == "North")
 		{
-			//System.out.println("actual loc" + actualLocation[0]);
+			// System.out.println("actual loc" + actualLocation[0]);
 			proposedLocation[0] = actualLocation[0] - speed;
 			while (someoneInMySpot(proposedLocation) == true)
 			{
@@ -426,6 +425,14 @@ public class Environment
 		getEntityLocations().put(itsMyTurn, intermediateLocation);
 	}
 
+	/**
+	 * Check to see whether or not your proposed location is within the boundaries of the game map
+	 * Pass param propLoc as the suggested new location.
+	 * Return an adjusted/corrected number
+	 * 
+	 * @param propLoc
+	 * @return
+	 */
 	private int[] assessMovementBoundaries(int[] propLoc)
 	{
 		int[] newProposal = propLoc;
@@ -483,17 +490,24 @@ public class Environment
 
 	}
 
+	/**
+	 * allow access to the collection of LifeForms and their grid locations on the
+	 * map
+	 * 
+	 * @return
+	 */
 	public HashMap<LifeForm, int[]> getEntityLocations()
 	{
 		return entityLocations;
 	}
 
+	/**
+	 * all access to the collection of weapons and their grid locations
+	 * @return
+	 */
 	public HashMap<Weapon, int[]> getWeaponLocations()
 	{
 		return weaponLocations;
 	}
-
-
-
 
 }

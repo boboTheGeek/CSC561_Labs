@@ -1,3 +1,13 @@
+/**
+ * AI is the "intelligence" manager for each of the LifeForms.
+ * It keeps track of the current state that the lifeform is in as well as all of the states it could be in.  
+ * it's up to the states to decide what state to be in next. 
+ * 
+ * Importantly, once evaluate() gets called, it calls the evaluate function on the substate.
+ * 
+ * @author Rob M, Chandana G
+ */
+
 package state;
 
 import exceptions.RException;
@@ -11,6 +21,14 @@ public class AI
 	public final ActionState outOfAmmoState;
 	public final ActionState noWeaponState;
 
+	/**
+	 * set up the 4 possible states for the life form in question AND set the
+	 * default current state to noWeaponState; pass in the lifeForm that the states
+	 * apply to.
+	 * 
+	 * @param myLF
+	 * @throws RException
+	 */
 	public AI(LifeForm myLF) throws RException
 	{
 		hasWeaponState = new HasWeaponState(myLF, this);
@@ -37,6 +55,7 @@ public class AI
 	{
 		currentState = outOfAmmoState;
 	}
+
 	/**
 	 * sets the current state for this LifeForm to deadState
 	 */
@@ -44,6 +63,7 @@ public class AI
 	{
 		currentState = deadState;
 	}
+
 	/**
 	 * sets the current state for this LifeForm to hasWeaponState
 	 */
@@ -51,6 +71,7 @@ public class AI
 	{
 		currentState = hasWeaponState;
 	}
+
 	/**
 	 * sets the current state for this LifeForm to noWeaponState
 	 */
@@ -59,6 +80,13 @@ public class AI
 		currentState = noWeaponState;
 	}
 
+	/**
+	 * will make a dispatch request to the current (active) state and it will do
+	 * it's thing to determine what actions are needed by the lifeform as well as
+	 * what state to be in next
+	 * 
+	 * @throws RException
+	 */
 	public void evaluate() throws RException
 	{
 		currentState.evaluate();
