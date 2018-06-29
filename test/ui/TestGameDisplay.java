@@ -1,6 +1,6 @@
 package ui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -131,10 +131,7 @@ public class TestGameDisplay
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing East?"));
 		theWorld.playerDirection("South");
-		//Thread.sleep(3000);
-		//System.out.println(theWorld.itsMyTurn.getDirection());
-		//JPanel g = gui.drawMap();
-		// gui.add("Center", null);
+		
 		gui.updateMap(); 
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing South?"));
@@ -266,47 +263,6 @@ class MockInvoker implements ActionListener
 	{
 		String action = button.getActionCommand();
 
-		// if (action == "West")
-		// {
-		// System.out.println(action);
-		// try
-		// {
-		// theWorld.playerDirection(action);
-		// }
-		// catch (RException e)
-		// {
-		// e.printStackTrace();
-		// }
-		// }
-
-		// if (action == "North")
-		// {
-		//
-		// Command north = new TurnNorth();
-		// try
-		// {
-		// north.execute();
-		// }
-		// catch (RException | EnvironmentException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		// if (action == "East")
-		// {
-		// System.out.println(Environment.itsMyTurn.getDirection());
-		// try
-		// {
-		// Environment.itsMyTurn.rotate("East");
-		// }
-		// catch (RException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// }
 		if (action == "Move")
 		{
 			System.out.println(action);

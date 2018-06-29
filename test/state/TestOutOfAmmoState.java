@@ -12,9 +12,7 @@ import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
-import weapon.ChainGun;
 import weapon.GenericWeapon;
-import weapon.Weapon;
 
 public class TestOutOfAmmoState
 {
@@ -72,14 +70,18 @@ public class TestOutOfAmmoState
 		theWorld.addLifeForm(2, 2, bill);
 		LifeForm filbert = new Human(0, "fill", 30);
 		theWorld.addLifeForm(2, 3, filbert);
-		
+		MockGun w = new MockGun();
 		bill.pickUpWeapon(w);
-		bill.mountAttack(filbert);
-
+		w.setAmmo(0);
 		
 
 		AI myAi = new AI(bill);
 		ActionState oos = myAi.outOfAmmoState;
+	
+		myAi.changeToNoAmmoState();
+		oos.evaluate();
+		assertEquals(myAi.hasWeaponState, myAi.currentState);
+		
 	}
 
 	@Test

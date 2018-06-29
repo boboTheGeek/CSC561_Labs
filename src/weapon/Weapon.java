@@ -19,7 +19,7 @@ public interface Weapon extends TimeObserver
 
 	public int getMaxRange();
 
-	void updateTime(int time);
+	void update(int time);
 
 	public int getAttachmentNumber();
 

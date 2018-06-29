@@ -1,8 +1,7 @@
 package state;
 
-import java.util.ArrayList;
-
 import environment.Environment;
+import exceptions.RException;
 import lifeform.LifeForm;
 
 public abstract class ActionState
@@ -11,7 +10,6 @@ public abstract class ActionState
 	public final LifeForm myLF;
 	protected Environment theWorld;
 	protected AI ai;
-
 
 	ActionState(LifeForm lifeForm, AI myAI)
 	{
@@ -23,22 +21,27 @@ public abstract class ActionState
 	// only for AIState
 	public void evaluate()
 	{
+		doExceptionPlease();
 	}
 
 	public void search()
 	{
+		doExceptionPlease();
 	}
 
 	public void acquire()
 	{
+		doExceptionPlease();
 	}
 
 	public void attack()
 	{
+		doExceptionPlease();
 	}
 
 	public void reload()
 	{
+		doExceptionPlease();
 	}
 
 	/**
@@ -47,14 +50,22 @@ public abstract class ActionState
 	 */
 	public void dead()
 	{
+		doExceptionPlease();
 	}
 
 	/**
-	 * regenerates a dead Lifeform.  Overridden in the DeadState extension of AtionState and not used in the other substates.
+	 * regenerates a dead Lifeform. Overridden in the DeadState extension of
+	 * AtionState and not used in the other substates.
 	 */
 	public void respawn()
 	{
-		//nothing
+		doExceptionPlease();
+	}
+	
+	private void doExceptionPlease()
+	{
+		new RException("sorry there, that call isn't valid for this state");
+		
 	}
 
 }

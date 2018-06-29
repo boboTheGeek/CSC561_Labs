@@ -88,7 +88,7 @@ public abstract class GenericWeapon implements Weapon
 	 *            just what it sounds like
 	 */
 
-	public void updateTime(int time)
+	public void update(int time)
 	{
 		currentTime = time;
 		shotCounter = rateOfFire;

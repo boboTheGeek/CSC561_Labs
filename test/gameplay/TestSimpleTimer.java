@@ -126,7 +126,7 @@ class MockSimpleTimerObserver implements TimeObserver
 {
 	public int myTime = 0;
 
-	public void updateTime(int time)
+	public void update(int time)
 	{
 		myTime = time;
 	}

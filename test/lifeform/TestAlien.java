@@ -256,7 +256,7 @@ public class TestAlien
 	{
 		// test fractional recovery
 		Alien entityFr = new Alien("Troy McClure", 150, new RecoveryFractional(10), 1);
-		entityFr.updateTime(1);  //instance timer can't be 0 for recovery to work
+		entityFr.update(1);  //instance timer can't be 0 for recovery to work
 		entityFr.setCurrentLifePoints(75);
 		entityFr.recover();
 		// 75 / 10 = 7.5 rounds up to 8

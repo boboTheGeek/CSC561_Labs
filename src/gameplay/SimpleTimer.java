@@ -75,7 +75,7 @@ public class SimpleTimer extends Thread implements Timer
 	 */
 	public void removeTimeObserver(TimeObserver observer)
 	{
-		observer.updateTime(0);  //prevents modulus operation in alien recovery when not obeserving time
+		observer.update(0);  //prevents modulus operation in alien recovery when not obeserving time
 		theObservers.remove(observer);
 	}
 
@@ -87,7 +87,7 @@ public class SimpleTimer extends Thread implements Timer
 	{
 		for (TimeObserver x : theObservers)
 		{
-			x.updateTime(currentTime);
+			x.update(currentTime);
 		}
 	}
 
