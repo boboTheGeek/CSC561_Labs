@@ -1,3 +1,7 @@
+/**
+ * @author Rob Miles
+ */
+
 package ui;
 
 import static org.junit.Assert.assertEquals;
@@ -115,7 +119,7 @@ public class TestGameDisplay
 
 		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null,
-				"Do you see all the possible combinations of weapons in various cells\nDoes it look right?"));
+				"Do you see a Pistol, Chain gun, Plasma cannon and \nall the possible compinations of them?"));
 	}
 
 	@Test
@@ -126,11 +130,11 @@ public class TestGameDisplay
 		LifeForm entity = new Human(2, "entity", 0);
 		theWorld.addLifeForm(0, 0, entity);
 		entity.rotate("East");
-		theWorld.setActivePlayer(entity);
+		//theWorld.setActivePlayer(entity);
 		gui = new GameDisplay();
 		assertEquals(JOptionPane.YES_OPTION,
 				JOptionPane.showConfirmDialog(null, "Do you see a human in 0,0 facing East?"));
-		theWorld.playerDirection("South");
+		theWorld.playerDirection("South", entity);
 		
 		gui.updateMap(); 
 		assertEquals(JOptionPane.YES_OPTION,
@@ -258,7 +262,7 @@ class MockInvoker implements ActionListener
 		if (action == "Move")
 		{
 			System.out.println(action);
-			theWorld.movePlayer();
+			theWorld.movePlayer(theWorld.itsMyTurn);
 
 		}
 		try

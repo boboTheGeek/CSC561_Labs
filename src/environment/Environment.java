@@ -371,9 +371,9 @@ public class Environment
 	 * 
 	 */
 
-	public void playerDirection(String heading) throws RException
+	public void playerDirection(String heading, LifeForm turnWho) throws RException
 	{
-		itsMyTurn.rotate(heading);
+		turnWho.rotate(heading);
 	}
 
 	/**
@@ -394,11 +394,13 @@ public class Environment
 	 * 
 	 * @return
 	 */
-	public void movePlayer()
+	public void movePlayer(LifeForm someLF)
 	{
-		int speed = itsMyTurn.getSpeed();
-		String direction = itsMyTurn.getDirection();
-		int[] actualLocation = getLifeFormLocation(itsMyTurn);
+		//LifeForm moveMe = itsMyTurn;
+		LifeForm moveMe = someLF;
+		int speed = moveMe.getSpeed();
+		String direction = moveMe.getDirection();
+		int[] actualLocation = getLifeFormLocation(moveMe);
 		int[] proposedLocation = new int[] { actualLocation[0], actualLocation[1] };
 
 		if (direction == "North")
@@ -455,7 +457,7 @@ public class Environment
 		{
 			// TODO need to properly add or remove
 			removeLifeForm(actualLocation[0], actualLocation[1]);
-			addLifeForm(proposedLocation[0], proposedLocation[1], itsMyTurn);
+			addLifeForm(proposedLocation[0], proposedLocation[1], moveMe);
 
 			// getEntityLocations().put(itsMyTurn, intermediateLocation);
 		}

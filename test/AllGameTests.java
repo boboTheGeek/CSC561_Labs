@@ -16,6 +16,7 @@ import lifeform.TestLifeForm;
 import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
+import state.TestAI;
 import state.TestDeadState;
 import state.TestHasNoWeapon;
 import state.TestHasWeaponState;
@@ -45,14 +46,13 @@ import weapon.TestScope;
  *
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses(
-{ TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
-		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestChainGun.class,
-		TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class, TestScope.class,
-		TestGameDisplay.class, TestAcquire.class, TestAttack.class, TestDrop.class, TestInvoker.class,
+@Suite.SuiteClasses({ TestLifeForm.class, TestCell.class, TestEnvironment.class, TestHuman.class, TestAlien.class,
+		TestRecoveryNone.class, TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class,
+		TestChainGun.class, TestGenericWeapon.class, TestPistol.class, TestPlasmaCannon.class, TestPowerBooster.class,
+		TestScope.class, TestAcquire.class, TestAttack.class, TestDrop.class, TestInvoker.class,
 		TestInvokerBuilder.class, TestMove.class, TestReload.class, TestTurnEast.class, TestTurnNorth.class,
 		TestTurnSouth.class, TestTurnWest.class, TestHasNoWeapon.class, TestHasWeaponState.class,
-		TestOutOfAmmoState.class, TestDeadState.class, TestSimulator.class })
+		TestOutOfAmmoState.class, TestDeadState.class, TestSimulator.class, TestAI.class, TestGameDisplay.class  })
 
 public class AllGameTests
 {

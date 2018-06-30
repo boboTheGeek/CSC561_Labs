@@ -76,25 +76,24 @@ public class TestSimulator
 		assertEquals(dudeAI.noWeaponState, dudeAI.getState());
 	}
 
-	// @Test // time trigger updates AI
-	// public void testTrueTimeUpdates() throws InterruptedException, RException
-	// {
-	//
-	// Environment theWorld = Environment.getWorld();
-	//
-	// Simulator simulator = new Simulator();
-	// SimpleTimer timer = new SimpleTimer();
-	// timer.addTimeObserver(simulator);
-	//
-	// GameDisplay gui = new GameDisplay();
-	// MockTrigger x = new MockTrigger(gui);
-	// timer.addTimeObserver(x);
-	// timer.run();
-	//
-	// assertEquals(JOptionPane.YES_OPTION,
-	// JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns
-	// randomly strewn?"));
-	// }
+	 @Test // time trigger updates AI
+	 public void testTrueTimeUpdates() throws InterruptedException, RException
+	 {
+	
+	 Environment theWorld = Environment.getWorld();
+	
+	 Simulator simulator = new Simulator();
+	 SimpleTimer timer = new SimpleTimer();
+	 timer.addTimeObserver(simulator);
+	
+	 GameDisplay gui = new GameDisplay();
+	 MockTrigger x = new MockTrigger(gui);
+	 timer.addTimeObserver(x);
+	 timer.run();
+	
+	 assertEquals(JOptionPane.YES_OPTION,
+	 JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns randomly strewn?"));
+	 }
 }
 
 class MockTrigger implements TimeObserver

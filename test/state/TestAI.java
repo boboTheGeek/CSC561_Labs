@@ -1,3 +1,7 @@
+/**
+ * @author Rob M, Chandana G
+ * 
+ */
 package state;
 
 import static org.junit.Assert.*;

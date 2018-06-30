@@ -26,8 +26,8 @@ public class TestMove {
 		Environment env = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bob", 6, 8);
 		env.addLifeForm(5, 5, entity);
-		env.setActivePlayer(entity);
-		env.movePlayer();
+		//env.setActivePlayer(entity);
+		env.movePlayer(entity);
 		/**Here the current Location of the player is set to 5, 
 		 * since the direction is set to North, the player moves up in the grid
 		 * while changing columns while staying in the same row, so the currentLocation(x,y)

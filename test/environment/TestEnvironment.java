@@ -35,17 +35,17 @@ public class TestEnvironment
 		LifeForm entity = new MockLifeForm("billy", 20, 20);
 		theWorld.addLifeForm(5, 5, entity);
 		theWorld.setActivePlayer(entity);
-		theWorld.playerDirection("West");
+		theWorld.playerDirection("West", entity);
 		assertEquals("West", entity.getDirection());
-		theWorld.playerDirection("South");
+		theWorld.playerDirection("South", entity);
 		assertEquals("South", entity.getDirection());
-		theWorld.playerDirection("East");
+		theWorld.playerDirection("East", entity);
 		assertEquals("East", entity.getDirection());
-		theWorld.playerDirection("East");
+		theWorld.playerDirection("East", entity);
 		assertEquals("East", entity.getDirection());
 		try
 		{
-			theWorld.playerDirection("Home");
+			theWorld.playerDirection("Home", entity);
 		} catch (RException e)
 		{
 			assertTrue(e instanceof RException);
@@ -58,20 +58,19 @@ public class TestEnvironment
 		Environment theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bobbySue", 20, 20);
 		theWorld.addLifeForm(5, 5, entity);
-		theWorld.setActivePlayer(entity);
-		theWorld.movePlayer();
+		theWorld.movePlayer(entity);
 		int[] y = theWorld.getLifeFormLocation(entity);
 		assertEquals(2, y[0]);
-		theWorld.playerDirection("South");
-		theWorld.movePlayer();
+		theWorld.playerDirection("South", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(5, y[0]);
-		theWorld.playerDirection("East");
-		theWorld.movePlayer();
+		theWorld.playerDirection("East", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(8, y[1]);
-		theWorld.playerDirection("West");
-		theWorld.movePlayer();
+		theWorld.playerDirection("West", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(5, y[1]);
 	}
@@ -84,22 +83,21 @@ public class TestEnvironment
 		Environment theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bobbySue", 20, 20);
 		theWorld.addLifeForm(1, 1, entity);
-		theWorld.setActivePlayer(entity);
-		theWorld.movePlayer();
+		theWorld.movePlayer(entity);
 		int[] y = theWorld.getLifeFormLocation(entity);
 		assertEquals(0, y[0]);
-		theWorld.playerDirection("West");
-		theWorld.movePlayer();
+		theWorld.playerDirection("West", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(0, y[1]);
 		theWorld.removeLifeForm(0, 0);
 		theWorld.addLifeForm(9, 9, entity);
-		theWorld.playerDirection("East");
-		theWorld.movePlayer();
+		theWorld.playerDirection("East", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(9, y[1]);
-		theWorld.playerDirection("South");
-		theWorld.movePlayer();
+		theWorld.playerDirection("South", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(9, y[1]);
 	}
@@ -114,28 +112,28 @@ public class TestEnvironment
 		theWorld.addLifeForm(1, 1, entity);
 		theWorld.addLifeForm(4, 1, entity2);
 		theWorld.addLifeForm(3, 1, entity3);
-		theWorld.setActivePlayer(entity);
-		theWorld.playerDirection("South");
-		theWorld.movePlayer();
+		//theWorld.setActivePlayer(entity);
+		theWorld.playerDirection("South", entity);
+		theWorld.movePlayer(entity);
 		int[] y = theWorld.getLifeFormLocation(entity);
 		assertEquals(2, y[0]);
-		theWorld.playerDirection("East");
+		theWorld.playerDirection("East", entity);
 		theWorld.addLifeForm(2, 4, entity2);
 		theWorld.addLifeForm(2, 3, entity3);
-		theWorld.movePlayer();
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(2, y[1]);
 		theWorld.addLifeForm(9, 9, entity);
 		theWorld.addLifeForm(9, 6, entity3);
-		theWorld.playerDirection("West");
-		theWorld.movePlayer();
+		theWorld.playerDirection("West", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(7, y[1]);
 
 		theWorld.addLifeForm(6, 7, entity3);
 		theWorld.addLifeForm(8, 7, entity2);
-		theWorld.playerDirection("North");
-		theWorld.movePlayer();
+		theWorld.playerDirection("North", entity);
+		theWorld.movePlayer(entity);
 		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(7, y[0]);
 	}

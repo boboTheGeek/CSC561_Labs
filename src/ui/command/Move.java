@@ -13,7 +13,7 @@ public class Move implements Command{
 	Environment theWorld = Environment.getWorld();
 	@Override
 	public void execute() {
-		theWorld.movePlayer();
+		theWorld.movePlayer(Environment.itsMyTurn);
 	}
 
 	
