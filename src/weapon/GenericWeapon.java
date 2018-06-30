@@ -43,11 +43,13 @@ public abstract class GenericWeapon implements Weapon
 		{
 			fire();
 			return 0;
-		} else if (shotCounter > 0)
+		}
+		else if (shotCounter > 0)
 		{
 			fire();
 			return damageCalculation(distance);
-		} else
+		}
+		else
 		{
 			return 0;
 		}

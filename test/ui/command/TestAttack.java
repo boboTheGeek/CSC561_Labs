@@ -23,20 +23,20 @@ public class TestAttack {
 	@Test 
 	public void test() throws RException, EnvironmentException {
 
-		theWorld.resetWorld();
-		theWorld.createWorld(12, 14);
+		Environment.resetWorld();
+		Environment.createWorld(12, 14);
 		theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bob", 20, 20);
 		LifeForm life2 = new MockLifeForm("Fred", 20, 20);
 		theWorld.addLifeForm(5, 6, entity);
-		theWorld.addLifeForm(5, 7, life2);
+		theWorld.addLifeForm(5, 9, life2);
 		theWorld.setActivePlayer(entity);
 		Weapon cg = new ChainGun();
 		entity.pickUpWeapon(cg);
 		assertEquals(cg, entity.getWeapon());
 		Command attack = new Attack();
 		attack.execute();
-		assertEquals(15, life2.getLifePoints()); 
+		assertEquals(19, life2.getLifePoints()); 
 	}
 
 }

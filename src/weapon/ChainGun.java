@@ -42,7 +42,7 @@ public class ChainGun extends GenericWeapon
 	public int damageCalculation(int distance)
 	{
 
-		return (int) ((int) (float) baseDamage * (((float) (distance) / maxRange)));
+		return (int) (baseDamage * (((float) (distance) / maxRange)));
 
 	}
 
