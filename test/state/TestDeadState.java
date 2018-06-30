@@ -101,9 +101,6 @@ public class TestDeadState
 		//TODO we want a better test than this
 		assertTrue((2 != theWorld.getLifeFormLocation(bill)[0]) && (theWorld.getLifeFormLocation(bill)[1] != 2));
 
-		
-		
-
 		//test that new state is set
 		assertTrue(as.ai.getState() instanceof NoWeaponState);
 	}

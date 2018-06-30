@@ -42,29 +42,33 @@ public abstract class ActionState
 	}
 
 	/**
-	 *  abstract class declaration of the function implemented in the subclass/state
+	 * abstract class declaration of the function implemented in the subclass/state
+	 * 
 	 * @throws RException
 	 */
 	public void search() throws RException
 	{
 		doExceptionPlease();
 	}
+
 	/**
-	 *  abstract class declaration of the function implemented in the subclass/state
+	 * abstract class declaration of the function implemented in the subclass/state
 	 */
 	public void acquire()
 	{
 		doExceptionPlease();
 	}
+
 	/**
-	 *  abstract class declaration of the function implemented in the subclass/state
+	 * abstract class declaration of the function implemented in the subclass/state
 	 */
 	public void attack()
 	{
 		doExceptionPlease();
 	}
+
 	/**
-	 *  abstract class declaration of the function implemented in the subclass/state
+	 * abstract class declaration of the function implemented in the subclass/state
 	 */
 	public void reload()
 	{
@@ -89,16 +93,23 @@ public abstract class ActionState
 		doExceptionPlease();
 	}
 
+	/**
+	 * helps to call exceptions so they dont propogate out of control
+	 */
 	private void doExceptionPlease()
 	{
 		new RException("sorry there, that call isn't valid for this state");
 
 	}
 
+	/**
+	 * sets a randomly selected direction
+	 * 
+	 * @return
+	 */
 	public String getRandomDirectionToSearch()
 	{
 		return ai.noWeaponState.getRandomDirectionToSearch();
-		// TODO Auto-generated method stub
 
 	}
 

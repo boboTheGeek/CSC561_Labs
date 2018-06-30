@@ -124,7 +124,6 @@ public abstract class GenericWeapon implements Weapon
 	 */
 	public int damageCalculation(int distance)
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

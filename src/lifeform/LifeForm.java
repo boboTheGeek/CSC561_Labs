@@ -24,7 +24,7 @@ public class LifeForm implements TimeObserver
 	protected Weapon myWeapon;
 	protected String direction = "North";
 	protected int maxSpeed;
-	private Environment theWorld;
+
 
 	/**
 	 * Create an instance

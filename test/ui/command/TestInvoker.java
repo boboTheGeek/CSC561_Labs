@@ -180,7 +180,6 @@ class MockCommand implements Command{
 	@Override
 	public void execute() throws RException, EnvironmentException 
 	{
-		// TODO Auto-generated method stub
 		data = "Clicked";
 		
 	}

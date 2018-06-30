@@ -35,7 +35,7 @@ public class AI
 		deadState = new DeadState(myLF, this);
 		outOfAmmoState = new OutOfAmmoState(myLF, this);
 		noWeaponState = new NoWeaponState(myLF, this);
-		currentState = deadState;
+		currentState = noWeaponState;
 	}
 
 	/**

@@ -47,10 +47,9 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd1.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			           
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -69,10 +68,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd2.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			           
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			          
 			          e1.printStackTrace(); 
 			        } 
 				}
@@ -88,10 +87,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd3.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			         
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			         
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -108,10 +107,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd4.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			        
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			        
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -129,10 +128,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd5.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			          
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			          
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -148,10 +147,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd6.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			           
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			         
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -170,10 +169,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd7.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			          
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			          
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -189,10 +188,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd8.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			           
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			          
 			          e1.printStackTrace(); 
 			        } 
 			}
@@ -208,10 +207,10 @@ public class Invoker extends JFrame
 				 try { 
 			          cmd9.execute(); 
 			        } catch (RException e1) { 
-			          // TODO Auto-generated catch block 
+			           
 			          e1.printStackTrace(); 
 			        } catch (EnvironmentException e1) { 
-			          // TODO Auto-generated catch block 
+			           
 			          e1.printStackTrace(); 
 			        } 
 			}
