@@ -198,14 +198,6 @@ public class TestGameDisplay
 
 }
 
-class MockGui extends JFrame
-{
-	MockGui()
-	{
-		setLayout(new BorderLayout());
-	}
-
-}
 
 class MockInvoker implements ActionListener
 {

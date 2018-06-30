@@ -14,9 +14,9 @@ import weapon.Weapon;
 public class Cell
 {
 
-	private LifeForm identity;
-	private Weapon weapon1;
-	private Weapon weapon2;
+	private LifeForm identity = null;
+	private Weapon weapon1 = null;
+	private Weapon weapon2 = null;
 
 
 	/**

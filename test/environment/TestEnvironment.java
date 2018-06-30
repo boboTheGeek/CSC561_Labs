@@ -79,6 +79,8 @@ public class TestEnvironment
 	@Test  //checking that the player stays within the bounds defined by the size of the cell grid
 	public void testMovementBoundaries() throws RException
 	{
+		Environment.resetWorld();
+		Environment.createWorld(10, 10);
 		Environment theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bobbySue", 20, 20);
 		theWorld.addLifeForm(1, 1, entity);
@@ -95,11 +97,11 @@ public class TestEnvironment
 		theWorld.playerDirection("East");
 		theWorld.movePlayer();
 		y = theWorld.getLifeFormLocation(entity);
-		assertEquals(10, y[1]);
+		assertEquals(9, y[1]);
 		theWorld.playerDirection("South");
 		theWorld.movePlayer();
 		y = theWorld.getLifeFormLocation(entity);
-		assertEquals(10, y[1]);
+		assertEquals(9, y[1]);
 	}
 	
 	@Test
@@ -120,8 +122,8 @@ public class TestEnvironment
 		theWorld.playerDirection("East");
 		theWorld.addLifeForm(2, 4, entity2);
 		theWorld.addLifeForm(2, 3, entity3);
-		y = theWorld.getLifeFormLocation(entity);
 		theWorld.movePlayer();
+		y = theWorld.getLifeFormLocation(entity);
 		assertEquals(2, y[1]);
 		theWorld.addLifeForm(9, 9, entity);
 		theWorld.addLifeForm(9, 6, entity3);

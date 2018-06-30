@@ -47,7 +47,7 @@ public class TestSimulator
 	{
 
 	}
-
+	//TODO __ sim updater
 	@Test // time trigger updates AI
 	public void testTimeUpdates() throws InterruptedException, RException
 	{

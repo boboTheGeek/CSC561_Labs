@@ -6,6 +6,7 @@
 
 package environment;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import exceptions.EnvironmentException;
@@ -104,21 +105,33 @@ public class Environment
 	 */
 	public boolean addLifeForm(int row, int col, LifeForm entity)
 	{
-		if (row <= numrows && col <= numcols && cells[row][col] == null)
+		if (row < numrows && col < numcols)
 		{
-			Cell containerCell = new Cell();
-			containerCell.addLifeForm(entity);
-			cells[row][col] = containerCell;
-			int[] loc = new int[2];
-			loc[0] = row;
-			loc[1] = col;
-			getEntityLocations().put(entity, loc);
-			return true;
+			if (cells[row][col] == null)
+			{
+				Cell containerCell = new Cell();
+				containerCell.addLifeForm(entity);
+				cells[row][col] = containerCell;
+				int[] loc = { row, col };
+				getEntityLocations().put(entity, loc);
+				return true;
+			}
+			else if (cells[row][col].getLifeForm() == null)
+			{
+				cells[row][col].addLifeForm(entity);
+				int[] loc = { row, col };
+				getEntityLocations().put(entity, loc);
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
 			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -385,50 +398,115 @@ public class Environment
 	public void movePlayer()
 	{
 		int speed = itsMyTurn.getSpeed();
+		String direction = itsMyTurn.getDirection();
 		int[] actualLocation = getLifeFormLocation(itsMyTurn);
-		int[] proposedLocation = actualLocation;
-		if (itsMyTurn.getDirection() == "North")
+		int[] proposedLocation = new int[] { actualLocation[0], actualLocation[1] };
+
+		if (direction == "North")
 		{
-			// System.out.println("actual loc" + actualLocation[0]);
 			proposedLocation[0] = actualLocation[0] - speed;
-			while (someoneInMySpot(proposedLocation) == true)
+			proposedLocation = assessMovementBoundaries(proposedLocation);
+			if (!Arrays.equals(proposedLocation, actualLocation)) // pass if i'm already in my proposed spot
 			{
-				proposedLocation[0]++;
+				while (someoneInMySpot(proposedLocation) == true)
+				{
+					proposedLocation[0]++;
+				}
 			}
 		}
-		else if (itsMyTurn.getDirection() == "South")
+		else if (direction == "South")
 		{
 			proposedLocation[0] = actualLocation[0] + speed;
-			while (someoneInMySpot(proposedLocation) == true)
+			proposedLocation = assessMovementBoundaries(proposedLocation);
+			if (!Arrays.equals(proposedLocation, actualLocation)) // pass if i'm already in my proposed spot
 			{
-				proposedLocation[0]--;
+				while (someoneInMySpot(proposedLocation) == true)
+				{
+					proposedLocation[0]--;
+				}
 			}
 		}
-		else if (itsMyTurn.getDirection() == "West")
+		else if (direction == "West")
 		{
 			proposedLocation[1] = actualLocation[1] - speed;
-			while (someoneInMySpot(proposedLocation) == true)
+			proposedLocation = assessMovementBoundaries(proposedLocation);
+			if (!Arrays.equals(proposedLocation, actualLocation)) // pass if i'm already in my proposed spot
 			{
-				proposedLocation[1]++;
+				while (someoneInMySpot(proposedLocation) == true)
+				{
+					proposedLocation[1]++;
+				}
 			}
 		}
-		else if (itsMyTurn.getDirection() == "East")
+		else if (direction == "East")
 		{
 			proposedLocation[1] = actualLocation[1] + speed;
-			while (someoneInMySpot(proposedLocation) == true)
+			proposedLocation = assessMovementBoundaries(proposedLocation);
+			if (!Arrays.equals(proposedLocation, actualLocation)) // pass if i'm already in my proposed spot
 			{
-				proposedLocation[1]--;
+				while (someoneInMySpot(proposedLocation) == true)
+				{
+					proposedLocation[1]--;
+				}
 			}
 		}
-		int[] intermediateLocation = assessMovementBoundaries(proposedLocation);
-		// int[] finalLocation = areYouInMySpot(intermediateLocation);
-		getEntityLocations().put(itsMyTurn, intermediateLocation);
+
+		proposedLocation = assessMovementBoundaries(proposedLocation);
+		if (someoneInMySpot(proposedLocation) == false)
+		{
+			// TODO need to properly add or remove
+			removeLifeForm(actualLocation[0], actualLocation[1]);
+			addLifeForm(proposedLocation[0], proposedLocation[1], itsMyTurn);
+
+			// getEntityLocations().put(itsMyTurn, intermediateLocation);
+		}
+		else
+		{
+			shift(direction, proposedLocation);
+
+		}
 	}
 
 	/**
-	 * Check to see whether or not your proposed location is within the boundaries of the game map
-	 * Pass param propLoc as the suggested new location.
-	 * Return an adjusted/corrected number
+	 * this little guy will check if the location is open and shift in the
+	 * appropriate direction
+	 * 
+	 * @param direction
+	 * @return
+	 */
+	public int[] shift(String direction, int[] proposedLocation)
+	{
+		int[] outputLocation = proposedLocation;
+		while (someoneInMySpot(proposedLocation) == true)
+		{
+			if (direction == "North")
+			{
+				outputLocation[0]++;
+			}
+			if (direction == "South")
+			{
+				outputLocation[0]--;
+			}
+			if (direction == "West")
+			{
+				outputLocation[1]++;
+			}
+			if (direction == "East")
+			{
+				outputLocation[1]--;
+			}
+		}
+		return outputLocation;
+
+	}
+
+	/**
+	 * Check to see whether or not your proposed location is within the boundaries
+	 * of the game map Pass param propLoc as the suggested new location. Return an
+	 * adjusted/corrected number
+	 * 
+	 * Note: the size of the world (let's say 10x10) needs to be adjusted because
+	 * our cells array starts counting cells from 0 not 1 (so 9x9)
 	 * 
 	 * @param propLoc
 	 * @return
@@ -444,13 +522,13 @@ public class Environment
 		{
 			newProposal[1] = 0;
 		}
-		else if (propLoc[0] > numrows)
+		else if (propLoc[0] >= numrows)
 		{
-			newProposal[0] = numrows;
+			newProposal[0] = numrows - 1;// adjust to array index
 		}
-		else if (propLoc[1] > numcols)
+		else if (propLoc[1] >= numcols)
 		{
-			newProposal[1] = numcols;
+			newProposal[1] = numcols - 1;// adjust to array index
 		}
 		return newProposal;
 	}
@@ -466,7 +544,7 @@ public class Environment
 			}
 
 		}
-		if (numConflicts > 1)
+		if (numConflicts > 0)
 		{
 			return true;
 		}
@@ -484,8 +562,7 @@ public class Environment
 	public int[] getEnvironmentDimensions()
 	{
 
-		int[] dim =
-		{ numrows, numcols };
+		int[] dim = { numrows, numcols };
 		return dim;
 
 	}
@@ -503,6 +580,7 @@ public class Environment
 
 	/**
 	 * all access to the collection of weapons and their grid locations
+	 * 
 	 * @return
 	 */
 	public HashMap<Weapon, int[]> getWeaponLocations()

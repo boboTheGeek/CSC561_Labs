@@ -32,7 +32,7 @@ public class TestSimpleTimer
 	@Test //updates time @constructor.. [counter method tested later for more complex update method]
 	public void testUpdateTime()
 	{
-		SimpleTimer DrZoidberg = new SimpleTimer();;
+		SimpleTimer DrZoidberg = new SimpleTimer();
 		assertEquals(0, DrZoidberg.getCurrentTime());
 	}
 
