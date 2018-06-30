@@ -247,8 +247,7 @@ public class Environment
 			try
 			{
 				return cells[row][col].getWeapon();
-			}
-			catch (RException e)
+			} catch (RException e)
 			{
 				return null;
 			}
@@ -533,6 +532,13 @@ public class Environment
 		return newProposal;
 	}
 
+	/**
+	 * determine whether or not there is a person in this particular cell interLoc
+	 * parameter is the cell that you're evaluating
+	 * 
+	 * @param interLoc
+	 * @return
+	 */
 	public boolean someoneInMySpot(int[] interLoc)
 	{
 		int numConflicts = 0;
@@ -554,6 +560,87 @@ public class Environment
 		}
 	}
 
+	/**
+	 * determine whether or not there is a person in this particular cell interLoc
+	 * parameter is the cell that you're evaluating. you're allowed to have 1 weapon
+	 * in the spot already since cells can hold 2
+	 * 
+	 * @param interLoc
+	 * @return
+	 */
+	public boolean twoWeaponsInMySpot(int[] interLoc)
+	{
+		int numConflicts = 0;
+		for (int[] value : getWeaponLocations().values())
+		{
+			if ((value[0] == interLoc[0]) && (value[1] == interLoc[1]))
+			{
+				numConflicts++;
+			}
+
+		}
+		if (numConflicts > 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Getting a new randomly selected location for a human pick a random spot, and
+	 * keep checking to see if it's open or not
+	 * 
+	 * @return array with 2 values = row, column
+	 */
+	public int[] getRandomLocation4LifeForm()
+	{
+		int row, col;
+
+		do
+		{
+			row = (int) (Math.random() * getEnvironmentDimensions()[0]);
+			col = (int) (Math.random() * getEnvironmentDimensions()[1]);
+		} while (theWorld.someoneInMySpot(new int[] { row, col }) == true);
+
+		return new int[] { row, col };
+	}
+
+	/**
+	 * returns a random location depending on whether or not a spot is occupied with
+	 * weapons and whether or not you're hoping to pick a suggested location (if
+	 * it's free)
+	 * 
+	 * @param suggested
+	 *            - a suggested array int[] {rows, columns} for proposed location..
+	 *            can be null
+	 * @return  an array of the new row, col location
+	 */
+	public int[] getRandomLocation4Weapon(int[] suggested)
+	{
+		int row, col;
+		if (suggested != null)
+		{
+			row = suggested[0];
+			col = suggested[1];
+		}
+		else
+		{
+			row = (int) (Math.random() * getEnvironmentDimensions()[0]);
+			col = (int) (Math.random() * getEnvironmentDimensions()[1]);
+		}
+
+		while (theWorld.twoWeaponsInMySpot(new int[] { row, col }) == true)
+		{
+			row = (int) (Math.random() * getEnvironmentDimensions()[0]);
+			col = (int) (Math.random() * getEnvironmentDimensions()[1]);
+		}
+		return new int[] { row, col };
+
+	}
+	
 	
 	/**
 	 * returns the dimensions of the Environment "theWorld"
@@ -568,6 +655,8 @@ public class Environment
 
 	}
 
+	
+	
 	/**
 	 * allow access to the collection of LifeForms and their grid locations on the
 	 * map

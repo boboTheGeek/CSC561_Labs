@@ -26,8 +26,8 @@ public class DeadState extends ActionState
 	}
 
 	/**
-	 * The evaluation method is the one that all states get called in a generic fashion.  
-	 * In this state, we simply trigger a respawn action
+	 * The evaluation method is the one that all states get called in a generic
+	 * fashion. In this state, we simply trigger a respawn action
 	 */
 	public void evaluate()
 	{
@@ -35,8 +35,10 @@ public class DeadState extends ActionState
 	}
 
 	/**
-	 * Once the lifeForm has been killed till it is dead, it will then have the opportunity to respawn.   over and over..
-	 * so, this method resets the lifeform's lifepoints, drops it's weapon and picks a new random spot to pop-up in.
+	 * Once the lifeForm has been killed till it is dead, it will then have the
+	 * opportunity to re-spawn. over and over.. so, this method resets the
+	 * lifeform's lifepoints, drops it's weapon and picks a new random spot to
+	 * pop-up in.
 	 */
 	public void respawn()
 	{
@@ -47,30 +49,23 @@ public class DeadState extends ActionState
 		// drop your weapon
 		int[] myLFLoc = theWorld.getLifeFormLocation(myLF);
 
+		// see if you can drop the weapon on the spot
+		// or drop it in a random location
+		int[] rLoc = theWorld.getRandomLocation4Weapon(myLFLoc);
+
 		try
 		{
-			theWorld.addWeapon(myLFLoc[0], myLFLoc[1], myLF.getWeapon());
-		}
-		catch (RException e)
+			theWorld.addWeapon(rLoc[0], rLoc[1], myLF.getWeapon());
+		} catch (RException e)
 		{
-			//TODO try a new location
 			e.printStackTrace();
 		}
 		myLF.dropWeapon();
-		
-		
-		// pick a random spot, and keep checking to see if it's open or not
-		int row = (int) (Math.random() * theWorld.getEnvironmentDimensions()[0]);
-		int col = (int) (Math.random() * theWorld.getEnvironmentDimensions()[1]);
-		
-		while (theWorld.someoneInMySpot(new int[]{row, col}) == true)
-		{
-			row = (int) (Math.random() * theWorld.getEnvironmentDimensions()[0]);
-			col = (int) (Math.random() * theWorld.getEnvironmentDimensions()[1]);
-		}
 
 		theWorld.removeLifeForm(myLFLoc[0], myLFLoc[1]);
-		theWorld.addLifeForm(row, col, myLF);
+
+		int[] randLoc = theWorld.getRandomLocation4LifeForm();
+		theWorld.addLifeForm(randLoc[0], randLoc[1], myLF);
 		// change the active state that the AI has to no weapon state
 		ai.changeToNoWeaponState();
 	}
