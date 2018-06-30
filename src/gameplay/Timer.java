@@ -29,5 +29,11 @@ public interface Timer
 	 * using this method
 	 */
 	public void timeChanged();
+	
+	/**
+	 * starts the timer thread
+	 */
+	public void run();
+	
 
 }

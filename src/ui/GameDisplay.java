@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 
 import environment.Environment;
 import exceptions.RException;
+import gameplay.TimeObserver;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
@@ -31,7 +32,7 @@ import weapon.Pistol;
 import weapon.PlasmaCannon;
 import weapon.Weapon;
 
-public class GameDisplay extends JFrame
+public class GameDisplay extends JFrame implements TimeObserver
 {
 
 	/**
@@ -380,6 +381,20 @@ public class GameDisplay extends JFrame
 		legendPanel.add(legendLabelArray[5][1]);
 
 		return legendPanel;
+	}
+
+	@Override
+	public void update(int time)
+	{
+		try
+		{
+			drawMap();
+		}
+		catch (RException e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 
 }

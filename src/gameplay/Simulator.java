@@ -155,5 +155,15 @@ public class Simulator implements TimeObserver
 		}
 
 	}
+	
+	
+	/**
+	 * returns the array list instance variable containig the AIs
+	 * @return
+	 */
+	public ArrayList<AI> getAI()
+	{
+		return lifeformAI;
+	}
 
 }
