@@ -57,10 +57,17 @@ public class DeadState extends ActionState
 			e.printStackTrace();
 		}
 		myLF.dropWeapon();
-		// TODO - move this to environment... need to check that your location is free
-		// for a human
+		
+		
+		// pick a random spot, and keep checking to see if it's open or not
 		int row = (int) (Math.random() * theWorld.getEnvironmentDimensions()[0]);
 		int col = (int) (Math.random() * theWorld.getEnvironmentDimensions()[1]);
+		
+		while (theWorld.someoneInMySpot(new int[]{row, col}) == true)
+		{
+			row = (int) (Math.random() * theWorld.getEnvironmentDimensions()[0]);
+			col = (int) (Math.random() * theWorld.getEnvironmentDimensions()[1]);
+		}
 
 		theWorld.removeLifeForm(myLFLoc[0], myLFLoc[1]);
 		theWorld.addLifeForm(row, col, myLF);

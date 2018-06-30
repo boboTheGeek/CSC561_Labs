@@ -533,7 +533,7 @@ public class Environment
 		return newProposal;
 	}
 
-	private boolean someoneInMySpot(int[] interLoc)
+	public boolean someoneInMySpot(int[] interLoc)
 	{
 		int numConflicts = 0;
 		for (int[] value : getEntityLocations().values())
@@ -554,6 +554,7 @@ public class Environment
 		}
 	}
 
+	
 	/**
 	 * returns the dimensions of the Environment "theWorld"
 	 * 
