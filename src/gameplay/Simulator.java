@@ -34,7 +34,7 @@ public class Simulator implements TimeObserver
 	 * 
 	 * @throws RException
 	 */
-	Simulator() throws RException
+	public Simulator() throws RException
 	{
 		Environment theWorld = Environment.getWorld();
 		int worldSize[] = theWorld.getEnvironmentDimensions();

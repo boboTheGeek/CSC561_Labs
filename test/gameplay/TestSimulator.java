@@ -1,11 +1,13 @@
+/**
+ * @author Rob Miles, Chandana G
+ */
+
 package gameplay;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,6 @@ import environment.Environment;
 import exceptions.RException;
 import lifeform.LifeForm;
 import state.AI;
-import ui.GameDisplay;
 
 public class TestSimulator
 {
@@ -36,27 +37,37 @@ public class TestSimulator
 
 		assertTrue(theWorld.getEntityLocations() != null);
 		assertTrue(theWorld.getWeaponLocations() != null);
-
-		
-
-		// 
-		// GameDisplay gui = new GameDisplay();
-		//
-		// assertEquals(JOptionPane.YES_OPTION,
-		// JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns
-		// randomly strewn \n?"));
 	}
 
 	@Test // AI updates all the AIcontexts (action states)
-	public void testAIcreation() throws RException
+	public void testAIcreation() throws RException, InterruptedException
 	{
+		@SuppressWarnings("unused")
 		Environment theWorld = Environment.getWorld();
 		Simulator simulator = new Simulator();
 
 		assertTrue(simulator.lifeformAI != null);
+
+		// set all the AI instances to DeadState
+		for (AI ai : simulator.lifeformAI)
+		{
+			ai.changeToDeadState();
+		}
+		// Call the evaluation method to run it's loop on all AIs
+		simulator.evaluate();
+
+		// spot check to see that they've changed to the right state
+		AI myai = simulator.lifeformAI.get(0);
+		assertEquals(myai.noWeaponState, myai.getState());
+
+		AI myai4 = simulator.lifeformAI.get(3);
+		assertEquals(myai4.noWeaponState, myai4.getState());
+
+		AI myai6 = simulator.lifeformAI.get(5);
+		assertEquals(myai6.noWeaponState, myai6.getState());
+
 	}
 
-	// TODO __ sim updater
 	@Test // time trigger updates AI
 	public void testTimeUpdates() throws InterruptedException, RException
 	{
@@ -69,56 +80,14 @@ public class TestSimulator
 		ArrayList<AI> aiList = simulator.getAI();
 		AI dudeAI = aiList.get(1);
 		dudeAI.changeToDeadState();
+		@SuppressWarnings("unused")
 		LifeForm dude = dudeAI.getState().myLF;
 
 		timer.timeChanged(); // manual trigger that can be automatically done by calling timer.run()
-
+	
 		assertEquals(dudeAI.noWeaponState, dudeAI.getState());
 	}
 
-	 @Test // time trigger updates AI
-	 public void testTrueTimeUpdates() throws InterruptedException, RException
-	 {
-	
-	 Environment theWorld = Environment.getWorld();
-	
-	 Simulator simulator = new Simulator();
-	 SimpleTimer timer = new SimpleTimer();
-	 timer.addTimeObserver(simulator);
-	
-	 GameDisplay gui = new GameDisplay();
-	 MockTrigger x = new MockTrigger(gui);
-	 timer.addTimeObserver(x);
-	 timer.run();
-	
-	 assertEquals(JOptionPane.YES_OPTION,
-	 JOptionPane.showConfirmDialog(null, "Do you see a map with LifeForms and guns randomly strewn?"));
-	 }
-}
-
-class MockTrigger implements TimeObserver
-{
-
-	GameDisplay gui;
-
-	MockTrigger(GameDisplay mygui)
-	{
-		gui = mygui;
-	}
-
-	@Override
-	public void update(int time)
-	{
-		try
-		{
-			gui.updateMap();
-			System.out.println(time);
-		}
-		catch (RException e)
-		{
-			e.printStackTrace();
-		}
-
-	}
 
 }
+

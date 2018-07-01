@@ -27,26 +27,7 @@ public class TestDeadState
 		assertEquals(as.myLF, bill);
 	}
 
-	@Test
-	public void testEvaluate() throws RException
-	{
-		Environment.resetWorld();
-		Environment.createWorld(5, 5);
-		Environment theWorld = Environment.getWorld();
-
-		LifeForm bill = new Human(22, "bill", 22);
-		AI myAi = new AI(bill);
-		ActionState as = myAi.deadState;
-		theWorld.addLifeForm(3, 3, bill);
-		Weapon w = new Pistol();
-		bill.pickUpWeapon(w);
-		// call respawn via evaluate
-		as.evaluate();
-		assertNull(bill.getWeapon());
-
-	}
-
-	@Test
+	@Test  //respawns, drops weapon  and goes to a new spot
 	public void testRespawnWithGun() throws EnvironmentException, RException
 	{
 		Environment.resetWorld();
@@ -68,7 +49,7 @@ public class TestDeadState
 		assertEquals(17, as.myLF.getLifePoints());
 
 		as.respawn();
-
+		assertNull(bill.getWeapon());
 		// test that the life is regenerated
 		assertEquals(22, as.myLF.getLifePoints());
 		// test that LF shows up in a new location
@@ -82,7 +63,7 @@ public class TestDeadState
 		// test that new state is set
 	}
 
-	@Test
+	@Test //respawns and goes to a new spot
 	public void testRespawnWithoutGun() throws EnvironmentException, RException
 	{
 		Environment.resetWorld();
@@ -111,5 +92,25 @@ public class TestDeadState
 		// test that new state is set
 		assertTrue(as.ai.getState() instanceof NoWeaponState);
 	}
+	
+	
+	@Test  //checks that ig 
+	public void testEvaluate() throws RException
+	{
+		Environment.resetWorld();
+		Environment.createWorld(5, 5);
+		Environment theWorld = Environment.getWorld();
 
+		LifeForm bill = new Human(22, "bill", 22);
+		AI myAi = new AI(bill);
+		ActionState as = myAi.deadState;
+		theWorld.addLifeForm(3, 3, bill);
+		Weapon w = new Pistol();
+		bill.pickUpWeapon(w);
+		// call respawn via evaluate
+		as.evaluate();
+		assertNull(bill.getWeapon());
+		assertEquals(myAi.noWeaponState, myAi.getState());
+
+	}
 }
