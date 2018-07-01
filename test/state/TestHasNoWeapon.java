@@ -30,7 +30,7 @@ public class TestHasNoWeapon
 	
 	  
 	  /**
-	   * Tests to check whether the current lifeform who's turn it is, is dead
+	   * Tests to check whether the current lifeform is dead
 	   * @throws RException
 	   */
 	  @Test 

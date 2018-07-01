@@ -95,7 +95,7 @@ public class NoWeaponState extends ActionState
 					 */
 					j = loc[1];
 					{
-						for (i = loc[0] + 1; i < x;) // moving down the grid
+						for (i = loc[0] - 1; i > 0;) // moving down the grid
 						{
 							if (theWorld.getWeapon(i, j) != null)
 							{
@@ -191,7 +191,7 @@ public class NoWeaponState extends ActionState
 					 */
 					i = loc[0];
 					{
-						for (j = loc[1] + 1; j < x;) // moving down the grid
+						for (j = loc[1] - 1; j > 0;) // moving down the grid
 						{
 							if (theWorld.getWeapon(i, j) != null)
 							{
@@ -231,7 +231,7 @@ public class NoWeaponState extends ActionState
 		}
 		if (directions[index] == currentDirection && index == 3)
 		{
-			return directions[index + 1];
+			return directions[index - 1];
 		}
 		return directions[index];
 	}
