@@ -29,6 +29,7 @@ public class DeadState extends ActionState
 	 * The evaluation method is the one that all states get called in a generic
 	 * fashion. In this state, we simply trigger a respawn action
 	 */
+	@Override
 	public void evaluate()
 	{
 		respawn();
