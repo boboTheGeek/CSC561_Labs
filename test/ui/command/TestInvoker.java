@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 
+import org.junit.After;
 import org.junit.Test;
 
 
@@ -28,7 +29,8 @@ import weapon.Weapon;
 
 public class TestInvoker
 {
-	Invoker invoke;
+	Invoker inv = new Invoker(); 
+
 	/**
 	 * Test for active lifeform to turn north
 	 * @throws RException
@@ -38,7 +40,6 @@ public class TestInvoker
 	@Test 
 	public void testTurnNorthInvoke() throws RException, InterruptedException, AWTException
 	{
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd5(mock); 
 	    inv.button5.doClick(); 
@@ -53,7 +54,6 @@ public class TestInvoker
 	@Test
 	public void testTurnEastInvoke() throws RException, InterruptedException, AWTException
 	{
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd7(mock); 
 	    inv.button7.doClick(); 
@@ -68,7 +68,6 @@ public class TestInvoker
 	@Test
 	public void testTurnSouthInvoke() throws RException, InterruptedException, AWTException
 	{
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd6(mock); 
 	    inv.button6.doClick(); 
@@ -83,7 +82,6 @@ public class TestInvoker
 	@Test
 	public void testTurnWestInvoke() throws RException, InterruptedException, AWTException
 	{
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd8(mock); 
 	    inv.button8.doClick(); 
@@ -100,7 +98,6 @@ public class TestInvoker
 	public void testTurnAcquireInvoke() throws RException, InterruptedException, AWTException
 	{
 		
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd4(mock); 
 	    inv.button4.doClick(); 
@@ -116,7 +113,6 @@ public class TestInvoker
 	public void testTurnDropInvoke() throws RException, InterruptedException, AWTException
 	{
 		
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd2(mock); 
 	    inv.button2.doClick(); 
@@ -131,7 +127,6 @@ public class TestInvoker
 	@Test
 	public void testMoveInvoke() throws RException, InterruptedException, AWTException
 	{
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd9(mock); 
 	    inv.button9.doClick(); 
@@ -147,7 +142,6 @@ public class TestInvoker
 	public void testTurnAttackInvoke() throws RException, InterruptedException, AWTException
 	{
 		
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd3(mock); 
 	    inv.button3.doClick(); 
@@ -164,13 +158,16 @@ public class TestInvoker
 	public void testReloadInvoke() throws RException, InterruptedException, AWTException
 	{
 		
-		Invoker inv = new Invoker(); 
 	    MockCommand mock = new MockCommand(); 
 	    inv.setCmd1(mock); 
 	    inv.button1.doClick(); 
 	    assertEquals("Clicked", mock.data); 
 	}
-
+	@After
+	public void cleanup()
+	{ 
+		inv.dispose();
+	}
 	
 }	
 

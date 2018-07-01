@@ -38,6 +38,7 @@ public class NoWeaponState extends ActionState
 	 * 
 	 * @throws RException
 	 */
+	@Override 
 	public void evaluate() throws RException
 	{
 		int points = myLF.getLifePoints();
