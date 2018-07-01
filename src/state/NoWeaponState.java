@@ -101,6 +101,7 @@ public class NoWeaponState extends ActionState
 							{
 								Weapon weapon = theWorld.getWeapon(i, j);
 								myLF.pickUpWeapon(weapon);
+								theWorld.removeWeaponByCell(i, j);
 								ai.changeToHasWeaponState();
 								break;
 							}
@@ -133,6 +134,7 @@ public class NoWeaponState extends ActionState
 							{
 								Weapon weapon = theWorld.getWeapon(i, j);
 								myLF.pickUpWeapon(weapon);
+								theWorld.removeWeaponByCell(i, j);
 								ai.changeToHasWeaponState();
 								break;
 							}
@@ -165,6 +167,7 @@ public class NoWeaponState extends ActionState
 							{
 								Weapon weapon = theWorld.getWeapon(i, j);
 								myLF.pickUpWeapon(weapon);
+								theWorld.removeWeaponByCell(i, j);
 								ai.changeToHasWeaponState();
 								break;
 							}
@@ -197,6 +200,7 @@ public class NoWeaponState extends ActionState
 							{
 								Weapon weapon = theWorld.getWeapon(i, j);
 								myLF.pickUpWeapon(weapon);
+								theWorld.removeWeaponByCell(i, j);
 								ai.changeToHasWeaponState();
 								break;
 							}

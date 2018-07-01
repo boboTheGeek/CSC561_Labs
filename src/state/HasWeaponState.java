@@ -44,15 +44,21 @@ public class HasWeaponState extends ActionState
 	public void evaluate() throws RException {
 		int points = myLF.getLifePoints();
 		System.out.println(points);
+		
 		if(myLF.getLifePoints() != 0) 
 		{
-			System.out.println("testing..");	
-			search();
+			if(myLF.getWeapon().getCurrentAmmo() == 0)
+			{
+				ai.changeToNoAmmoState();
+			}
+			else
+			{
+				search();
+			}
 		}
-		else
-		{
-			dead();	
-		}
+		dead();
+		
+	
 	}
 	
 	/**
@@ -61,6 +67,14 @@ public class HasWeaponState extends ActionState
 	public void dead()
 	{
 		ai.changeToDeadState();
+	}
+	
+	/**
+	 * Changes to Out of Ammo state
+	 */
+	public void outOfAmmoState()
+	{
+		
 	}
 	
 	/**
@@ -73,7 +87,6 @@ public class HasWeaponState extends ActionState
 		currentDirection = myLF.getDirection();
 		randomDirectionPicked = getRandomDirectionToSearch();
 		loc = theWorld.getLifeFormLocation(myLF);
-		Weapon w = theWorld.getWeapon(loc[0], loc[1]);
 		//System.out.println("boolean value" + "" + val);
 		//System.out.println(i + "cells" + j);
 		if (currentDirection == "North")
@@ -92,8 +105,6 @@ public class HasWeaponState extends ActionState
 			{
 				
 					victim = theWorld.getLifeForm(i, j);
-					System.out.println(myLF + "..." + victim);
-					
 					
 					/**
 					 * If there is no target found then he either chooses to stay in that cell or changes direction, 
@@ -117,10 +128,10 @@ public class HasWeaponState extends ActionState
 						{	
 							if(val == true)
 							{
-								System.out.println("boolean value" + "" + val);
+								//System.out.println("boolean value" + "" + val);
 								theWorld.movePlayer(myLF);
 								loc = theWorld.getLifeFormLocation(myLF);
-								System.out.println(loc[0]+ "newloc" +loc[1]);
+								//System.out.println(loc[0]+ "newloc" +loc[1]);
 								theWorld.playerDirection(randomDirectionPicked, myLF);
 							
 								
@@ -240,10 +251,10 @@ public class HasWeaponState extends ActionState
 					{	
 						if(val == true)
 						{
-							System.out.println("boolean value" + "" + val);
+							//System.out.println("boolean value" + "" + val);
 							theWorld.movePlayer(myLF);
 							loc = theWorld.getLifeFormLocation(myLF);
-							System.out.println(loc[0]+ "newloc" +loc[1]);
+							//System.out.println(loc[0]+ "newloc" +loc[1]);
 							theWorld.playerDirection(randomDirectionPicked, myLF);
 							
 							
@@ -299,11 +310,11 @@ public class HasWeaponState extends ActionState
 					{	
 						if(val == true)
 						{
-							System.out.println("boolean value" + "" + val);
+							//System.out.println("boolean value" + "" + val);
 							theWorld.movePlayer(myLF);
 							theWorld.playerDirection(randomDirectionPicked, myLF);
 							loc = theWorld.getLifeFormLocation(myLF);
-							System.out.println(loc[0]+ "newloc" +loc[1]);
+							//System.out.println(loc[0]+ "newloc" +loc[1]);
 							count++;
 							search();
 							
@@ -328,12 +339,14 @@ public class HasWeaponState extends ActionState
 	
 	public void attack()
 	{
-		try {
-			myLF.mountAttack(victim);;
-		} catch (EnvironmentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//Command attack = new Attack();
+			try {
+				myLF.mountAttack(victim);
+				//attack.execute();
+			} catch (EnvironmentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	public String getRandomDirectionToSearch()

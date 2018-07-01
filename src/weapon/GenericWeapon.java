@@ -38,6 +38,7 @@ public abstract class GenericWeapon implements Weapon
 	@Override
 	public int damage(int distance)
 	{
+		System.out.println("maxRange" + maxRange + "Distance" + distance);
 
 		if ((currentAmmo == 0) || (maxRange < distance))
 		{

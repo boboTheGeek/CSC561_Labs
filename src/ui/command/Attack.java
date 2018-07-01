@@ -44,7 +44,7 @@ public class Attack implements Command{
 				}
 			}
 		
-		System.out.println(life2);
+		System.out.println("life2" + life2);
 		if(life2 != null) {
 			theWorld.itsMyTurn.mountAttack(life2);
 		}
