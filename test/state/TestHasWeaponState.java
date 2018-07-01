@@ -37,10 +37,9 @@ public class TestHasWeaponState
 	    
 	    life = new Human(20, "Ria", 0); 
 	    theWorld.addLifeForm(5, 7, life); 
-	    MockWeapon w = new MockWeapon();
+	    GenericWeapon w = new ChainGun();
 		theWorld.addWeapon(5, 7, w);
 		life.pickUpWeapon(w);
-		w.setAmmo(40);
 	    //theWorld.setActivePlayer(life); 
 		AI myAi = new AI(life);
 		ActionState oos = myAi.hasWeaponState;
@@ -79,10 +78,9 @@ public class TestHasWeaponState
 	    life4 = new Human(20, "Reney", 20); 
 	    theWorld.addLifeForm(7, 7, life4);
 	    //theWorld.setActivePlayer(life); 
-	    MockWeapon w = new MockWeapon();
-		theWorld.addWeapon(5, 7, w);
+	    GenericWeapon w = new ChainGun();
+	    theWorld.addWeapon(5, 7, w);
 		life.pickUpWeapon(w);
-		w.setAmmo(40);
 		AI myAi = new AI(life);
 		ActionState oos = myAi.hasWeaponState;
 		oos.evaluate();
@@ -103,26 +101,21 @@ public class TestHasWeaponState
 	    Environment.createWorld(20, 20); 
 	    theWorld = Environment.getWorld(); 
 	    
-	    life = new Human(20, "Ria", 20); 
+	    life = new Human(20, "Ria", 40); 
 	    theWorld.addLifeForm(5, 7, life); 
 	    theWorld.playerDirection("North", life);
 	    theWorld.setActivePlayer(life);
 	    
-	    MockWeapon w = new MockWeapon();
+	    GenericWeapon w = new ChainGun();
 		theWorld.addWeapon(5, 7, w);
 		life.pickUpWeapon(w);
-		w.setAmmo(40);
-		//w.fire();
-		//w.fire();
-	    life3 = new Alien("Ray", 20); 
+	    life3 = new Alien("Ray", 40); 
 	    theWorld.addLifeForm(3, 7, life3); 
 	    
 		AI myAi = new AI(life);
 		ActionState oos = myAi.hasWeaponState;
-		//assertTrue(life instanceof Human);
-		//assertTrue(life3 instanceof Alien);
 		oos.evaluate();
-		assertEquals(10, life3.getLifePoints()); 
+		assertEquals(39, life3.getLifePoints()); 
 	  }
 	  
 	  /**
@@ -141,10 +134,10 @@ public class TestHasWeaponState
 		 theWorld.addLifeForm(5, 7, life); 
 		 theWorld.playerDirection("North", life);
 		 
-		 MockWeapon w = new MockWeapon();
+		 GenericWeapon w = new ChainGun();
 		 theWorld.addWeapon(5, 7, w);
 		 life.pickUpWeapon(w);
-		 w.setAmmo(40);
+		 
 		    
 		 AI myAi = new AI(life);
 		 ActionState oos = myAi.hasWeaponState;
@@ -166,15 +159,3 @@ public class TestHasWeaponState
 	  }
 }
 
-class MockWeapon extends GenericWeapon
-{
-	MockWeapon()
-	{
-		maxAmmo = 10;
-		
-	}
-	public void setAmmo(int x)
-	{
-		currentAmmo = x;
-	}
-}

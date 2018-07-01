@@ -82,7 +82,6 @@ public class LifeForm implements TimeObserver
 	public void takeHit(int damage)
 	{
 		int proposedLifePoints = currentLifePoints - damage;
-
 		if (proposedLifePoints <= 0)
 		{
 			currentLifePoints = 0;

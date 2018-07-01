@@ -30,8 +30,6 @@ public class HasWeaponState extends ActionState
 	{
 		super(lifeForm, ai);
 		// TODO Auto-generated constructor stub
-		
-		//loc = theWorld.getLifeFormLocation(myLF);
 		theWorldLoc = theWorld.getEnvironmentDimensions();
 		x = theWorldLoc[0];
 		y = theWorldLoc[1];
@@ -41,10 +39,9 @@ public class HasWeaponState extends ActionState
 	 * Evaluates whether the current active is dead
 	 * @throws RException 
 	 */
+	@Override
 	public void evaluate() throws RException {
-		int points = myLF.getLifePoints();
-		System.out.println(points);
-		
+		int points = myLF.getLifePoints();		
 		if(myLF.getLifePoints() != 0) 
 		{
 			if(myLF.getWeapon().getCurrentAmmo() == 0)
@@ -70,14 +67,6 @@ public class HasWeaponState extends ActionState
 	}
 	
 	/**
-	 * Changes to Out of Ammo state
-	 */
-	public void outOfAmmoState()
-	{
-		
-	}
-	
-	/**
 	 * Searched for a new slot for player to move into
 	 */
 	public void search() throws RException
@@ -87,8 +76,6 @@ public class HasWeaponState extends ActionState
 		currentDirection = myLF.getDirection();
 		randomDirectionPicked = getRandomDirectionToSearch();
 		loc = theWorld.getLifeFormLocation(myLF);
-		//System.out.println("boolean value" + "" + val);
-		//System.out.println(i + "cells" + j);
 		if (currentDirection == "North")
 		{
 			
