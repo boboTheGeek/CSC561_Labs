@@ -1,5 +1,6 @@
 /**
  * @author - Chandana G
+
  * Tests for noWeaponState
  */
 package state;
@@ -17,14 +18,6 @@ import weapon.Weapon;
 
 public class TestHasNoWeapon
 {
-//
-//	
-//	+ evaluate()
-//
-//	+ search()
-//	+ acquireWeapon()
-//
-//	+ dead()
 	  Environment theWorld; 
 	  LifeForm life, life2, life3, life4; 
 	
@@ -40,11 +33,11 @@ public class TestHasNoWeapon
 	    Environment.resetWorld(); 
 	    Environment.createWorld(20, 20); 
 	    theWorld = Environment.getWorld(); 
+	    
 	    /**
 	     * setting lifeform life points to 0 to check whether the lifeform is dead and 
 	     * see if the state changes to DeadSate
 	     */
-	    
 	    life = new Human(20, "Ria", 0); 
 	    theWorld.addLifeForm(5, 7, life); 
 	    //theWorld.setActivePlayer(life); 
@@ -100,7 +93,12 @@ public class TestHasNoWeapon
 			assertTrue(life3.getWeapon() == cg);
 			
 	  } 
-	  
+	  /**
+	   * When there is no weapon found in the current direction the player's facing
+	   * he turns to another direction that is randomly chosen and goes on to search in that direction
+	   * If he finds a weapon he transitions to hasWeaponState
+	   * @throws RException
+	   */
 	  @Test
 	  public void testWhenNoWeaponSearchInNewDirectionPicked() throws RException
 	  {
@@ -124,6 +122,12 @@ public class TestHasNoWeapon
 			assertTrue(oos.ai.getState() instanceof HasWeaponState);
 	  }
 	  
+	  /**
+	   * When there is no weapon found in the current direction the player's facing
+	   * he turns to another direction that is randomly chosen and goes on to search in that direction
+	   * If he finds a weapon he stays in noWeaponState
+	   * @throws RException
+	   */
   	  @Test
 	  public void testNoWeaponFoundSearchingInNewDirectionPicked() throws RException
 	  {

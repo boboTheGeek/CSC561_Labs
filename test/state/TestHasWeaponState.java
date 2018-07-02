@@ -1,3 +1,8 @@
+/**
+ * @author Chandana G
+ * 
+ * Tests for has weapon state
+ */
 package state;
 
 import static org.junit.Assert.assertEquals;
@@ -49,8 +54,8 @@ public class TestHasWeaponState
 	  }
 	  
 	  /**
-	   * Test for when player attacks its target and player and target 
-	   * belong to same lifeform type
+	   * Test for when player and target belong to same lifeform type
+	   * and player attacks the target, an exception is thrown
 	   * @throws RException
 	   */
 	  
@@ -89,7 +94,7 @@ public class TestHasWeaponState
 	  }
 	  
 	  /**
-	   * Test for when player attacks its target and player and target 
+	   * Test for when player attacks its target and the player and the target 
 	   * do not belong to same lifeform type
 	   * @throws RException
 	   */
@@ -115,6 +120,9 @@ public class TestHasWeaponState
 		AI myAi = new AI(life);
 		ActionState oos = myAi.hasWeaponState;
 		oos.evaluate();
+		/**
+		 * Damage is calculated for the victim after the attack
+		 */
 		assertEquals(39, life3.getLifePoints()); 
 	  }
 	  

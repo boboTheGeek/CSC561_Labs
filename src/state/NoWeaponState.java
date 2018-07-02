@@ -1,3 +1,8 @@
+/**
+ * @author Chandana G
+ * 
+ * When a player has no weapon he transitions into no weapon state
+ */
 package state;
 
 import exceptions.RException;
@@ -22,10 +27,6 @@ public class NoWeaponState extends ActionState
 	{
 		super(lifeForm, ai);
 
-		/*
-		 * direction.add("North"); direction.add("South"); direction.add("East");
-		 * direction.add("West");
-		 */
 		currentDirection = myLF.getDirection();
 		loc = theWorld.getLifeFormLocation(myLF);
 		theWorldLoc = theWorld.getEnvironmentDimensions();
@@ -44,11 +45,8 @@ public class NoWeaponState extends ActionState
 		int points = myLF.getLifePoints();
 		if (myLF.getLifePoints() != 0)
 		{
-			// try {
 			search();
-			// } catch (RException e) {
-			// e.printStackTrace();
-			// }
+			
 		}
 		else
 		{
@@ -60,7 +58,7 @@ public class NoWeaponState extends ActionState
 	}
 
 	/**
-	 * Changes to dead state
+	 * Changes to dead state when a player's life points are zero
 	 */
 	public void dead()
 	{
@@ -69,8 +67,8 @@ public class NoWeaponState extends ActionState
 
 	/**
 	 * Lifeform tries to pickup a weapon if one exists in the cell it's currently in
-	 * otherwise it changes the direction it's facing and goes on to search in that
-	 * direction until end of the grid
+	 * otherwise it finds a new cell to move into and changes the direction it's facing goes on to search in that
+	 * direction until end of the grid in its next turn
 	 */
 	public void search() throws RException
 	{
@@ -222,7 +220,7 @@ public class NoWeaponState extends ActionState
 	}
 
 	/**
-	 * Pick a random direction for the lifeform to turn and go ahead with search for
+	 * Picks a random direction for the lifeform to turn and go ahead with search for
 	 * weapon
 	 * 
 	 * @return

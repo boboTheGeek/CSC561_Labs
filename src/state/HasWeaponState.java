@@ -1,3 +1,9 @@
+/**
+ * @author Chandana G
+ * Class for HasWeaponState, a player transitions into this state
+ * while wielding a weapon, he attacks other lifeforms close to him 
+ * moves around the grid randomly
+ */
 package state;
 
 import java.util.Random;
@@ -59,7 +65,7 @@ public class HasWeaponState extends ActionState
 	}
 	
 	/**
-	 * Changes to dead state
+	 * Changes to dead state when the player has 0 life points
 	 */
 	public void dead()
 	{
@@ -67,7 +73,7 @@ public class HasWeaponState extends ActionState
 	}
 	
 	/**
-	 * Searched for a new slot for player to move into
+	 * Searches for a new slot for player to move into
 	 */
 	public void search() throws RException
 	{
@@ -323,7 +329,10 @@ public class HasWeaponState extends ActionState
 		count = 0;
 			
 	} 
-	
+	/**
+	 * When player has enough Ammo in his weapon he attacks 
+	 * the victim close by
+	 */
 	public void attack()
 	{
 		//Command attack = new Attack();
@@ -335,7 +344,13 @@ public class HasWeaponState extends ActionState
 				e.printStackTrace();
 			}
 	}
-	
+
+	/**
+	 * Picks a random direction for the lifeform to turn and go ahead with search for
+	 * weapon
+	 * 
+	 * @return
+	 */
 	public String getRandomDirectionToSearch()
 	{
 		index = (int) (Math.random() * 3);
