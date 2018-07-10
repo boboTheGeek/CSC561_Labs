@@ -5,27 +5,15 @@
 
 package ui.command;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.AWTException;
-import java.awt.MouseInfo;
-import java.awt.Robot;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 
 import org.junit.After;
 import org.junit.Test;
 
-
-import environment.Environment;
 import exceptions.EnvironmentException;
 import exceptions.RException;
-import lifeform.LifeForm;
-import lifeform.MockLifeForm;
-import weapon.ChainGun;
-import weapon.GenericWeapon;
-import weapon.Weapon;
 
 public class TestInvoker
 {

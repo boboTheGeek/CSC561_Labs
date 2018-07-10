@@ -20,7 +20,7 @@ public abstract class ActionState
 	protected AI ai;
 
 	/**
-	 * generic constructor accepts the lifeform that the state will be attached to
+	 * generic constructor accepts the life form that the state will be attached to
 	 * as well as the AI that will keep track of that LifeForm's active state. F
 	 * 
 	 * @param lifeForm
@@ -86,7 +86,7 @@ public abstract class ActionState
 
 	/**
 	 * regenerates a dead Lifeform. Overridden in the DeadState extension of
-	 * AtionState and not used in the other substates.
+	 * AtionState and not used in the other sub-states.
 	 */
 	public void respawn()
 	{
@@ -94,12 +94,11 @@ public abstract class ActionState
 	}
 
 	/**
-	 * helps to call exceptions so they dont propogate out of control
+	 * helps to call exceptions so they don't propagate out of control
 	 */
 	private void doExceptionPlease()
 	{
 		new RException("sorry there, that call isn't valid for this state");
-
 	}
 
 	/**
@@ -110,7 +109,6 @@ public abstract class ActionState
 	public String getRandomDirectionToSearch()
 	{
 		return ai.noWeaponState.getRandomDirectionToSearch();
-
 	}
 
 }

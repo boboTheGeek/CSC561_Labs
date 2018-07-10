@@ -18,8 +18,8 @@ public class TestTurnSouth {
 	Environment theWorld;
 	@Test
 	public void testTurnSouth() throws RException {
-		theWorld.resetWorld();
-		theWorld.createWorld(12, 14);
+		Environment.resetWorld();
+		Environment.createWorld(12, 14);
 		theWorld = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bob", 20, 20);
 		TurnSouth ts = new TurnSouth();

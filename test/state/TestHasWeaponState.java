@@ -17,7 +17,6 @@ import lifeform.Human;
 import lifeform.LifeForm;
 import weapon.ChainGun;
 import weapon.GenericWeapon;
-import weapon.Weapon;
 
 public class TestHasWeaponState
 {

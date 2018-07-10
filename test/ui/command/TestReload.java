@@ -5,8 +5,7 @@
 
 package ui.command;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -15,7 +14,6 @@ import exceptions.RException;
 import lifeform.LifeForm;
 import weapon.ChainGun;
 import weapon.GenericWeapon;
-import weapon.Weapon;
 
 public class TestReload {
 	
@@ -27,14 +25,14 @@ public class TestReload {
 	public void testReload() throws RException {
 		Environment.resetWorld();
 		Environment.createWorld(6, 8);
-		Environment env = theWorld.getWorld();
+		Environment env = Environment.getWorld();
 		GenericWeapon cg = new ChainGun(); 
 		env.addLifeForm(3, 5, life);
 		env.setActivePlayer(life);
-		assertEquals(life, theWorld.itsMyTurn);
+		assertEquals(life, Environment.itsMyTurn);
 	    life.pickUpWeapon(cg);
 	    Reload reload = new Reload();
-	    assertEquals(cg, env.itsMyTurn.getWeapon());
+	    assertEquals(cg, Environment.itsMyTurn.getWeapon());
 	    
 	    cg.fire();
 	    cg.fire();

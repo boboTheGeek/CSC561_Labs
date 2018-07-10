@@ -6,7 +6,6 @@ package ui;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -262,7 +260,7 @@ class MockInvoker implements ActionListener
 		if (action == "Move")
 		{
 			System.out.println(action);
-			theWorld.movePlayer(theWorld.itsMyTurn);
+			theWorld.movePlayer(Environment.itsMyTurn);
 
 		}
 		try

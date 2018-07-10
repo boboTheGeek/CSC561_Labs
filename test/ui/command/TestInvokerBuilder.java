@@ -15,7 +15,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforReload()
 	{
-		  Command cmd = new Reload();
+		  //Command cmd = new Reload();
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd1 instanceof Reload);	     
 	}
@@ -23,7 +23,6 @@ public class TestInvokerBuilder
 	@Test
 	public void testforDrop()
 	{
-		  Command cmd = new Drop(); 
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd2 instanceof Drop); 
 		     
@@ -31,8 +30,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforAttack()
 	{
-		  Command cmd = new Attack();
-		  Invoker invoker = new Invoker(); 
+	
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd3 instanceof Attack); 
 		     
@@ -40,8 +38,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforAcquire()
 	{
-		  Command cmd = new Acquire();
-		  Invoker invoker = new Invoker(); 
+ 
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd4 instanceof Acquire); 
 		     
@@ -49,8 +46,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforNorth()
 	{
-		  Command cmd = new TurnNorth();
-		  Invoker invoker = new Invoker(); 
+
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd5 instanceof TurnNorth); 
 		     
@@ -58,8 +54,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforSouth()
 	{
-		  Command cmd = new TurnSouth();
-		  Invoker invoker = new Invoker(); 
+ 
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd6 instanceof TurnSouth); 
 		     
@@ -67,8 +62,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforEast()
 	{
-		  Command cmd = new TurnEast();
-		  Invoker invoker = new Invoker(); 
+
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd7 instanceof TurnEast); 
 		     
@@ -76,8 +70,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforTurnWest()
 	{
-		  Command cmd = new Reload();
-		  Invoker invoker = new Invoker(); 
+
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd8 instanceof TurnWest); 
 		     
@@ -85,8 +78,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testforMove()
 	{
-		  Command cmd = new Move();
-		  Invoker invoker = new Invoker(); 
+
 		  invokerbuild.constructInvoker();
 		  assertTrue(invokerbuild.inv.cmd9 instanceof Move); 
 		     

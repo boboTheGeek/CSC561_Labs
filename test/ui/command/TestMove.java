@@ -21,8 +21,8 @@ public class TestMove {
 	Environment theWorld;
 	@Test
 	public void testMovement() throws RException {
-		theWorld.resetWorld();
-		theWorld.createWorld(12, 14);
+		Environment.resetWorld();
+		Environment.createWorld(12, 14);
 		Environment env = Environment.getWorld();
 		LifeForm entity = new MockLifeForm("bob", 6, 8);
 		env.addLifeForm(5, 5, entity);

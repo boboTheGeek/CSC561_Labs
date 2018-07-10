@@ -83,8 +83,6 @@ public class TestHasNoWeapon
 		    theWorld = Environment.getWorld();     
 		    life3 = new Human(20, "D", 20); 
 		    theWorld.addLifeForm(6, 7, life3);
-		    System.out.println("in test 1" + "" + life3);
-		    System.out.println("in test 2" + "" + life3.getLifePoints());
 		    Weapon cg = new ChainGun();
 		    theWorld.addWeapon(6, 7, cg);
 		    AI myAi = new AI(life3);

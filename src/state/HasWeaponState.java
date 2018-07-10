@@ -13,9 +13,6 @@ import exceptions.RException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
-import ui.command.Attack;
-import ui.command.Command;
-import weapon.Weapon;
 
 public class HasWeaponState extends ActionState
 {
@@ -35,7 +32,6 @@ public class HasWeaponState extends ActionState
 	HasWeaponState(LifeForm lifeForm, AI ai)
 	{
 		super(lifeForm, ai);
-		// TODO Auto-generated constructor stub
 		theWorldLoc = theWorld.getEnvironmentDimensions();
 		x = theWorldLoc[0];
 		y = theWorldLoc[1];
@@ -47,7 +43,7 @@ public class HasWeaponState extends ActionState
 	 */
 	@Override
 	public void evaluate() throws RException {
-		int points = myLF.getLifePoints();		
+		
 		if(myLF.getLifePoints() != 0) 
 		{
 			if(myLF.getWeapon().getCurrentAmmo() == 0)
