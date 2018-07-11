@@ -44,7 +44,7 @@ public class TestHasWeaponState
 	    GenericWeapon w = new ChainGun();
 		theWorld.addWeapon(5, 7, w);
 		life.pickUpWeapon(w);
-	    //theWorld.setActivePlayer(life); 
+
 		AI myAi = new AI(life);
 		ActionState oos = myAi.hasWeaponState;
 		oos.evaluate();
@@ -81,14 +81,19 @@ public class TestHasWeaponState
 	    theWorld.addLifeForm(3, 7, life3);
 	    life4 = new Human(20, "Reney", 20); 
 	    theWorld.addLifeForm(7, 7, life4);
-	    //theWorld.setActivePlayer(life); 
+
 	    GenericWeapon w = new ChainGun();
 	    theWorld.addWeapon(5, 7, w);
 		life.pickUpWeapon(w);
 		AI myAi = new AI(life);
 		ActionState oos = myAi.hasWeaponState;
 		oos.evaluate();
-		
+		//make sure no one gets hurt
+		assertEquals(20, life1.getLifePoints()); 
+		assertEquals(20, life2.getLifePoints()); 
+		assertEquals(20, life3.getLifePoints()); 
+		assertEquals(20, life4.getLifePoints()); 
+
 		 
 	  }
 	  
