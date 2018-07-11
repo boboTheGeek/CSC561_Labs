@@ -141,6 +141,6 @@ public class TestHasNoWeapon
 			ActionState oos = myAi.noWeaponState;
 			oos.evaluate();
 			assertTrue(oos.ai.getState() instanceof NoWeaponState);
-			assertTrue(theWorld.getLifeFormLocation(life3) != new int[]{6,7});
+			assertTrue(theWorld.getEntityLocations().get(life3) != new int[]{6,7});
 	  }
 }

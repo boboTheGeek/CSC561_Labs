@@ -15,8 +15,7 @@ public class NoWeaponState extends ActionState
 	// DeadState dead;
 	String randomDirectionPicked;
 	int i, j;
-	String[] directions =
-	{ "North", "South", "East", "West" };
+	String[] directions = { "North", "South", "East", "West" };
 	int index;
 	String currentDirection;
 	int[] loc;
@@ -42,17 +41,14 @@ public class NoWeaponState extends ActionState
 	@Override
 	public void evaluate() throws RException
 	{
-		
-		if (myLF.getLifePoints() != 0)
+
+		if (myLF.getLifePoints() == 0)
 		{
-			search();
-			
+			dead();
 		}
 		else
 		{
-
-			dead();
-
+			search();
 		}
 
 	}
@@ -67,8 +63,9 @@ public class NoWeaponState extends ActionState
 
 	/**
 	 * Lifeform tries to pickup a weapon if one exists in the cell it's currently in
-	 * otherwise it finds a new cell to move into and changes the direction it's facing goes on to search in that
-	 * direction until end of the grid in its next turn
+	 * otherwise it finds a new cell to move into and changes the direction it's
+	 * facing goes on to search in that direction until end of the grid in its next
+	 * turn
 	 */
 	public void search() throws RException
 	{
@@ -83,6 +80,8 @@ public class NoWeaponState extends ActionState
 		{
 
 			randomDirectionPicked = getRandomDirectionToSearch();
+			
+			//TODO  do we need this condish?
 			if (currentDirection != randomDirectionPicked)
 			{
 				if (randomDirectionPicked == "North")
@@ -220,8 +219,8 @@ public class NoWeaponState extends ActionState
 	}
 
 	/**
-	 * Picks a random direction for the lifeform to turn and go ahead with search for
-	 * weapon
+	 * Picks a random direction for the lifeform to turn and go ahead with search
+	 * for weapon
 	 * 
 	 * @return
 	 */
